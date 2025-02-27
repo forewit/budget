@@ -39,7 +39,7 @@ const config = {
 }
 ```
 
-1. add the following to /src/+layout.ts (or create the file):
+1. add the following to /src/routes/+layout.ts (or create the file):
 
 ```ts
 export const prerender = true;
