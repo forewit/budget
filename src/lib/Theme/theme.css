@@ -7,11 +7,6 @@
     --error: #f24726; /* error background */
     --text: #1a1a1a; /* text, :hover background */
     --sub: #808080; /* headings, :active background */
-    --theme1: #414bb2;
-    --theme2: #0ca789;
-    --theme3: #b5266c;
-    --theme4: #333333;
-    --theme5: #cca349;
 
     /* sizing based on Fibonacci & the Golden Rectangle */
     --xs: 3px;
@@ -19,8 +14,6 @@
     --m: 8px;
     --l: 13px;
     --xl: 21px;
-
-    /* shadows */
 
     /* safe areas */
     --safe-area-left: 0px; /* overwritten by env("safe-area-inset-left") */

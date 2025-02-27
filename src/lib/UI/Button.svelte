@@ -3,8 +3,8 @@
     import {
         type Theme,
         applyTheme,
-    } from '$lib/Components/ThemeWrapper/themes.svelte'
-    import Icon from '$lib/Components/UI/Icon.svelte'
+    } from '$lib/Theme/themes.svelte'
+    import Icon from '$lib/UI/Icon.svelte'
 
     type Props = {
         children?: Snippet

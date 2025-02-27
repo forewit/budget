@@ -58,8 +58,8 @@ npm i gh-pages --save-dev
 
 ```json
 {
-    "deploy": "touch build/.nojekyll && gh-pages -d build -t true",
-    "magic":"git add . && git commit -am 'na' && git push origin main && vite build && touch build/.nojekyll && gh-pages -d build -t true"
+    "deploy": "touch build/.nojekyll && gh-pages -d build",
+    "magic": "git add . && git commit -am 'na' && git push origin main && vite build && touch build/.nojekyll && gh-pages -d build"
 }
 ```
 
