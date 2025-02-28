@@ -3,7 +3,7 @@
   import "./reset.css";
   import "./theme.css";
   import { getAppContext } from "$lib/app.svelte";
-  import { themes, applyTheme } from "$lib/Theme/themes.svelte";
+  import { applyTheme } from "$lib/Theme/themes.svelte";
   import { onMount, type Snippet } from "svelte";
 
   let { children }: { children: Snippet } = $props();

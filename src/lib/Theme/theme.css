@@ -8,22 +8,11 @@
     --text: #1a1a1a; /* text, :hover background */
     --sub: #808080; /* headings, :active background */
 
-    /* sizing based on Fibonacci & the Golden Rectangle */
-    --xs: 3px;
-    --s: 5px;
-    --m: 8px;
-    --l: 13px;
-    --xl: 21px;
-
     /* safe areas */
     --safe-area-left: 0px; /* overwritten by env("safe-area-inset-left") */
     --safe-area-right: 0px; /* overwritten by env("safe-area-inset-right") */
     --safe-area-top: 0px; /* overwritten by env("safe-area-inset-top") */
     --safe-area-inline: max(var(--safe-area-left), var(--safe-area-right));
-
-    /* other */
-    --transition-speed: 200ms;
-    --shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
 }
 
 @font-face {
@@ -55,48 +44,7 @@ html {
     overscroll-behavior: none;
 }
 
-h1,
-h2,
-h3 {
-    color: var(--sub);
-}
-
-h1 {
-    font-size: 1.5em;
-    margin-bottom: var(--l);
-    margin-top: var(--xl);
-}
-
-h2 {
-    font-size: 1.2em;
-    margin-bottom: var(--m);
-    margin-top: var(--l);
-}
-
-h3 {
-    font-size: 1em;
-    margin-top: var(--l);
-}
-
 ::selection {
     background-color: var(--sub);
     color: var(--bg);
-}
-
-.theme-toolbar {
-    display: flex;
-    gap: var(--xs);
-    height: 50px;
-    border-radius: var(--s);
-    padding: var(--s);
-    background-color: var(--bg-alt);
-    box-shadow: var(--shadow);
-    touch-action: none;
-}
-.theme-panel {
-    background: var(--bg-alt);
-    padding: var(--l);
-    border-radius: var(--s);
-    box-shadow: var(--shadow);
-    touch-action: none;
 }
