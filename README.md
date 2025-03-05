@@ -3,6 +3,8 @@
 ## stack
 UI library: [shadcn-svelte](next.shadcn-svelte.com)
 
+⚠️ **Note:** SP network blocks the use of shadcn-svelte commands.
+
 ### setup sveltekit with shadcn-svelte
 1. setup app with shadcn-svelte and tailwind see [install instructions](https://next.shadcn-svelte.com/docs/installation/sveltekit):
 
@@ -57,3 +59,6 @@ const config = {
 export const prerender = true;
 export const trailingSlash = "always";
 ```
+
+## using shadcn
+[icon name lookup](https://lucide.dev/icons/)
