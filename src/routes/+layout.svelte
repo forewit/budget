@@ -1,9 +1,18 @@
 <script lang="ts">
-  import SafeAreas from "$lib/components/SafeAreas.svelte";
+  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+  import AppSidebar from "$lib/components/app-sidebar.svelte";
+  import SafeAreas from "$lib/components/safe-areas.svelte";
+  
   import "../app.css";
   let { children } = $props();
 </script>
 
 <SafeAreas>
-  {@render children()}
+  <Sidebar.Provider>
+    <AppSidebar />
+    <main>
+      <Sidebar.Trigger />
+      {@render children?.()}
+    </main>
+  </Sidebar.Provider>
 </SafeAreas>
