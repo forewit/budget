@@ -21,7 +21,9 @@ npm i tailwindcss-animate
 
 ```json
 {
+    // ...
     "scripts": {
+        // ...
         "deploy": "touch build/.nojekyll && gh-pages -d build",
         "magic":"git add . && git commit -am 'na' && git push origin main && vite build && touch build/.nojekyll && gh-pages -d build"
     }
