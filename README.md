@@ -3,7 +3,7 @@
 ## stack
 UI library: [shadcn-svelte](next.shadcn-svelte.com)
 
-## setup app with dependencies
+### setup sveltekit with shadcn-svelte
 1. setup app with shadcn-svelte and tailwind see [install instructions](https://next.shadcn-svelte.com/docs/installation/sveltekit):
 
 ```bash
@@ -13,11 +13,10 @@ npx shadcn-svelte@next init
 npm i tailwindcss-animate
 ```
 
-2. install gh-pages: `npm i gh-pages --save-dev`
-3. install types for node: `npm i --save-dev @types/node`
-
-## setup custom npm scripts
-1. Add scripts to package.json
+### setup gh-pages with custom npm scripts
+1. install gh-pages: `npm i gh-pages --save-dev`
+2. install types for node: `npm i --save-dev @types/node`
+3. Add scripts to package.json
 
 ```json
 {
@@ -31,7 +30,7 @@ npm i tailwindcss-animate
 }
 ```
 
-## setup static site settings for publishing with github pages
+### setup static site settings for publishing with github pages
 1. install static adapter: `npm i -D @sveltejs/adapter-static`
 2. update svelte.config.js to be compatible with the static adapter and gh-pages
 
