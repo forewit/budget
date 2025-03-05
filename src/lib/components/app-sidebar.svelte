@@ -18,17 +18,17 @@
     },
     {
       title: "Our Legal",
-      url: `${base}/legal/`,
+      url: `${base}/`,
       icon: Scale,
     },
     {
       title: "Our Digital Life",
-      url: `${base}/digital/`,
+      url: `${base}/`,
       icon: Wallpaper,
     },
     {
       title: "Settings",
-      url: `${base}/settings/`,
+      url: `${base}/`,
       icon: Settings,
     },
   ];
