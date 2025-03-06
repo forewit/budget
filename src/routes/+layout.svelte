@@ -10,11 +10,13 @@
 </script>
 
 <SafeAreas>
-  <Sidebar.Provider bind:open>
-    <AppSidebar />
-    <main>
-      <Sidebar.Trigger ></Sidebar.Trigger>
-      {@render children?.()}
-    </main>
-  </Sidebar.Provider>
+  <div class="flex ml-(--safe-area-left)">
+    <Sidebar.Provider bind:open>
+      <AppSidebar />
+      <main class="relative h-full flex-auto">
+        <div class="absolute top-4 left-2"><Sidebar.Trigger /></div>
+        {@render children?.()}
+      </main>
+    </Sidebar.Provider>
+  </div>
 </SafeAreas>
