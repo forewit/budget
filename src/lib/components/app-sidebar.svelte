@@ -5,6 +5,7 @@
   import Settings from "lucide-svelte/icons/settings";
   import PanelLeftClose from "lucide-svelte/icons/panel-left-close";
   import PanelLeftOpen from "lucide-svelte/icons/panel-left-open";
+  import Menu from "lucide-svelte/icons/Menu";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
   import { base } from "$app/paths";
   import { page } from "$app/state";
@@ -87,8 +88,10 @@
   <Button
     class="fixed bottom-4 left-4 z-50"
     variant="outline"
-    onclick={() => sidebar.setOpenMobile(true)}
+    onclick={() => {
+      sidebar.setOpenMobile(true);
+    }}
   >
-    <span>Open sidebar</span>
+    <Menu />
   </Button>
 {/if}
