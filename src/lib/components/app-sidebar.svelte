@@ -3,11 +3,12 @@
   import PiggyBank from "lucide-svelte/icons/piggy-bank";
   import Wallpaper from "lucide-svelte/icons/wallpaper";
   import Settings from "lucide-svelte/icons/settings";
+  import PanelLeftClose from "lucide-svelte/icons/panel-left-close";
+  import PanelLeftOpen from "lucide-svelte/icons/panel-left-open";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
   import { base } from "$app/paths";
   import { page } from "$app/state";
-
-  let { open = $bindable(true) }: { open?: boolean } = $props();
+  import Button from "./ui/button/button.svelte";
 
   // Menu items.
   const items = [
@@ -32,28 +33,62 @@
       icon: Settings,
     },
   ];
+
+  const sidebar = Sidebar.useSidebar();
 </script>
 
-  <Sidebar.Root collapsible="icon" variant="floating">
-    <Sidebar.Content>
-      <Sidebar.Group>
-        <Sidebar.GroupLabel>Application</Sidebar.GroupLabel>
-        <Sidebar.GroupContent>
-          <Sidebar.Menu>
-            {#each items as item (item.title)}
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton isActive={item.url == page.url.pathname}>
-                  {#snippet child({ props })}
-                    <a href={item.url} {...props}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  {/snippet}
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-            {/each}
-          </Sidebar.Menu>
-        </Sidebar.GroupContent>
-      </Sidebar.Group>
-    </Sidebar.Content>
-  </Sidebar.Root>
+<Sidebar.Root collapsible="icon">
+  <Sidebar.Content>
+    <Sidebar.Group>
+      <Sidebar.GroupLabel>Application</Sidebar.GroupLabel>
+      <Sidebar.GroupContent>
+        <Sidebar.Menu>
+          {#each items as item (item.title)}
+            <Sidebar.MenuItem>
+              <Sidebar.MenuButton isActive={item.url == page.url.pathname}>
+                {#snippet child({ props })}
+                  <a href={item.url} {...props}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </a>
+                {/snippet}
+              </Sidebar.MenuButton>
+            </Sidebar.MenuItem>
+          {/each}
+        </Sidebar.Menu>
+      </Sidebar.GroupContent>
+    </Sidebar.Group>
+  </Sidebar.Content>
+  <Sidebar.Footer>
+    <Sidebar.Menu>
+      <Sidebar.MenuItem>
+        <Sidebar.MenuButton
+          onclick={() => {
+            if (sidebar.isMobile) {
+              sidebar.setOpenMobile(false);
+            } else {
+              sidebar.setOpen(!sidebar.open);
+            }
+          }}
+        >
+          {#if sidebar.open || sidebar.openMobile}
+            <PanelLeftClose />
+            <span>Minimize sidebar</span>
+          {:else}
+            <PanelLeftOpen />
+          {/if}
+        </Sidebar.MenuButton>
+      </Sidebar.MenuItem>
+    </Sidebar.Menu>
+  </Sidebar.Footer>
+</Sidebar.Root>
+
+{#if sidebar.isMobile}
+  <Button
+    class="fixed bottom-4 left-4 z-50"
+    variant="outline"
+    onclick={() => sidebar.setOpenMobile(true)}
+  >
+    <span>Open sidebar</span>
+  </Button>
+{/if}

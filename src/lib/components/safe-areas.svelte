@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, type Snippet } from "svelte";
 
-  let { children }: { children: Snippet } = $props();
+  let { children, class: className = "" }: { children: Snippet; class?: string } = $props();
 
   function updateSafeAreas() {
     if (!screen) throw new Error("Cannot update safe areas: screen is not defined");
@@ -40,7 +40,10 @@
     content="width=device-width, user-scalable=0, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover"
   />
 </svelte:head>
-{@render children()}
+
+<div class={className}>
+  {@render children()}
+</div>
 
 <style>
   :root {

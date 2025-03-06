@@ -1,9 +1,10 @@
 <script lang="ts">
   import * as Card from "$lib/components/ui/card/index.js";
+  import ScrollArea from "$lib/components/ui/scroll-area/scroll-area.svelte";
 </script>
 
 {#snippet card()}
-  <Card.Root>
+  <Card.Root class="max-w-[500px] m-auto">
     <Card.Header>
       <Card.Title>Card Title</Card.Title>
       <Card.Description>Card Description</Card.Description>
@@ -17,22 +18,9 @@
   </Card.Root>
 {/snippet}
 
-<div class="page h-full flex flex-col md:flex-row">
-  <div class="budget-cards grow">
+<div class="h-full flex flex-col md:flex-row">
+  <ScrollArea class="grow p-4">
     {@render card()}
-  </div>
-  <div class="budget-details h-64 md:h-full md:w-64"></div>
+  </ScrollArea>
+  <ScrollArea class="h-64 md:h-full md:w-64 border-t md:border-l md:border-t-0"></ScrollArea>
 </div>
-
-<style>
-  .page {
-    border: 2px solid green;
-  }
-  .budget-cards {
-    border: 2px solid red;
-  }
-
-  .budget-details {
-    border: 2px solid blue;
-  }
-</style>
