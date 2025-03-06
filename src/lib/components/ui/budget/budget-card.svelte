@@ -66,7 +66,7 @@
               <Table.Cell class="px-2 py-0"
                 ><Input
                   value={lineItem.name}
-                  class="border-none"
+                  class="border-none w-auto"
                   style="field-sizing: content;"
                 /></Table.Cell
               >
