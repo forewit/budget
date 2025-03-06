@@ -3,7 +3,6 @@
   import AppSidebar from "$lib/components/app-sidebar.svelte";
   import SafeAreas from "$lib/components/safe-areas.svelte";
   import "../app.css";
-  import Button from "$lib/components/ui/button/button.svelte";
 
   let { children } = $props();
 
@@ -14,7 +13,7 @@
   <Sidebar.Provider bind:open>
     <AppSidebar />
     <main>
-      <Button onclick={()=>open = !open}>{open ? "👈 Close" : "👈 Open"}</Button>
+      <Sidebar.Trigger ></Sidebar.Trigger>
       {@render children?.()}
     </main>
   </Sidebar.Provider>
