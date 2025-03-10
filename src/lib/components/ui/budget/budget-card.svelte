@@ -23,7 +23,7 @@
     <div class="pl-1 flex flex-row items-center">
       <Button
         variant="ghost"
-        class="hover:bg-transparent pl-4 pr-0 block md:hidden"
+        class="hover:bg-transparent pl-4 pr-1 block md:hidden"
         onclick={() => (expanded = !expanded)}
       >
         {#if expanded}
@@ -76,12 +76,18 @@
             <Table.Row>
               <Table.Cell class="px-2 py-0"
                 ><Input
-                  value={lineItem.name}
+                  bind:value={lineItem.name}
                   class="border-none w-auto max-w-[200px]"
                   style="field-sizing: content;"
                 /></Table.Cell
               >
-              <Table.Cell class="text-right">{lineItem.amount}</Table.Cell>
+              <Table.Cell class="flex justify-end ">
+                <Input
+                  class="border-none w-auto max-w-[200px]"
+                  bind:value={lineItem.amount}
+                  style="field-sizing: content;"
+                />
+              </Table.Cell>
             </Table.Row>
           {/each}
         </Table.Body>
