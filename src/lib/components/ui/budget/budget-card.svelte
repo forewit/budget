@@ -21,17 +21,6 @@
 <Card.Root class="max-w-[500px] m-auto">
   <Card.Header>
     <div class="pl-1 flex flex-row items-center">
-      <Button
-        variant="ghost"
-        class="hover:bg-transparent pl-4 pr-1 block md:hidden"
-        onclick={() => (expanded = !expanded)}
-      >
-        {#if expanded}
-          <ChevronUp class="stroke-blue-500" />
-        {:else}
-          <ChevronDown class="stroke-blue-500" />
-        {/if}
-      </Button>
       <Input
         value={title}
         class="border-none w-min text-lg font-medium max-w-[200px]"
@@ -39,7 +28,7 @@
       />
       <Button
         variant="ghost"
-        class="hover:bg-transparent pl-1 hidden md:block"
+        class="hover:bg-transparent pl-1"
         onclick={() => (expanded = !expanded)}
       >
         {#if expanded}
