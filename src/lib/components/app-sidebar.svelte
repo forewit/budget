@@ -38,7 +38,7 @@
   const sidebar = Sidebar.useSidebar();
 </script>
 
-<Sidebar.Root collapsible="icon">
+<Sidebar.Root collapsible="offcanvas" >
   <Sidebar.Content>
     <Sidebar.Group>
       <Sidebar.GroupLabel>Application</Sidebar.GroupLabel>
@@ -74,7 +74,7 @@
         >
           {#if sidebar.open || sidebar.openMobile}
             <PanelLeftClose />
-            <span>Minimize sidebar</span>
+            <span>Close sidebar</span>
           {:else}
             <PanelLeftOpen />
           {/if}
@@ -94,4 +94,14 @@
   >
     <Menu />
   </Button>
+  {:else if !sidebar.open}
+  <Button
+  class="fixed bottom-4 left-4 z-50"
+  variant="outline"
+  onclick={() => {
+    sidebar.setOpen(true);
+  }}
+>
+  <Menu />
+</Button>
 {/if}
