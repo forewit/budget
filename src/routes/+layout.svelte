@@ -11,7 +11,7 @@
 </script>
 
 <SafeAreas class="h-full ml-(--safe-area-left)">
-  <Sidebar.Provider bind:open onOpenChange={()=>console.log(open)}>
+  <Sidebar.Provider bind:open onOpenChange={()=>console.log(open)} >
     <AppSidebar />
     <main class="flex-auto">
       {@render children?.()}

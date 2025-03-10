@@ -77,13 +77,13 @@
               <Table.Cell class="px-2 py-0"
                 ><Input
                   bind:value={lineItem.name}
-                  class="border-none w-auto max-w-[200px]"
+                  class="border-none w-auto max-w-[20rem]"
                   style="field-sizing: content;"
                 /></Table.Cell
               >
               <Table.Cell class="flex justify-end ">
                 <Input
-                  class="border-none w-auto max-w-[200px]"
+                  class="border-none w-auto max-w-[10rem] text-right"
                   bind:value={lineItem.amount}
                   style="field-sizing: content;"
                 />
