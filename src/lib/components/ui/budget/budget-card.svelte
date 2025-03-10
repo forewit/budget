@@ -21,14 +21,25 @@
 <Card.Root class="max-w-[500px] m-auto">
   <Card.Header>
     <div class="pl-1 flex flex-row items-center">
+      <Button
+        variant="ghost"
+        class="hover:bg-transparent pl-4 pr-0 block md:hidden"
+        onclick={() => (expanded = !expanded)}
+      >
+        {#if expanded}
+          <ChevronUp class="stroke-blue-500" />
+        {:else}
+          <ChevronDown class="stroke-blue-500" />
+        {/if}
+      </Button>
       <Input
         value={title}
-        class="border-none w-min text-lg font-medium"
+        class="border-none w-min text-lg font-medium max-w-[200px]"
         style="field-sizing: content;"
       />
       <Button
         variant="ghost"
-        class="hover:bg-transparent pl-1"
+        class="hover:bg-transparent pl-1 hidden md:block"
         onclick={() => (expanded = !expanded)}
       >
         {#if expanded}
@@ -66,7 +77,7 @@
               <Table.Cell class="px-2 py-0"
                 ><Input
                   value={lineItem.name}
-                  class="border-none w-auto"
+                  class="border-none w-auto max-w-[200px]"
                   style="field-sizing: content;"
                 /></Table.Cell
               >
