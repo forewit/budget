@@ -23,7 +23,7 @@
     <div class="pl-1 flex flex-row items-center">
       <Input
         value={title}
-        class="border-none w-min text-lg font-medium max-w-[200px]"
+        class="border-none w-min text-lg font-medium max-w-[10rem]"
         style="field-sizing: content;"
       />
       <Button
