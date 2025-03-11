@@ -10,7 +10,7 @@
   let open = $state(true);
 </script>
 
-<SafeAreas class="h-full ml-(--safe-area-left) mr-(--safe-area-right) border-2">
+<SafeAreas class="h-full ml-[var(--safe-area-left)] mr-[var(--safe-area-right)] border-4">
   <Sidebar.Provider bind:open onOpenChange={()=>console.log(open)} >
     <AppSidebar />
     <main class="flex-auto">
