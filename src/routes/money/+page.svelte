@@ -21,7 +21,7 @@
 </script>
 
 <div class="h-full flex flex-col md:flex-row">
-  <ScrollArea class="grow p-4">
+  <ScrollArea class="grow p-4" onclick={clearSelection}>
     {#each budget.categories as category, catIndex}
       <CategoryCard 
       {category} 
@@ -30,7 +30,7 @@
       />
     {/each}
   </ScrollArea>
-  <ScrollArea class="h-64 md:h-full md:w-64 border-t md:border-l md:border-t-0">
+  <ScrollArea class="h-64 md:h-full md:w-64 border-t md:border-l md:border-t-0" >
     {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
       <ExpenseDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
     {:else}

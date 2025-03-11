@@ -23,6 +23,7 @@
 
   // TODO: make derived
   let total = $state(0);
+
 </script>
 
 <Card.Root class="max-w-[500px] m-auto">
@@ -72,7 +73,11 @@
                 e.stopPropagation();
                 budgetItemClicked(i);
               }}
-              class={"z-0 relative" + (selectedItem == i ? " after:absolute after:top-0 after:left-0 after:right-0 after:bottom-0 after:-z-10 after:bg-blue-50" : "")}
+              onfocusin={(e) => {
+                e.stopPropagation();
+                budgetItemClicked(i);
+              }}
+              class={"relative" + (selectedItem == i ? " after:pointer-events-none after:absolute after:border-2 after:border-blue-300 after:rounded after:inset-0" : "")}
             >
               <Table.Cell class="px-2 py-0"
                 ><Input
@@ -95,9 +100,3 @@
     {/if}
   </Card.Content>
 </Card.Root>
-
-<style>
-  .selected {
-    background: blue;
-  }
-</style>
