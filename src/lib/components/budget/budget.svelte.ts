@@ -19,13 +19,54 @@ export type Filter = {
     frequency: Frequency
 }
 
+const DAYS_IN_UNIT: Record<Frequency["unit"], number> = {
+    day: 1,
+    week: 7,
+    month: 30,
+    year: 365,
+};
+
+export function changeFrequency(amount: number, oldFrequency: Frequency, newFrequency: Frequency): number {
+    const oldDays = oldFrequency.interval * DAYS_IN_UNIT[oldFrequency.unit];
+    const newDays = newFrequency.interval * DAYS_IN_UNIT[newFrequency.unit];
+    return amount * newDays / oldDays;
+}
+
+export function getFrequencyName(frequency: Frequency): string {
+    if (frequency.interval == 1) {
+        switch (frequency.unit) {
+            case "day":
+                return "Daily";
+            case "week":
+                return "Weekly";
+            case "month":
+                return "Monthly";
+            case "year":
+                return "Yearly";
+        }
+    } else if (frequency.interval == 2 && frequency.unit == "week") {
+        return "Biweekly";
+    }
+    return `Every ${frequency.interval} ${frequency.unit}s`;
+}
+
+export function dollarStringToNumber(dollarString: string): number {
+    let num = parseFloat(dollarString.replace("$", "").replace(",", ""));
+    return isNaN(num) ? 0 : num;
+}
+
+export function numberToDollarString(num: number): string {
+    return "$" + num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function createBudget() {
     let filters: Filter[] = $state([
+        { name: "Actual", frequency: { interval: 1, unit: "day" } },
         { name: "Monthly", frequency: { interval: 1, unit: "month" } },
         { name: "Biweekly", frequency: { interval: 2, unit: "week" } },
         { name: "Yearly", frequency: { interval: 1, unit: "year" } },
     ])
-    let selectedFilter = $state("Monthly");
+    let selectedFilterIndex = $state(0); 
 
     let categories: Category[] = $state([
         {
@@ -44,8 +85,8 @@ function createBudget() {
         set categories(value) { categories = value },
         get filters() { return filters },
         set filters(value) { filters = value },
-        get selectedFilter() { return selectedFilter },
-        set selectedFilter(value: string) { selectedFilter = value },
+        get selectedFilterIndex() { return selectedFilterIndex },
+        set selectedFilterIndex(value: number) { selectedFilterIndex = value },
     }
 }
 
