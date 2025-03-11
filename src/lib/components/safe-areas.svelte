@@ -27,6 +27,7 @@
   }
 
   onMount(() => {
+    updateSafeAreas();
     screen.orientation.addEventListener("change", updateSafeAreas);
     return () => {
       screen.orientation.removeEventListener("change", updateSafeAreas);

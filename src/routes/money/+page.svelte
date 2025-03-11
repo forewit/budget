@@ -1,6 +1,6 @@
 <script lang="ts">
   import ScrollArea from "$lib/components/ui/scroll-area/scroll-area.svelte";
-  import BudgetCard from "$lib/components/ui/budget/budget-card.svelte";
+  import BudgetCard from "$lib/components/budget-card.svelte";
 </script>
 
 
