@@ -6,32 +6,39 @@
   import Button from "$lib/components/ui/button/button.svelte";
   import ChevronDown from "lucide-svelte/icons/chevron-down";
   import ChevronUp from "lucide-svelte/icons/chevron-up";
+  import { type Category } from "$lib/components/budget/budget.svelte";
+  import { getBudgetContext } from "$lib/components/budget/budget.svelte";
 
-  let title = "Giving";
-  let lineItems = [
-    { name: "Church", amount: 100, frequency: { interval: 1, unit: "month" } },
-    { name: "Missionaries", amount: 50, frequency: { interval: 2, unit: "week" } },
-    { name: "Generosity", amount: 200, frequency: { interval: 1, unit: "month" } },
-  ];
-  let expanded = $state(true);
-  let filter = $state("Actual");
-  let total = $state(100);
+  let {
+    category,
+    budgetItemClicked = () => {},
+    selectedItem = -1,
+  }: {
+    category: Category;
+    budgetItemClicked: (index: number) => void;
+    selectedItem: number;
+  } = $props();
+
+  const budget = getBudgetContext();
+
+  // TODO: make derived
+  let total = $state(0);
 </script>
 
 <Card.Root class="max-w-[500px] m-auto">
   <Card.Header>
     <div class="pl-1 flex flex-row items-center">
       <Input
-        value={title}
+        bind:value={category.name}
         class="border-none w-min text-lg font-medium max-w-[10rem]"
         style="field-sizing: content;"
       />
       <Button
         variant="ghost"
         class="hover:bg-transparent pl-1"
-        onclick={() => (expanded = !expanded)}
+        onclick={() => (category.expanded = !category.expanded)}
       >
-        {#if expanded}
+        {#if category.expanded}
           <ChevronUp class="stroke-blue-500" />
         {:else}
           <ChevronDown class="stroke-blue-500" />
@@ -39,17 +46,15 @@
       </Button>
       <div class="grow"></div>
 
-      {#if expanded}
-        <Select.Root type="single" bind:value={filter}>
+      {#if category.expanded}
+        <Select.Root type="single" bind:value={budget.selectedFilter}>
           <Select.Trigger class="border-none w-auto font-medium" style="field-sizing: content;">
-            <span class="pr-2">{filter}</span>
+            <span class="pr-2">{budget.selectedFilter}</span>
           </Select.Trigger>
           <Select.Content>
-            <Select.Item value="Actual">Actual</Select.Item>
-            <Select.Item value="Biweekly">Biweekly</Select.Item>
-            <Select.Item value="Monthly">Monthly</Select.Item>
-            <Select.Item value="Yearly">Yearly</Select.Item>
-            <Select.Item value="Custom">Custom</Select.Item>
+            {#each budget.filters as filter, i}
+              <Select.Item value={filter.name}>{filter.name}</Select.Item>
+            {/each}
           </Select.Content>
         </Select.Root>
       {:else}
@@ -58,22 +63,28 @@
     </div>
   </Card.Header>
   <Card.Content class="pt-0">
-    {#if expanded}
+    {#if category.expanded}
       <Table.Root>
         <Table.Body>
-          {#each lineItems as lineItem}
-            <Table.Row>
+          {#each category.budgetItems as budgetItem, i}
+            <Table.Row
+              onclick={(e) => {
+                e.stopPropagation();
+                budgetItemClicked(i);
+              }}
+              class={"z-0 relative" + (selectedItem == i ? " after:absolute after:top-0 after:left-0 after:right-0 after:bottom-0 after:-z-10 after:bg-blue-50" : "")}
+            >
               <Table.Cell class="px-2 py-0"
                 ><Input
-                  bind:value={lineItem.name}
-                  class="border-none w-auto max-w-[10rem]"
+                  bind:value={budgetItem.name}
+                  class="z-20 border-none w-auto max-w-[10rem]"
                   style="field-sizing: content;"
                 /></Table.Cell
               >
               <Table.Cell class="flex justify-end ">
                 <Input
                   class="border-none w-auto max-w-[5rem] text-right"
-                  bind:value={lineItem.amount}
+                  bind:value={budgetItem.amount}
                   style="field-sizing: content;"
                 />
               </Table.Cell>
@@ -84,3 +95,9 @@
     {/if}
   </Card.Content>
 </Card.Root>
+
+<style>
+  .selected {
+    background: blue;
+  }
+</style>

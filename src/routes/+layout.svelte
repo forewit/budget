@@ -7,7 +7,7 @@
 
   let { children } = $props();
 
-  let open = $state(true);
+  let open = $state(false);
 </script>
 
 <SafeAreas class="h-full ml-[var(--safe-area-left)] mr-[var(--safe-area-right)] border-4">
