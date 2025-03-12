@@ -28,7 +28,7 @@
 <Collapsible.Root bind:open class="flex {className}">
   {#if !open}
     <Collapsible.Trigger
-      class="outline-offset-2 p-2 rounded-sm hover:underline underline-offset-4 font-medium text-xs"
+      class="outline-offset-2 p-2 rounded-lg hover:underline underline-offset-4 font-medium text-xs"
     >
       {getFrequencyName(frequency)}
     </Collapsible.Trigger>

@@ -2,6 +2,7 @@
   import * as Card from "$lib/components/ui/card/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import Button from "$lib/components/ui/button/button.svelte";
+  import ChevronsUpDown from "lucide-svelte/icons/chevrons-up-down";
   import ChevronDown from "lucide-svelte/icons/chevron-down";
   import ChevronUp from "lucide-svelte/icons/chevron-up";
   import FrequencyPicker from "./frequency-picker.svelte";
@@ -18,11 +19,9 @@
   let {
     category,
     budgetItemClicked = () => {},
-    selectedItem = -1,
   }: {
     category: Category;
     budgetItemClicked: (index: number) => void;
-    selectedItem: number;
   } = $props();
 
   const budget = getBudgetContext();
@@ -44,13 +43,12 @@
     <div class="pl-1 flex gap-2 flex-row items-center">
       <Input
         bind:value={category.name}
-        class="border-none w-min ml-1 text-xl md:text-xl font-medium"
-        style="field-sizing: content;"
+        class="border-none max-w-[10rem] ml-1 text-xl md:text-xl font-medium"
       />
       <div class="grow"></div>
 
       {#if !category.expanded && budget.selectedFilterIndex != 0}
-        <div class="pr-2 text-blue-400">{numberToDollarString(total)}</div>
+        <div class="pr-2 italic">{numberToDollarString(total)}</div>
       {/if}
 
       <Button variant="secondary" onclick={budget.nextFilter}>
@@ -63,9 +61,9 @@
         onclick={() => (category.expanded = !category.expanded)}
       >
         {#if category.expanded}
-          <ChevronUp class="stroke-blue-500" />
+          <ChevronUp />
         {:else}
-          <ChevronDown class="stroke-blue-500" />
+          <ChevronDown/>
         {/if}
       </Button>
     </div>
@@ -86,20 +84,18 @@
         >
           <Input
             bind:value={budgetItem.name}
-            class="w-min max-w-[10rem] pr-4 border-none hover:bg-muted focus:bg-muted"
-            style="field-sizing: content"
+            class="max-w-[10rem] pr-4 border-transparent hover:border hover:border-inherit"
           />
           {#if budget.selectedFilterIndex == 0}
             <FrequencyPicker bind:frequency={budgetItem.frequency} class="justify-self-end"
             ></FrequencyPicker>
             <Input
-              class="justify-self-end w-min max-w-[6rem] pl-4 text-right border-none hover:bg-muted focus:bg-muted "
+              class="justify-self-end max-w-[6rem] text-right "
               value={numberToDollarString(budgetItem.amount)}
-              style="field-sizing: content;"
               onchange={(e) => updateBudgetItem(e, budgetItem)}
             />
           {:else}
-            <p class="select-text cursor-auto justify-self-end  text-blue-400 col-span-2 pr-3">
+            <p class="select-text cursor-auto text-sm justify-self-end italic col-span-2 pr-3">
               {numberToDollarString(
                 changeFrequency(
                   budgetItem.amount,

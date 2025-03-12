@@ -23,10 +23,10 @@
   {...restProps}
 >
   {#if chevron === "left"}
-    <ChevronDown class="mr-2 size-4 opacity-80 stroke-blue-500" />
+    <ChevronDown class="mr-2 size-4 opacity-80" />
   {/if}
   {@render children?.()}
   {#if chevron === "right"}
-    <ChevronDown class="size-4 opacity-80 stroke-blue-500" />
+    <ChevronDown class="size-4 opacity-80" />
   {/if}
 </SelectPrimitive.Trigger>
