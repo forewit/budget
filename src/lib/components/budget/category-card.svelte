@@ -1,6 +1,5 @@
 <script lang="ts">
   import * as Card from "$lib/components/ui/card/index.js";
-  import * as Table from "$lib/components/ui/table/index.js";
   import * as Select from "$lib/components/ui/select/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import Button from "$lib/components/ui/button/button.svelte";
@@ -44,7 +43,7 @@
 </script>
 
 <Card.Root class="max-w-[500px] m-auto">
-  <Card.Header>
+  <Card.Header class="p-4 pr-6">
     <div class="pl-1 flex flex-row items-center">
       <Input
         bind:value={category.name}
@@ -84,63 +83,50 @@
           </Select.Content>
         </Select.Root>
       {:else}
-        <div class="pr-4">{total}</div>
+        <div class="pr-4 italic">{total}</div>
       {/if}
     </div>
   </Card.Header>
-  <Card.Content class="pt-0">
-    {#if category.expanded}
-      <Table.Root>
-        <Table.Body>
-          {#each category.budgetItems as budgetItem, i}
-            <Table.Row
-              onclick={(e) => {
-                e.stopPropagation();
-                budgetItemClicked(i);
-              }}
-              onfocusin={(e) => {
-                e.stopPropagation();
-                budgetItemClicked(i);
-              }}
-              class={"flex items-center"}
-            >
-              <Table.Cell class="px-2"
-                ><Input
-                  bind:value={budgetItem.name}
-                  class="w-auto max-w-[10rem]"
-                  style="field-sizing: content;"
-                /></Table.Cell
-              >
-              <div class="grow"></div>
-              {#if budget.selectedFilterIndex == 0}
-                <Table.Cell class="flex justify-end">
-                  <div class="flex flex-row items-baseline gap-2">
-                    <FrequencyPicker bind:frequency={budgetItem.frequency}></FrequencyPicker>
-                    <Input
-                      class="w-auto max-w-[5rem] text-right"
-                      value={numberToDollarString(budgetItem.amount)}
-                      style="field-sizing: content;"
-                      onchange={(e) => updateBudgetItem(e, budgetItem)}
-                    />
-                  </div>
-                </Table.Cell>
-              {:else}
-                <Table.Cell class="flex justify-end">
-                  <div class="italic">
-                    {numberToDollarString(
-                      changeFrequency(
-                        budgetItem.amount,
-                        budgetItem.frequency,
-                        budget.filters[budget.selectedFilterIndex].frequency
-                      )
-                    )}
-                  </div>
-                </Table.Cell>
-              {/if}
-            </Table.Row>
-          {/each}
-        </Table.Body>
-      </Table.Root>
-    {/if}
-  </Card.Content>
+  {#if category.expanded}
+    <Card.Content class="pt-0 pr-7">
+      {#each category.budgetItems as budgetItem, i}
+        <button
+          class="grid grid-cols-[1fr,auto,6rem] items-center w-full cursor-default border-b last:border-b-0 py-4 rounded table-row"
+          onclick={(e) => {
+            e.stopPropagation();
+            budgetItemClicked(i);
+          }}
+          onfocusin={(e) => {
+            e.stopPropagation();
+            budgetItemClicked(i);
+          }}
+        >
+          <Input
+            bind:value={budgetItem.name}
+            class="w-min max-w-[10rem] pr-4 border-none hover:bg-muted focus:bg-muted"
+            style="field-sizing: content"
+          />
+          {#if budget.selectedFilterIndex == 0}
+            <FrequencyPicker bind:frequency={budgetItem.frequency} class="justify-self-end"></FrequencyPicker>
+            <Input
+              class="justify-self-end w-min max-w-[6rem] pl-4 text-right border-none hover:bg-muted focus:bg-muted "
+              value={numberToDollarString(budgetItem.amount)}
+              style="field-sizing: content;"
+              onchange={(e) => updateBudgetItem(e, budgetItem)}
+            />
+          {:else}
+            <div class="justify-self-end pr-2 italic text-sm col-span-2">
+              {numberToDollarString(
+                changeFrequency(
+                  budgetItem.amount,
+                  budgetItem.frequency,
+                  budget.filters[budget.selectedFilterIndex].frequency
+                )
+              )}
+            </div>
+          {/if}
+        </button>
+      {/each}
+    </Card.Content>
+  {/if}
 </Card.Root>

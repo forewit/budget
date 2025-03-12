@@ -9,7 +9,7 @@
 
 </script>
 
-<SafeAreas class="h-full ml-[var(--safe-area-left)] mr-[var(--safe-area-right)] border-4">
+<SafeAreas class="h-full ml-[var(--safe-area-left)] mr-[var(--safe-area-right)]">
   <Sidebar.Provider open={false} >
     <AppSidebar />
     <main class="flex-auto">
