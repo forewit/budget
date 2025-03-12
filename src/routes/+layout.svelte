@@ -7,11 +7,10 @@
 
   let { children } = $props();
 
-  let open = $state(false);
 </script>
 
 <SafeAreas class="h-full ml-[var(--safe-area-left)] mr-[var(--safe-area-right)] border-4">
-  <Sidebar.Provider bind:open onOpenChange={()=>console.log(open)} >
+  <Sidebar.Provider open={false} >
     <AppSidebar />
     <main class="flex-auto">
       {@render children?.()}

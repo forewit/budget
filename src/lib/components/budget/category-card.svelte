@@ -6,7 +6,7 @@
   import Button from "$lib/components/ui/button/button.svelte";
   import ChevronDown from "lucide-svelte/icons/chevron-down";
   import ChevronUp from "lucide-svelte/icons/chevron-up";
-  import { type Category } from "$lib/components/budget/budget.svelte";
+  import FrequencyPicker from "./frequency-picker.svelte";
   import {
     getBudgetContext,
     getFrequencyName,
@@ -14,7 +14,8 @@
     dollarStringToNumber,
     numberToDollarString,
     type BudgetItem,
-  } from "$lib/components/budget/budget.svelte";
+    type Category,
+  } from "./budget.svelte";
 
   let {
     category,
@@ -64,8 +65,16 @@
       <div class="grow"></div>
 
       {#if category.expanded}
-        <Select.Root type="single" onValueChange={updateSelectedFilter}>
-          <Select.Trigger class="border-none w-auto font-medium" style="field-sizing: content;">
+        <Select.Root
+          value={budget.filters[budget.selectedFilterIndex].name}
+          type="single"
+          onValueChange={updateSelectedFilter}
+        >
+          <Select.Trigger
+            chevron="right"
+            class="border-none w-auto font-medium"
+            style="field-sizing: content;"
+          >
             <span class="pr-2">{budget.filters[budget.selectedFilterIndex].name}</span>
           </Select.Trigger>
           <Select.Content>
@@ -93,31 +102,30 @@
                 e.stopPropagation();
                 budgetItemClicked(i);
               }}
-              class={"relative flex items-center" +
-                (selectedItem == i
-                  ? " after:pointer-events-none after:absolute after:border-2 after:border-blue-300 after:rounded after:inset-0"
-                  : "")}
+              class={"flex items-center"}
             >
               <Table.Cell class="px-2"
                 ><Input
                   bind:value={budgetItem.name}
-                  class="border-none w-auto max-w-[10rem]"
+                  class="w-auto max-w-[10rem]"
                   style="field-sizing: content;"
                 /></Table.Cell
               >
               <div class="grow"></div>
-              <Table.Cell class="flex justify-end">
-                {#if budget.selectedFilterIndex == 0}
-                <div class="flex flex-row items-baseline gap-2">
-                  <Input
-                    class="border-none w-auto max-w-[5rem] text-right"
-                    value={numberToDollarString(budgetItem.amount)}
-                    style="field-sizing: content;"
-                    onchange={(e) => updateBudgetItem(e, budgetItem)}
-                  />
-                  <div class="italic">{getFrequencyName(budgetItem.frequency)}</div>
-                </div>
-                {:else}
+              {#if budget.selectedFilterIndex == 0}
+                <Table.Cell class="flex justify-end">
+                  <div class="flex flex-row items-baseline gap-2">
+                    <FrequencyPicker bind:frequency={budgetItem.frequency}></FrequencyPicker>
+                    <Input
+                      class="w-auto max-w-[5rem] text-right"
+                      value={numberToDollarString(budgetItem.amount)}
+                      style="field-sizing: content;"
+                      onchange={(e) => updateBudgetItem(e, budgetItem)}
+                    />
+                  </div>
+                </Table.Cell>
+              {:else}
+                <Table.Cell class="flex justify-end">
                   <div class="italic">
                     {numberToDollarString(
                       changeFrequency(
@@ -127,8 +135,8 @@
                       )
                     )}
                   </div>
-                {/if}
-              </Table.Cell>
+                </Table.Cell>
+              {/if}
             </Table.Row>
           {/each}
         </Table.Body>

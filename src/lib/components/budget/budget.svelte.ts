@@ -73,7 +73,7 @@ function createBudget() {
             name: "Giving",
             budgetItems: [
                 { name: "Church", amount: 100, frequency: { interval: 1, unit: "month" } },
-                { name: "Missionaries", amount: 50, frequency: { interval: 2, unit: "week" } },
+                { name: "Missionaries", amount: 50, frequency: { interval: 3, unit: "week" } },
                 { name: "Generosity", amount: 200, frequency: { interval: 1, unit: "month" } },
             ],
             expanded: true,
