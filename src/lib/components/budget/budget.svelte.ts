@@ -59,6 +59,12 @@ export function numberToDollarString(num: number): string {
     return "$" + num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+export function categoryTotal(category: Category, frequency: Frequency): number {
+    return category.budgetItems.reduce((total, item) => {
+        return total + changeFrequency(item.amount, item.frequency, frequency);
+    }, 0);
+}
+
 function createBudget() {
     let filters: Filter[] = $state([
         { name: "Actual", frequency: { interval: 1, unit: "day" } },

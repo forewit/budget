@@ -34,7 +34,7 @@
     </Collapsible.Trigger>
   {/if}
   <Collapsible.Content onfocusin={stopDelayClose} onfocusout={delayClose}>
-    <div class="flex flex-row items-center gap-1 w-min bg-blue-50 rounded-lg p-1 pl-2">
+    <div class="flex flex-row items-center gap-1 w-min bg-muted rounded-lg p-1 pl-2">
       <Collapsible.Trigger
         class="outline-offset-2 rounded-sm hover:underline underline-offset-4 font-medium text-xs p-0 h-min px-1"
         >every

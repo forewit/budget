@@ -1,6 +1,5 @@
 <script lang="ts">
   import * as Card from "$lib/components/ui/card/index.js";
-  import * as Select from "$lib/components/ui/select/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import Button from "$lib/components/ui/button/button.svelte";
   import ChevronDown from "lucide-svelte/icons/chevron-down";
@@ -8,7 +7,7 @@
   import FrequencyPicker from "./frequency-picker.svelte";
   import {
     getBudgetContext,
-    getFrequencyName,
+    categoryTotal,
     changeFrequency,
     dollarStringToNumber,
     numberToDollarString,
@@ -29,25 +28,38 @@
   const budget = getBudgetContext();
 
   // TODO: make derived
-  let total = $state(0);
+  let total = $derived(
+    categoryTotal(category, budget.filters[budget.selectedFilterIndex].frequency)
+  );
 
   function updateBudgetItem(e: Event, budgetItem: BudgetItem) {
     let input = e.target as HTMLInputElement;
     budgetItem.amount = dollarStringToNumber(input.value);
     input.value = numberToDollarString(budgetItem.amount);
   }
-
-  function updateSelectedFilter(value: string) {
-    budget.selectedFilterIndex = budget.filters.findIndex((filter) => filter.name == value);
-  }
 </script>
 
 <Card.Root class="max-w-[500px] m-auto">
   <Card.Header class="p-4 pr-8">
-    <div class="pl-1 flex flex-row items-center">
-      <!-- <Button
+    <div class="pl-1 flex gap-2 flex-row items-center">
+      <Input
+        bind:value={category.name}
+        class="border-none w-min ml-1 text-xl md:text-xl font-medium"
+        style="field-sizing: content;"
+      />
+      <div class="grow"></div>
+
+      {#if !category.expanded && budget.selectedFilterIndex != 0}
+        <div class="pr-2 text-blue-400">{numberToDollarString(total)}</div>
+      {/if}
+
+      <Button variant="secondary" onclick={budget.nextFilter}>
+        {budget.filters[budget.selectedFilterIndex].name}
+      </Button>
+
+      <Button
         variant="ghost"
-        class="hover:bg-transparent pr-1 pt-2.5"
+        class="hover:bg-transparent px-1"
         onclick={() => (category.expanded = !category.expanded)}
       >
         {#if category.expanded}
@@ -55,22 +67,7 @@
         {:else}
           <ChevronDown class="stroke-blue-500" />
         {/if}
-      </Button> -->
-      <Input
-        bind:value={category.name}
-        class="border-none w-min ml-1 text-xl md:text-xl font-medium"
-        style="field-sizing: content;"
-      />
-      
-      <div class="grow"></div>
-
-      {#if category.expanded}
-        <Button class="mt-1" onclick={budget.nextFilter}>
-          {budget.filters[budget.selectedFilterIndex].name}
-        </Button>
-      {:else}
-        <div class="pr-4 italic">{total}</div>
-      {/if}
+      </Button>
     </div>
   </Card.Header>
   {#if category.expanded}
@@ -102,11 +99,7 @@
               onchange={(e) => updateBudgetItem(e, budgetItem)}
             />
           {:else}
-            <Button
-              variant="ghost"
-              class="justify-self-end italic text-sm col-span-2 font-normal"
-              onclick={() => budget.selectedFilterIndex = 0}
-            >
+            <p class="select-text cursor-auto justify-self-end  text-blue-400 col-span-2 pr-3">
               {numberToDollarString(
                 changeFrequency(
                   budgetItem.amount,
@@ -114,7 +107,7 @@
                   budget.filters[budget.selectedFilterIndex].frequency
                 )
               )}
-            </Button>
+            </p>
           {/if}
         </button>
       {/each}
