@@ -36,18 +36,18 @@ export function getFrequencyName(frequency: Frequency): string {
     if (frequency.interval == 1) {
         switch (frequency.unit) {
             case "day":
-                return "Daily";
+                return "daily";
             case "week":
-                return "Weekly";
+                return "weekly";
             case "month":
-                return "Monthly";
+                return "monthly";
             case "year":
-                return "Yearly";
+                return "yearly";
         }
     } else if (frequency.interval == 2 && frequency.unit == "week") {
-        return "Biweekly";
+        return "biweekly";
     }
-    return `Every ${frequency.interval} ${frequency.unit}s`;
+    return `every ${frequency.interval} ${frequency.unit}s`;
 }
 
 export function dollarStringToNumber(dollarString: string): number {
@@ -66,7 +66,7 @@ function createBudget() {
         { name: "Biweekly", frequency: { interval: 2, unit: "week" } },
         { name: "Yearly", frequency: { interval: 1, unit: "year" } },
     ])
-    let selectedFilterIndex = $state(0); 
+    let selectedFilterIndex = $state(0);
 
     let categories: Category[] = $state([
         {
@@ -77,8 +77,12 @@ function createBudget() {
                 { name: "Generosity", amount: 200, frequency: { interval: 1, unit: "month" } },
             ],
             expanded: true,
-        }])
+        }
+    ])
 
+    function nextFilter() {
+        selectedFilterIndex = (selectedFilterIndex + 1) % filters.length;
+    }
 
     return {
         get categories() { return categories },
@@ -87,6 +91,7 @@ function createBudget() {
         set filters(value) { filters = value },
         get selectedFilterIndex() { return selectedFilterIndex },
         set selectedFilterIndex(value: number) { selectedFilterIndex = value },
+        nextFilter,
     }
 }
 

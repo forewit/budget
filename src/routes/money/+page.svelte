@@ -1,7 +1,7 @@
 <script lang="ts">
   import ScrollArea from "$lib/components/ui/scroll-area/scroll-area.svelte";
   import CategoryCard from "$lib/components/budget/category-card.svelte";
-  import ExpenseDetails from "$lib/components/budget/expense-details.svelte";
+  import ItemDetails from "$lib/components/budget/item-details.svelte";
   import { setBudgetContext } from "$lib/components/budget/budget.svelte";
 
   const budget = setBudgetContext();
@@ -21,7 +21,7 @@
 </script>
 
 <div class="h-full flex flex-col md:flex-row">
-  <ScrollArea class="grow p-4" onclick={clearSelection}>
+  <ScrollArea class="grow pt-4" onclick={clearSelection}>
     {#each budget.categories as category, catIndex}
       <CategoryCard 
       {category} 
@@ -32,7 +32,7 @@
   </ScrollArea>
   <ScrollArea class="h-64 md:h-full md:w-64 border-t md:border-l md:border-t-0" >
     {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
-      <ExpenseDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
+      <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
     {:else}
       <div class="h-full w-full flex flex-col items-center justify-center">
         <div class="text-xl">Select a category and expense to view details</div>

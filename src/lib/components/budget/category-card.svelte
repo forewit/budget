@@ -43,16 +43,11 @@
 </script>
 
 <Card.Root class="max-w-[500px] m-auto">
-  <Card.Header class="p-4 pr-6">
+  <Card.Header class="p-4 pr-8">
     <div class="pl-1 flex flex-row items-center">
-      <Input
-        bind:value={category.name}
-        class="border-none w-min text-lg font-medium max-w-[10rem]"
-        style="field-sizing: content;"
-      />
-      <Button
+      <!-- <Button
         variant="ghost"
-        class="hover:bg-transparent pl-1"
+        class="hover:bg-transparent pr-1 pt-2.5"
         onclick={() => (category.expanded = !category.expanded)}
       >
         {#if category.expanded}
@@ -60,28 +55,19 @@
         {:else}
           <ChevronDown class="stroke-blue-500" />
         {/if}
-      </Button>
+      </Button> -->
+      <Input
+        bind:value={category.name}
+        class="border-none w-min ml-1 text-xl md:text-xl font-medium"
+        style="field-sizing: content;"
+      />
+      
       <div class="grow"></div>
 
       {#if category.expanded}
-        <Select.Root
-          value={budget.filters[budget.selectedFilterIndex].name}
-          type="single"
-          onValueChange={updateSelectedFilter}
-        >
-          <Select.Trigger
-            chevron="right"
-            class="border-none w-auto font-medium"
-            style="field-sizing: content;"
-          >
-            <span class="pr-2">{budget.filters[budget.selectedFilterIndex].name}</span>
-          </Select.Trigger>
-          <Select.Content>
-            {#each budget.filters as filter, i}
-              <Select.Item value={filter.name}>{filter.name}</Select.Item>
-            {/each}
-          </Select.Content>
-        </Select.Root>
+        <Button class="mt-1" onclick={budget.nextFilter}>
+          {budget.filters[budget.selectedFilterIndex].name}
+        </Button>
       {:else}
         <div class="pr-4 italic">{total}</div>
       {/if}
@@ -91,7 +77,7 @@
     <Card.Content class="pt-0 pr-7">
       {#each category.budgetItems as budgetItem, i}
         <button
-          class="grid grid-cols-[1fr,auto,6rem] items-center w-full cursor-default border-b last:border-b-0 py-4 rounded table-row"
+          class="grid grid-cols-[auto,1fr,6rem] items-center gap-1 w-full cursor-default border-b last:border-b-0 py-4 rounded table-row"
           onclick={(e) => {
             e.stopPropagation();
             budgetItemClicked(i);
@@ -107,7 +93,8 @@
             style="field-sizing: content"
           />
           {#if budget.selectedFilterIndex == 0}
-            <FrequencyPicker bind:frequency={budgetItem.frequency} class="justify-self-end"></FrequencyPicker>
+            <FrequencyPicker bind:frequency={budgetItem.frequency} class="justify-self-end"
+            ></FrequencyPicker>
             <Input
               class="justify-self-end w-min max-w-[6rem] pl-4 text-right border-none hover:bg-muted focus:bg-muted "
               value={numberToDollarString(budgetItem.amount)}
@@ -115,7 +102,11 @@
               onchange={(e) => updateBudgetItem(e, budgetItem)}
             />
           {:else}
-            <div class="justify-self-end pr-2 italic text-sm col-span-2">
+            <Button
+              variant="ghost"
+              class="justify-self-end italic text-sm col-span-2 font-normal"
+              onclick={() => budget.selectedFilterIndex = 0}
+            >
               {numberToDollarString(
                 changeFrequency(
                   budgetItem.amount,
@@ -123,7 +114,7 @@
                   budget.filters[budget.selectedFilterIndex].frequency
                 )
               )}
-            </div>
+            </Button>
           {/if}
         </button>
       {/each}
