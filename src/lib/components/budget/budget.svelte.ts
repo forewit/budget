@@ -67,7 +67,7 @@ export function categoryTotal(category: Category, frequency: Frequency): number 
 
 function createBudget() {
     let filters: Filter[] = $state([
-        { name: "Actual", frequency: { interval: 1, unit: "day" } },
+        { name: "Budget", frequency: { interval: 1, unit: "day" } },
         { name: "Monthly", frequency: { interval: 1, unit: "month" } },
         { name: "Biweekly", frequency: { interval: 2, unit: "week" } },
         { name: "Yearly", frequency: { interval: 1, unit: "year" } },

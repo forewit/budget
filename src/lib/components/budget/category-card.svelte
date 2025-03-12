@@ -1,8 +1,8 @@
 <script lang="ts">
   import * as Card from "$lib/components/ui/card/index.js";
+  import * as Select from "$lib/components/ui/select/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import Button from "$lib/components/ui/button/button.svelte";
-  import ChevronsUpDown from "lucide-svelte/icons/chevrons-up-down";
   import ChevronDown from "lucide-svelte/icons/chevron-down";
   import ChevronUp from "lucide-svelte/icons/chevron-up";
   import FrequencyPicker from "./frequency-picker.svelte";
@@ -39,11 +39,22 @@
 </script>
 
 <Card.Root class="max-w-[500px] m-auto">
-  <Card.Header class="p-4 pr-8">
-    <div class="pl-1 flex gap-2 flex-row items-center">
+  <Card.Header class="p-4 pr-6">
+    <div class="pl-1 flex gap-1 flex-row items-center">
+      <Button
+      variant="ghost"
+      class="hover:bg-transparent px-1 ml-[-6px]"
+      onclick={() => (category.expanded = !category.expanded)}
+    >
+      {#if category.expanded}
+        <ChevronUp />
+      {:else}
+        <ChevronDown />
+      {/if}
+    </Button>
       <Input
         bind:value={category.name}
-        class="border-none max-w-[10rem] ml-1 text-xl md:text-xl font-medium"
+        class="border-none max-w-[10rem] pl-1 text-xl md:text-xl font-medium"
       />
       <div class="grow"></div>
 
@@ -51,21 +62,35 @@
         <div class="pr-2 italic">{numberToDollarString(total)}</div>
       {/if}
 
-      <Button variant="secondary" onclick={budget.nextFilter}>
-        {budget.filters[budget.selectedFilterIndex].name}
-      </Button>
-
-      <Button
-        variant="ghost"
-        class="hover:bg-transparent px-1"
-        onclick={() => (category.expanded = !category.expanded)}
+      <!-- <Button
+        variant="secondary"
+        onclick={() => {
+          budget.nextFilter();
+          if (budget.selectedFilterIndex == 0) {
+            category.expanded = true;
+          }
+        }}
       >
-        {#if category.expanded}
-          <ChevronUp />
-        {:else}
-          <ChevronDown/>
-        {/if}
-      </Button>
+        {budget.filters[budget.selectedFilterIndex].name}
+      </Button> -->
+
+      <Select.Root
+        type="single"
+        value={budget.filters[budget.selectedFilterIndex].name}
+        onValueChange={(value) => {
+          budget.selectedFilterIndex = budget.filters.findIndex((f) => f.name == value);
+          if (budget.selectedFilterIndex == 0) {
+            category.expanded = true;
+          }
+        }}
+      >
+        <Select.Trigger  class="w-[8rem]">{budget.filters[budget.selectedFilterIndex].name}</Select.Trigger>
+        <Select.Content>
+          {#each budget.filters as filter, i}
+            <Select.Item value={filter.name}>{filter.name}</Select.Item>
+          {/each}
+        </Select.Content>
+      </Select.Root>
     </div>
   </Card.Header>
   {#if category.expanded}
