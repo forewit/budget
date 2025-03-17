@@ -1,15 +1,23 @@
 <script lang="ts">
+  import * as Drawer from "$lib/components/ui/drawer/index.js";
   import ScrollArea from "$lib/components/ui/scroll-area/scroll-area.svelte";
   import CategoryCard from "$lib/components/budget/category-card.svelte";
   import ItemDetails from "$lib/components/budget/item-details.svelte";
   import { setBudgetContext } from "$lib/components/budget/budget.svelte";
+  import { IsMobile } from "$lib/hooks/is-mobile.svelte";
+  import BudgetOverview from "$lib/components/budget/budget-overview.svelte";
 
   const budget = setBudgetContext();
+
+  let isMobile = new IsMobile();
+  let drawerOpen = $state(false);
 
   let selectedCategory = $state(-1);
   let selectedBudgetItem = $state(-1);
 
   function selectBudgetItem(catIndex: number, itemIndex: number) {
+    drawerOpen = true;
+
     selectedCategory = catIndex;
     selectedBudgetItem = itemIndex;
   }
@@ -20,23 +28,30 @@
   }
 </script>
 
-<div class="h-full flex flex-col md:flex-row">
-  <ScrollArea class="grow pt-4" onclick={clearSelection}>
+<div class="h-full grid md:grid-cols-[minmax(450px,1fr)_minmax(0,500px)]">
+  <ScrollArea class="py-4 md:p-4" onclick={clearSelection}>
     {#each budget.categories as category, catIndex}
-      <CategoryCard 
-      {category} 
-      budgetItemClicked={(itemIndex) => selectBudgetItem(catIndex, itemIndex)} 
-      selectedItem={selectedCategory == catIndex ? selectedBudgetItem : -1}
+      <CategoryCard
+        {category}
+        budgetItemClicked={(itemIndex) => selectBudgetItem(catIndex, itemIndex)}
       />
     {/each}
   </ScrollArea>
-  <ScrollArea class="h-64 md:h-full md:w-64 border-t md:border-l md:border-t-0" >
-    {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
-      <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
-    {:else}
-      <div class="h-full w-full flex flex-col items-center justify-center">
-        <div class="text-xl">Select a category and expense to view details</div>
-      </div>
+  {#if isMobile.current}
+    {#if selectedBudgetItem >= 0 && selectedCategory >= 0}
+      <Drawer.Root bind:open={drawerOpen}>
+        <Drawer.Content>
+          <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
+        </Drawer.Content>
+      </Drawer.Root>
     {/if}
-  </ScrollArea>
+  {:else}
+    <ScrollArea class="border-l">
+      {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
+        <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
+      {:else}
+        <BudgetOverview />
+      {/if}
+    </ScrollArea>
+  {/if}
 </div>

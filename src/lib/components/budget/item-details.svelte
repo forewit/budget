@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getBudgetContext } from "$lib/components/budget/budget.svelte";
+  import FrequencyPicker from "./frequency-picker.svelte";
 
   let { categoryIndex, budgetItemIndex }: { categoryIndex: number; budgetItemIndex: number } =
     $props();
@@ -10,7 +11,12 @@
   let budgetItem = $derived(category.budgetItems[budgetItemIndex]);
 </script>
 
-<div class="h-full w-full flex flex-col items-center justify-center">
+<!-- Title -->
+<!-- Details -->
+<!-- Links (from details) -->
+<!-- Footer -->
+
+<div class="p-8 h-full w-full flex flex-col items-center justify-center">
   <div class="text-xl">
     {category.name}
     {budgetItem.name}

@@ -9,7 +9,8 @@
     frequency = $bindable(),
     class: className = "",
     open = $bindable(false),
-  }: { frequency: Frequency; class?: string; open?: boolean } = $props();
+    disabled = false,
+  }: { frequency: Frequency; class?: string; open?: boolean; disabled?: boolean } = $props();
 
   let delayedCloseTimer: ReturnType<typeof setTimeout>;
   function delayClose() {
@@ -26,9 +27,10 @@
 </script>
 
 <Collapsible.Root bind:open class="flex {className}">
-  {#if !open}
+  {#if !open || disabled}
     <Collapsible.Trigger
       class="outline-offset-2 p-2 rounded-lg hover:underline underline-offset-4 font-medium text-xs"
+      disabled={disabled}
     >
       {getFrequencyName(frequency)}
     </Collapsible.Trigger>

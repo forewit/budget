@@ -15,18 +15,21 @@
     type BudgetItem,
     type Category,
   } from "./budget.svelte";
+  import { IsMobile } from "$lib/hooks/is-mobile.svelte";
 
   let {
     category,
     budgetItemClicked = () => {},
+    class: className = "",
   }: {
     category: Category;
     budgetItemClicked: (index: number) => void;
+    class?: string
   } = $props();
 
   const budget = getBudgetContext();
+  let isMobile = new IsMobile();
 
-  // TODO: make derived
   let total = $derived(
     categoryTotal(category, budget.filters[budget.selectedFilterIndex].frequency)
   );
@@ -38,20 +41,20 @@
   }
 </script>
 
-<Card.Root class="max-w-[500px] m-auto">
+<Card.Root class={"max-w-[500px] min-w-[410px] m-auto " + className}>
   <Card.Header class="p-4 pr-6">
     <div class="pl-1 flex gap-1 flex-row items-center">
       <Button
-      variant="ghost"
-      class="hover:bg-transparent px-1 ml-[-6px]"
-      onclick={() => (category.expanded = !category.expanded)}
-    >
-      {#if category.expanded}
-        <ChevronUp />
-      {:else}
-        <ChevronDown />
-      {/if}
-    </Button>
+        variant="ghost"
+        class="hover:bg-transparent px-1 ml-[-6px]"
+        onclick={() => (category.expanded = !category.expanded)}
+      >
+        {#if category.expanded}
+          <ChevronUp />
+        {:else}
+          <ChevronDown />
+        {/if}
+      </Button>
       <Input
         bind:value={category.name}
         class="border-none max-w-[10rem] pl-1 text-xl md:text-xl font-medium"
@@ -59,20 +62,8 @@
       <div class="grow"></div>
 
       {#if !category.expanded && budget.selectedFilterIndex != 0}
-        <div class="pr-2 italic">{numberToDollarString(total)}</div>
+        <div class="pr-2 italic text-sm">{numberToDollarString(total)}</div>
       {/if}
-
-      <!-- <Button
-        variant="secondary"
-        onclick={() => {
-          budget.nextFilter();
-          if (budget.selectedFilterIndex == 0) {
-            category.expanded = true;
-          }
-        }}
-      >
-        {budget.filters[budget.selectedFilterIndex].name}
-      </Button> -->
 
       <Select.Root
         type="single"
@@ -84,7 +75,9 @@
           }
         }}
       >
-        <Select.Trigger  class="w-[8rem]">{budget.filters[budget.selectedFilterIndex].name}</Select.Trigger>
+        <Select.Trigger class="w-[8rem]">
+          {budget.filters[budget.selectedFilterIndex].name}
+        </Select.Trigger>
         <Select.Content>
           {#each budget.filters as filter, i}
             <Select.Item value={filter.name}>{filter.name}</Select.Item>
@@ -96,40 +89,47 @@
   {#if category.expanded}
     <Card.Content class="pt-0 pr-7">
       {#each category.budgetItems as budgetItem, i}
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
         <button
-          class="grid grid-cols-[auto,1fr,6rem] items-center gap-1 w-full cursor-default border-b last:border-b-0 py-4 rounded table-row"
+          class="w-full md:cursor-default border-b last:border-b-0 py-4 rounded-lg table-row"
           onclick={(e) => {
             e.stopPropagation();
             budgetItemClicked(i);
           }}
-          onfocusin={(e) => {
-            e.stopPropagation();
-            budgetItemClicked(i);
-          }}
         >
-          <Input
-            bind:value={budgetItem.name}
-            class="max-w-[10rem] pr-4 border-transparent hover:border hover:border-inherit"
-          />
-          {#if budget.selectedFilterIndex == 0}
-            <FrequencyPicker bind:frequency={budgetItem.frequency} class="justify-self-end"
-            ></FrequencyPicker>
+          <div
+            class="pointer-events-none md:pointer-events-auto grid grid-cols-[auto,1fr,6rem] items-center gap-1 w-full"
+          >
             <Input
-              class="justify-self-end max-w-[6rem] text-right "
-              value={numberToDollarString(budgetItem.amount)}
-              onchange={(e) => updateBudgetItem(e, budgetItem)}
+              bind:value={budgetItem.name}
+              class="max-w-[10rem] pr-4 border-transparent hover:border hover:border-inherit disabled:opacity-100"
+              disabled={isMobile.current}
             />
-          {:else}
-            <p class="select-text cursor-auto text-sm justify-self-end italic col-span-2 pr-3">
-              {numberToDollarString(
-                changeFrequency(
-                  budgetItem.amount,
-                  budgetItem.frequency,
-                  budget.filters[budget.selectedFilterIndex].frequency
-                )
-              )}
-            </p>
-          {/if}
+            {#if budget.selectedFilterIndex == 0}
+              <FrequencyPicker
+                disabled={isMobile.current}
+                bind:frequency={budgetItem.frequency}
+                class="justify-self-end"
+              ></FrequencyPicker>
+              <Input
+                class="justify-self-end max-w-[6rem] text-right border-0 md:border disabled:opacity-100"
+                value={numberToDollarString(budgetItem.amount)}
+                onchange={(e) => updateBudgetItem(e, budgetItem)}
+                disabled={isMobile.current}
+              />
+            {:else}
+              <p class="select-text cursor-auto text-sm justify-self-end italic col-span-2 pr-3">
+                {numberToDollarString(
+                  changeFrequency(
+                    budgetItem.amount,
+                    budgetItem.frequency,
+                    budget.filters[budget.selectedFilterIndex].frequency
+                  )
+                )}
+              </p>
+            {/if}
+          </div>
         </button>
       {/each}
     </Card.Content>
