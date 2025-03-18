@@ -1,6 +1,5 @@
 <script lang="ts">
   import * as Drawer from "$lib/components/ui/drawer/index.js";
-  import ScrollArea from "$lib/components/ui/scroll-area/scroll-area.svelte";
   import CategoryCard from "$lib/components/budget/category-card.svelte";
   import ItemDetails from "$lib/components/budget/item-details.svelte";
   import { setBudgetContext } from "$lib/components/budget/budget.svelte";
