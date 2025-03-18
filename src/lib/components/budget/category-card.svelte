@@ -3,8 +3,8 @@
   import * as Select from "$lib/components/ui/select/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import Button from "$lib/components/ui/button/button.svelte";
+  import ChevronRight from "lucide-svelte/icons/chevron-right";
   import ChevronDown from "lucide-svelte/icons/chevron-down";
-  import ChevronUp from "lucide-svelte/icons/chevron-up";
   import FrequencyPicker from "./frequency-picker.svelte";
   import {
     getBudgetContext,
@@ -50,9 +50,9 @@
         onclick={() => (category.expanded = !category.expanded)}
       >
         {#if category.expanded}
-          <ChevronUp />
+          <ChevronDown class="mt-1 opacity-50" />
         {:else}
-          <ChevronDown />
+          <ChevronRight class="mt-1 opacity-50" />
         {/if}
       </Button>
       <Input
@@ -61,9 +61,9 @@
       />
       <div class="grow"></div>
 
-      {#if !category.expanded && budget.selectedFilterIndex != 0}
+      <!-- {#if !category.expanded && budget.selectedFilterIndex != 0}
         <div class="pr-2 italic text-sm">{numberToDollarString(total)}</div>
-      {/if}
+      {/if} -->
 
       <Select.Root
         type="single"
