@@ -50,7 +50,7 @@
   {#if isMobile.current}
     {#if selectedBudgetItem >= 0 && selectedCategory >= 0}
       <Drawer.Root bind:open={drawerOpen}>
-        <Drawer.Content class="h-[calc(100vh-64px)]">
+        <Drawer.Content class="h-[calc(100dvh-64px)]">
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
         </Drawer.Content>
       </Drawer.Root>
