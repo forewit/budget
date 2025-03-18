@@ -29,7 +29,7 @@
 <Collapsible.Root bind:open class="flex {className}">
   {#if !open || disabled}
     <Collapsible.Trigger
-      class="text-right outline-offset-2 p-2 rounded-lg hover:underline underline-offset-4 font-medium text-xs"
+      class="text-right text-nowrap outline-offset-2 p-2 rounded-lg hover:underline underline-offset-4 font-medium text-xs"
       disabled={disabled}
     >
       {getFrequencyName(frequency)}

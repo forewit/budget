@@ -41,7 +41,7 @@
   }
 </script>
 
-<Card.Root class={"max-w-[500px] min-w-[400px] m-auto " + className}>
+<Card.Root class={"max-w-[500px] m-auto " + className}>
   <Card.Header class="p-4 pr-6">
     <div class="pl-1 flex gap-1 flex-row items-center">
       <Button
