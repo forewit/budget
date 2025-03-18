@@ -10,6 +10,6 @@
   <title>Jessica Helen Budget</title>
 </svelte:head>
 
-<SafeAreas class="ml-[var(--safe-area-left)] mr-[var(--safe-area-right)]">
+<SafeAreas>
   {@render children?.()}
 </SafeAreas>

@@ -32,7 +32,7 @@
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
-    class="bg-no-repeat bg-center bg-cover overflow-y-scroll"
+    class="bg-no-repeat bg-center bg-cover overflow-y-scroll ml-[var(--safe-area-left)]"
     style="background-image: url('{base}/images/field-background.jpg'); scrollbar-width: none;"
     onclick={clearSelection}
   >
@@ -55,7 +55,10 @@
       </Drawer.Root>
     {/if}
   {:else}
-    <div class="h-full border-l overflow-y-scroll" style="scrollbar-width: none;">
+    <div
+      class="h-full border-l overflow-y-scroll mr-[var(--safe-area-right)]"
+      style="scrollbar-width: none;"
+    >
       {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
         <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
       {:else}
