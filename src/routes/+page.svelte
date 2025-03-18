@@ -29,7 +29,7 @@
   }
 </script>
 
-<div class="h-screen grid md:grid-cols-[minmax(450px,1fr)_minmax(0,500px)]">
+<div class="h-dvh grid md:grid-cols-[minmax(450px,1fr)_minmax(0,450px)]">
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
@@ -40,7 +40,7 @@
     <div class="py-12 px-2 flex flex-col gap-12 md:gap-8 w-full">
       {#each budget.categories as category, catIndex}
         <CategoryCard
-          class="w-full"
+          class="w-full backdrop-blur-md bg-card/80"
           {category}
           budgetItemClicked={(itemIndex) => selectBudgetItem(catIndex, itemIndex)}
         />
@@ -56,12 +56,12 @@
       </Drawer.Root>
     {/if}
   {:else}
-    <ScrollArea class="h-full border-l">
+    <div class="h-full border-l overflow-y-scroll" style="scrollbar-width: none;">
       {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
         <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
       {:else}
         <BudgetOverview />
       {/if}
-    </ScrollArea>
+    </div>
   {/if}
 </div>
