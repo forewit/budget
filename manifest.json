@@ -1,0 +1,15 @@
+{
+    "name": "Budget",
+    "short_name": "Budget",
+    "start_url": "/budget/",
+    "scope": "/budget/",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "images/favicon_512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}
