@@ -33,7 +33,7 @@
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
     class="bg-no-repeat bg-center bg-cover overflow-y-scroll"
-    style="background-image: url('{base}/images/field-background.jpg'); scrollbar-width: none; margin-left: var(--safe-area-left);"
+    style="background-image: url('{base}/images/field-background.jpg'); scrollbar-width: none; padding-left: var(--safe-area-left);"
     onclick={clearSelection}
   >
     <div class="py-12 px-2 flex flex-col gap-12 md:gap-8 w-full">
@@ -57,7 +57,7 @@
   {:else}
     <div
       class="h-full border-l overflow-y-scroll"
-      style="scrollbar-width: none; margin-right: var(--safe-area-right);"
+      style="scrollbar-width: none; padding-right: var(--safe-area-right);"
     >
       {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
         <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
