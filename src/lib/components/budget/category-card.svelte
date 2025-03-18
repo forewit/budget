@@ -41,7 +41,7 @@
   }
 </script>
 
-<Card.Root class={"max-w-[500px] min-w-[410px] m-auto " + className}>
+<Card.Root class={"max-w-[500px] min-w-[400px] m-auto " + className}>
   <Card.Header class="p-4 pr-6">
     <div class="pl-1 flex gap-1 flex-row items-center">
       <Button
@@ -92,14 +92,14 @@
         <!-- svelte-ignore a11y_no_static_element_interactions -->
         <!-- svelte-ignore a11y_click_events_have_key_events -->
         <button
-          class="w-full md:cursor-default border-b last:border-b-0 py-4 rounded-lg table-row"
+          class="w-full md:cursor-default border-b last:border-b-0 py-4 table-row"
           onclick={(e) => {
             e.stopPropagation();
             budgetItemClicked(i);
           }}
         >
           <div
-            class="pointer-events-none md:pointer-events-auto grid grid-cols-[auto,1fr,6rem] items-center gap-1 w-full"
+            class="pointer-events-none md:pointer-events-auto grid grid-cols-[auto,1fr,6rem] items-center  w-full"
           >
             <Input
               bind:value={budgetItem.name}
