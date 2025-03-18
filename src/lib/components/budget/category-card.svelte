@@ -24,7 +24,7 @@
   }: {
     category: Category;
     budgetItemClicked: (index: number) => void;
-    class?: string
+    class?: string;
   } = $props();
 
   const budget = getBudgetContext();
@@ -57,7 +57,7 @@
       </Button>
       <Input
         bind:value={category.name}
-        class="border-none max-w-[10rem] pl-1 text-xl md:text-xl font-medium"
+        class="border-none bg-transparent max-w-40 pl-1 text-xl md:text-xl font-medium"
       />
       <div class="grow"></div>
 
@@ -75,7 +75,7 @@
           }
         }}
       >
-        <Select.Trigger class="w-[8rem]">
+        <Select.Trigger class="w-32">
           {budget.filters[budget.selectedFilterIndex].name}
         </Select.Trigger>
         <Select.Content>
@@ -99,11 +99,11 @@
           }}
         >
           <div
-            class="pointer-events-none md:pointer-events-auto grid grid-cols-[auto,1fr,6rem] items-center  w-full"
+            class="pointer-events-none md:pointer-events-auto grid grid-cols-[auto,1fr,6rem] items-center w-full"
           >
             <Input
               bind:value={budgetItem.name}
-              class="max-w-[10rem] pr-4 border-transparent hover:border hover:border-inherit disabled:opacity-100"
+              class="max-w-40 pr-4 disabled:opacity-100 border-none bg-transparent"
               disabled={isMobile.current}
             />
             {#if budget.selectedFilterIndex == 0}
@@ -113,7 +113,7 @@
                 class="justify-self-end"
               ></FrequencyPicker>
               <Input
-                class="justify-self-end max-w-[6rem] text-right border-0 md:border disabled:opacity-100"
+                class="justify-self-end max-w-24 text-right disabled:opacity-100 border-none bg-transparent"
                 value={numberToDollarString(budgetItem.amount)}
                 onchange={(e) => updateBudgetItem(e, budgetItem)}
                 disabled={isMobile.current}

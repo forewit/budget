@@ -83,8 +83,25 @@ function createBudget() {
                 { name: "Generosity", amount: 200, frequency: { interval: 1, unit: "month" } },
             ],
             expanded: true,
-        }
-    ])
+        },
+        {
+            name: "Personal",
+            budgetItems: [
+                { name: "Groceries", amount: 100, frequency: { interval: 1, unit: "month" } },
+                { name: "Clothes", amount: 50, frequency: { interval: 3, unit: "week" } },
+            ],
+            expanded: true,
+        },
+        {
+            name: "Housing",
+            budgetItems: [
+                { name: "Rent", amount: 100, frequency: { interval: 1, unit: "month" } },
+                { name: "Mortgage", amount: 50, frequency: { interval: 3, unit: "week" } },
+                { name: "Homeowners insurance", amount: 200, frequency: { interval: 1, unit: "month" } },
+            ],
+            expanded: true,
+        },
+    ]);
 
     function nextFilter() {
         selectedFilterIndex = (selectedFilterIndex + 1) % filters.length;

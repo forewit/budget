@@ -10,7 +10,7 @@
     switch (screen.orientation.type) {
       case "portrait-primary":
         root.style.setProperty("--safe-area-top", "env(safe-area-inset-top)");
-        root.style.setProperty("--safe-area-left", "0px");
+        root.style.setProperty("--safe-area-left", "20px");
         root.style.setProperty("--safe-area-right", "0px");
         break;
       case "landscape-primary":
