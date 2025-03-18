@@ -4,9 +4,11 @@
     "start_url": "/budget/",
     "scope": "/budget/",
     "display": "standalone",
+    "background_color": "#016c94",
+    "theme_color": "#f4f6f6",
     "icons": [
         {
-            "src": "images/favicon_512.png",
+            "src": "images/field-icon.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
