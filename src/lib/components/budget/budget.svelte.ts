@@ -78,30 +78,82 @@ function createBudget() {
         {
             name: "Giving",
             budgetItems: [
-                { name: "Church", amount: 100, frequency: { interval: 1, unit: "month" } },
-                { name: "Missionaries", amount: 50, frequency: { interval: 3, unit: "week" } },
-                { name: "Generosity", amount: 200, frequency: { interval: 1, unit: "month" } },
+                { name: "Church", amount: 150, frequency: { interval: 1, unit: "month" } },
+                { name: "Charitable Donations", amount: 75, frequency: { interval: 1, unit: "month" } },
+                { name: "Sponsorships", amount: 50, frequency: { interval: 2, unit: "month" } }
             ],
-            expanded: true,
+            expanded: true
         },
         {
             name: "Personal",
             budgetItems: [
-                { name: "Groceries", amount: 100, frequency: { interval: 1, unit: "month" } },
-                { name: "Clothes", amount: 50, frequency: { interval: 3, unit: "week" } },
+                { name: "Groceries", amount: 700, frequency: { interval: 1, unit: "month" } },
+                { name: "Clothing", amount: 100, frequency: { interval: 2, unit: "month" } },
+                { name: "Entertainment", amount: 150, frequency: { interval: 1, unit: "month" } },
+                { name: "Gym Membership", amount: 50, frequency: { interval: 1, unit: "month" } }
             ],
-            expanded: true,
+            expanded: true
         },
         {
             name: "Housing",
             budgetItems: [
-                { name: "Rent", amount: 100, frequency: { interval: 1, unit: "month" } },
-                { name: "Mortgage", amount: 50, frequency: { interval: 3, unit: "week" } },
-                { name: "Homeowners insurance", amount: 200, frequency: { interval: 1, unit: "month" } },
+                { name: "Rent/Mortgage", amount: 1800, frequency: { interval: 1, unit: "month" } },
+                { name: "Homeowners/Renters Insurance", amount: 100, frequency: { interval: 1, unit: "month" } },
+                { name: "Property Taxes", amount: 250, frequency: { interval: 1, unit: "month" } },
+                { name: "Utilities (Electric, Water, Gas)", amount: 250, frequency: { interval: 1, unit: "month" } },
+                { name: "Internet", amount: 75, frequency: { interval: 1, unit: "month" } },
+                { name: "Streaming Services", amount: 40, frequency: { interval: 1, unit: "month" } }
             ],
-            expanded: true,
+            expanded: true
         },
-    ]);
+        {
+            name: "Transportation",
+            budgetItems: [
+                { name: "Car Payment", amount: 400, frequency: { interval: 1, unit: "month" } },
+                { name: "Car Insurance", amount: 120, frequency: { interval: 1, unit: "month" } },
+                { name: "Gas", amount: 200, frequency: { interval: 1, unit: "month" } },
+                { name: "Maintenance & Repairs", amount: 50, frequency: { interval: 1, unit: "month" } }
+            ],
+            expanded: true
+        },
+        {
+            name: "Medical & Health",
+            budgetItems: [
+                { name: "Health Insurance", amount: 500, frequency: { interval: 1, unit: "month" } },
+                { name: "Prescriptions", amount: 50, frequency: { interval: 1, unit: "month" } },
+                { name: "Doctor Visits", amount: 100, frequency: { interval: 3, unit: "month" } },
+                { name: "Dental & Vision", amount: 75, frequency: { interval: 2, unit: "month" } }
+            ],
+            expanded: true
+        },
+        {
+            name: "Savings & Investments",
+            budgetItems: [
+                { name: "Emergency Fund", amount: 300, frequency: { interval: 1, unit: "month" } },
+                { name: "Retirement Contributions", amount: 500, frequency: { interval: 1, unit: "month" } },
+                { name: "College Fund", amount: 200, frequency: { interval: 1, unit: "month" } }
+            ],
+            expanded: true
+        },
+        {
+            name: "Child Expenses",
+            budgetItems: [
+                { name: "Daycare/Preschool", amount: 800, frequency: { interval: 1, unit: "month" } },
+                { name: "School Supplies", amount: 50, frequency: { interval: 1, unit: "month" } },
+                { name: "Extracurricular Activities", amount: 100, frequency: { interval: 1, unit: "month" } }
+            ],
+            expanded: true
+        },
+        {
+            name: "Debt Payments",
+            budgetItems: [
+                { name: "Credit Card Payment", amount: 200, frequency: { interval: 1, unit: "month" } },
+                { name: "Student Loans", amount: 300, frequency: { interval: 1, unit: "month" } }
+            ],
+            expanded: true
+        }
+    ]
+    );
 
     function nextFilter() {
         selectedFilterIndex = (selectedFilterIndex + 1) % filters.length;

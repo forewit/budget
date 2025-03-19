@@ -1,6 +1,6 @@
 <script lang="ts">
   import "../app.css";
-  import SafeAreas from "$lib/components/safe-areas.svelte";
+  import SafeAreas from "$lib/components/utilities/safe-areas.svelte";
 
   let { children } = $props();
 </script>

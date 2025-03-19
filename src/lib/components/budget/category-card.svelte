@@ -1,6 +1,5 @@
 <script lang="ts">
   import * as Card from "$lib/components/ui/card/index.js";
-  import * as Select from "$lib/components/ui/select/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import Button from "$lib/components/ui/button/button.svelte";
   import ChevronRight from "lucide-svelte/icons/chevron-right";
@@ -61,29 +60,9 @@
       />
       <div class="grow"></div>
 
-      <!-- {#if !category.expanded && budget.selectedFilterIndex != 0}
-        <div class="pr-2 italic text-sm">{numberToDollarString(total)}</div>
-      {/if} -->
-
-      <Select.Root
-        type="single"
-        value={budget.filters[budget.selectedFilterIndex].name}
-        onValueChange={(value) => {
-          budget.selectedFilterIndex = budget.filters.findIndex((f) => f.name == value);
-          if (budget.selectedFilterIndex == 0) {
-            category.expanded = true;
-          }
-        }}
-      >
-        <Select.Trigger class="w-32">
-          {budget.filters[budget.selectedFilterIndex].name}
-        </Select.Trigger>
-        <Select.Content>
-          {#each budget.filters as filter, i}
-            <Select.Item value={filter.name}>{filter.name}</Select.Item>
-          {/each}
-        </Select.Content>
-      </Select.Root>
+      {#if budget.selectedFilterIndex != 0}
+        <div class="pr-4 text-lg font-medium">{numberToDollarString(total)}</div>
+      {/if}
     </div>
   </Card.Header>
   {#if category.expanded}
