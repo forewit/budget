@@ -9,6 +9,7 @@
   import { Separator } from "$lib/components/ui/separator/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Textarea } from "$lib/components/ui/textarea/index.js";
+  import RichDescription from "./rich-description.svelte";
 
 
   let { categoryIndex, budgetItemIndex }: { categoryIndex: number; budgetItemIndex: number } =
@@ -44,4 +45,5 @@
   </div>
   <Textarea class="py-4 pl-3" placeholder="Type your message here." />
 
+  <RichDescription />
 </div>

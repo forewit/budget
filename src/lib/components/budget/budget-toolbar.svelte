@@ -13,9 +13,8 @@
   const budget = getBudgetContext();
 </script>
 
-<div class={className}>
-  <Card.Root class={"flex flex-row justify-between items-center"}>
-    <Card.Content class="flex flex-row items-center gap-2">
+  <Card.Root class={"flex flex-row justify-between items-center rounded-xl shadow-2xl " + className}>
+    <Card.Content class="flex flex-row items-center gap-2 p-2">
       <Button variant="ghost" class="hover:bg-transparent">
         <Settings class="w-4 h-4" />
       </Button>
@@ -47,4 +46,3 @@
       </Select.Root>
     </Card.Content>
   </Card.Root>
-</div>

@@ -33,7 +33,6 @@
   }
 </script>
 
-
 {#snippet budgetContent()}
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -55,39 +54,39 @@
 {/snippet}
 
 <div class="h-dvh">
+  {#if isMobile.current}
+    <!-- show drawer on mobile -->
+    {@render budgetContent()}
+    {#if selectedBudgetItem >= 0 && selectedCategory >= 0}
+      <Drawer.Root bind:open={drawerOpen}>
+        <Drawer.Content class="h-[calc(100dvh-64px)]">
+          <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
+        </Drawer.Content>
+      </Drawer.Root>
+    {/if}
 
-{#if isMobile.current}
-  {@render budgetContent()}
-
-  <!-- show drawer on mobile -->
-  {#if selectedBudgetItem >= 0 && selectedCategory >= 0}
-    <Drawer.Root bind:open={drawerOpen}>
-      <Drawer.Content class="h-[calc(100dvh-64px)]">
-        <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
-      </Drawer.Content>
-    </Drawer.Root>
+  {:else}
+    <!-- show resizable sidebar on desktop -->
+    <Resizable.PaneGroup direction="horizontal">
+      <Resizable.Pane minSize={30}>
+        {@render budgetContent()}
+      </Resizable.Pane>
+      <Resizable.Handle withHandle />
+      <Resizable.Pane minSize={30}>
+        <div
+          class="h-full overflow-y-scroll"
+          style="scrollbar-width: none; padding-right: var(--safe-area-right);"
+        >
+          {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
+            <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
+          {:else}
+            <BudgetOverview />
+          {/if}
+        </div>
+      </Resizable.Pane>
+    </Resizable.PaneGroup>
   {/if}
-{:else}
-  <!-- show resizable sidebar on desktop -->
-  <Resizable.PaneGroup direction="horizontal">
-    <Resizable.Pane minSize={30}>
-      {@render budgetContent()}
-    </Resizable.Pane>
-    <Resizable.Handle withHandle />
-    <Resizable.Pane minSize={30}>
-      <div
-      class="h-full overflow-y-scroll"
-      style="scrollbar-width: none; padding-right: var(--safe-area-right);"
-    >
-      {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
-        <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
-      {:else}
-        <BudgetOverview />
-      {/if}
-    </div>
-    </Resizable.Pane>
-  </Resizable.PaneGroup>
-{/if}
 
-<BudgetToolbar class="fixed bottom-0 p-4 w-min -translate-x-1/2 left-1/2" />
+  <BudgetToolbar class="fixed bottom-4 w-min -translate-x-1/2 left-1/2" />
+
 </div>
