@@ -15,6 +15,7 @@
     type Category,
   } from "./budget.svelte";
   import { IsMobile } from "$lib/hooks/is-mobile.svelte";
+  import { cn } from "$lib/utils.js";
 
   let {
     category,
@@ -42,7 +43,7 @@
   }
 </script>
 
-<Card.Root class={"max-w-[500px] m-auto " + className}>
+<Card.Root class={cn("max-w-[500px] m-auto", className)}>
   <Card.Header class="p-4 pb-2 pr-6">
     <div class="pl-1 flex gap-1 flex-row items-center">
       <Button
@@ -70,9 +71,9 @@
   {#if category.expanded}
     <Card.Content class="p-0 pb-4">
       {#each category.budgetItems as budgetItem, i}
-    
-        <button
-          class={"w-full md:cursor-default py-3 px-6 table-row ring-primary" + (i === selectedItemIndex ? " shadow-lg bg-muted/50" : "")}
+        <div
+          class={cn("w-full cursor-pointer md:cursor-default py-3 px-6",
+            (i === selectedItemIndex ? "shadow-lg bg-muted/50" : ""))}
           onpointerdown={(e) => {
             e.stopPropagation();
             budgetItemClicked(i);
@@ -109,14 +110,16 @@
               </p>
             {/if}
           </div>
-        </button>
+        </div>
         {#if i < category.budgetItems.length - 1}
-          <div class={"h-[2px] bg-muted/30 place-self-center w-[calc(100%)]" + (selectedItemIndex === i ? " bg-transparent" : "")}></div>
+          <div
+            class={cn("h-[2px] bg-muted/30 place-self-center w-[calc(100%)]",
+              (selectedItemIndex === i ? "bg-transparent" : ""))}
+          ></div>
         {/if}
       {/each}
     </Card.Content>
   {:else}
-  <div class="h-2"></div>
-    {/if}
-
+    <div class="h-2"></div>
+  {/if}
 </Card.Root>

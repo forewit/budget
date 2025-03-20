@@ -5,6 +5,7 @@
   import Button from "$lib/components/ui/button/button.svelte";
   import Settings from "lucide-svelte/icons/settings";
   import Pencil from "lucide-svelte/icons/pencil";
+  import { cn } from "$lib/utils";
 
   import { getBudgetContext } from "./budget.svelte";
 
@@ -13,7 +14,7 @@
   const budget = getBudgetContext();
 </script>
 
-  <Card.Root class={"flex flex-row justify-between items-center rounded-xl shadow-2xl " + className}>
+  <Card.Root class={cn("flex flex-row justify-between items-center rounded-xl shadow-2xl", className)}>
     <Card.Content class="flex flex-row items-center gap-2 p-2">
       <Button variant="ghost" class="hover:bg-transparent">
         <Settings class="w-4 h-4" />

@@ -79,7 +79,5 @@
     </Resizable.PaneGroup>
   {/if}
 
-  <BudgetToolbar
-    class="fixed bottom-2 w-min -translate-x-1/2 left-1/2"
-  />
+  <BudgetToolbar class="fixed bottom-2 w-min -translate-x-1/2 left-1/2" />
 </div>
