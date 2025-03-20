@@ -7,8 +7,7 @@
   } from "./budget.svelte";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Textarea } from "$lib/components/ui/textarea/index.js";
-  import RichTextarea from "./rich-textarea.svelte";
-
+  import ItemEditor from "./item-editor.svelte";
 
   let { categoryIndex, budgetItemIndex }: { categoryIndex: number; budgetItemIndex: number } =
     $props();
@@ -26,8 +25,6 @@
   }
 </script>
 
-
-
 <div class="p-4 pt-8 h-full w-full flex flex-col">
   <div class="py-4 flex gap-3 items-baseline">
     <Input
@@ -40,6 +37,5 @@
       onchange={(e) => updateBudgetItem(e, budgetItem)}
     />
   </div>
-  <Textarea class="py-4 pl-3" placeholder="Type your message here." />
-  <RichTextarea></RichTextarea>
+  <ItemEditor />
 </div>
