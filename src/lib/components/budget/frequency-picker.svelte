@@ -36,7 +36,7 @@
     </Collapsible.Trigger>
   {/if}
   <Collapsible.Content onfocusin={stopDelayClose} onfocusout={delayClose}>
-    <div class="mx-1 flex flex-row items-center gap-1 w-min bg-muted rounded-lg p-1 pl-2">
+    <div class="mx-1 flex flex-row items-center gap-1 w-min bg-primary/20 rounded-lg p-1 pl-2">
       <Collapsible.Trigger
         class="outline-offset-2 rounded-sm hover:underline underline-offset-4 font-medium text-xs p-0 h-min px-1"
         >every
@@ -44,7 +44,7 @@
       <Input
         bind:value={frequency.interval}
         type="number"
-        class="w-auto max-w-[3rem] h-min py-1 pr-0 font-medium md:text-xs text-xs"
+        class="w-auto max-w-[3rem] h-min py-1 font-medium md:text-xs text-xs appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
         style="field-sizing: content;"
       />
       <Select.Root bind:value={frequency.unit} type="single">

@@ -9,6 +9,4 @@
   <title>Jessica Helen Budget</title>
 </svelte:head>
 
-<div ontouchstart={(e)=>{e.preventDefault()}}>
   {@render children?.()}
-</div>

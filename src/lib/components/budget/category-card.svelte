@@ -20,9 +20,11 @@
     category,
     budgetItemClicked = () => {},
     class: className = "",
+    selectedItemIndex = -1,
   }: {
     category: Category;
     budgetItemClicked: (index: number) => void;
+    selectedItemIndex?: number;
     class?: string;
   } = $props();
 
@@ -41,7 +43,7 @@
 </script>
 
 <Card.Root class={"max-w-[500px] m-auto " + className}>
-  <Card.Header class="p-4 pr-6">
+  <Card.Header class="p-4 pb-2 pr-6">
     <div class="pl-1 flex gap-1 flex-row items-center">
       <Button
         variant="ghost"
@@ -66,23 +68,20 @@
     </div>
   </Card.Header>
   {#if category.expanded}
-    <Card.Content class="pt-0 pr-7">
+    <Card.Content class="p-0 pb-4">
       {#each category.budgetItems as budgetItem, i}
-        <!-- svelte-ignore a11y_no_static_element_interactions -->
-        <!-- svelte-ignore a11y_click_events_have_key_events -->
+    
         <button
-          class="w-full md:cursor-default border-b last:border-b-0 py-4 table-row"
-          onclick={(e) => {
+          class={"w-full md:cursor-default py-3 px-6 table-row ring-primary" + (i === selectedItemIndex ? " shadow-lg bg-muted/50" : "")}
+          onpointerdown={(e) => {
             e.stopPropagation();
             budgetItemClicked(i);
           }}
         >
-          <div
-            class="pointer-events-none md:pointer-events-auto grid grid-cols-[auto,1fr,6rem] items-center w-full"
-          >
+          <div class="pointer-events-none md:pointer-events-auto flex gap-1 items-center w-full">
             <Input
               bind:value={budgetItem.name}
-              class="max-w-40 pr-4 disabled:opacity-100 border-none bg-transparent"
+              class="pr-4 disabled:opacity-100 border-none bg-transparent"
               disabled={isMobile.current}
             />
             {#if budget.selectedFilterIndex == 0}
@@ -90,15 +89,16 @@
                 disabled={isMobile.current}
                 bind:frequency={budgetItem.frequency}
                 class="justify-self-end"
+                open={selectedItemIndex === i ? undefined : false}
               ></FrequencyPicker>
               <Input
-                class="justify-self-end max-w-24 text-right disabled:opacity-100 border-none bg-transparent"
+                class="justify-self-end w-[5.2rem] text-right disabled:opacity-100 border-none bg-transparent"
                 value={numberToDollarString(budgetItem.amount)}
                 onchange={(e) => updateBudgetItem(e, budgetItem)}
                 disabled={isMobile.current}
               />
             {:else}
-              <p class="select-text cursor-auto text-sm justify-self-end italic col-span-2 pr-3">
+              <p class="select-text cursor-auto text-sm justify-self-end italic col-span-2 px-3">
                 {numberToDollarString(
                   changeFrequency(
                     budgetItem.amount,
@@ -110,7 +110,13 @@
             {/if}
           </div>
         </button>
+        {#if i < category.budgetItems.length - 1}
+          <div class={"h-[2px] bg-muted/30 place-self-center w-[calc(100%)]" + (selectedItemIndex === i ? " bg-transparent" : "")}></div>
+        {/if}
       {/each}
     </Card.Content>
-  {/if}
+  {:else}
+  <div class="h-2"></div>
+    {/if}
+
 </Card.Root>
