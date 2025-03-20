@@ -36,7 +36,7 @@
   <ScrollArea
     type="scroll"
     onclick={clearSelection}
-    class="h-full bg-no-repeat bg-center bg-cover"
+    class="h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)]"
     style="background-image: url('{base}/images/field-background.jpg');"
     scrollbarYClasses="opacity-50"
   >
@@ -83,5 +83,5 @@
     </Resizable.PaneGroup>
   {/if}
 
-  <BudgetToolbar class="fixed bottom-6 w-min -translate-x-1/2 left-1/2" />
+  <BudgetToolbar class="fixed bottom-[max(env(safe-area-inset-bottom),2rem] w-min -translate-x-1/2 left-1/2" />
 </div>

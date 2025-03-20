@@ -29,14 +29,13 @@
 
 
 <div class="p-4 pt-8 h-full w-full flex flex-col">
-  <div class="py-4 flex gap-2 items-baseline">
+  <div class="py-4 flex gap-3 items-baseline">
     <Input
       bind:value={budgetItem.name}
-      class="font-medium text-2xl md:text-2xl text-medium border-none"
+      class="font-medium text-2xl md:text-2xl text-medium border-none pr-1"
     />
-    <div class="grow"></div>
     <Input
-      class="max-w-32 font-medium text-2xl md:text-2xl justify-self-end text-right border-none"
+      class="max-w-32 font-medium text-2xl md:text-2xl justify-self-end text-right border-none pl-1"
       value={numberToDollarString(budgetItem.amount)}
       onchange={(e) => updateBudgetItem(e, budgetItem)}
     />
