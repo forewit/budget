@@ -71,13 +71,17 @@
   {#if category.expanded}
     <Card.Content class="p-0 pb-4">
       {#each category.budgetItems as budgetItem, i}
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
         <div
           class={cn("w-full cursor-pointer md:cursor-default py-3 px-6",
             (i === selectedItemIndex ? "shadow-lg bg-muted/50" : ""))}
-          onpointerdown={(e) => {
+          onclick={(e) => {
             e.stopPropagation();
             budgetItemClicked(i);
           }}
+          onfocusin={()=>budgetItemClicked(i)}
+
         >
           <div class="pointer-events-none md:pointer-events-auto flex gap-1 items-center w-full">
             <Input

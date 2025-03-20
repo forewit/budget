@@ -34,7 +34,7 @@
 {#snippet budgetContent()}
   <ScrollArea
     type="scroll"
-    onpointerdown={clearSelection}
+    onclick={clearSelection}
     class="h-full bg-no-repeat bg-center bg-cover"
     style="background-image: url('{base}/images/field-background.jpg');"
   >
