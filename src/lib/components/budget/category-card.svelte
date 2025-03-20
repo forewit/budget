@@ -75,7 +75,7 @@
         <!-- svelte-ignore a11y_no_static_element_interactions -->
         <div
           class={cn("w-full cursor-pointer md:cursor-default py-3 px-6",
-            (i === selectedItemIndex ? "shadow-lg bg-muted/50" : ""))}
+            (i === selectedItemIndex ? "md:shadow-lg md:bg-muted/50" : ""))}
           onclick={(e) => {
             e.stopPropagation();
             budgetItemClicked(i);
@@ -118,7 +118,7 @@
         {#if i < category.budgetItems.length - 1}
           <div
             class={cn("h-[2px] bg-muted/30 place-self-center w-[calc(100%)]",
-              (selectedItemIndex === i ? "bg-transparent" : ""))}
+              (selectedItemIndex === i ? "md:bg-transparent" : ""))}
           ></div>
         {/if}
       {/each}

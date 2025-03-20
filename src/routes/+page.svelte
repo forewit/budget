@@ -9,6 +9,7 @@
   import BudgetOverview from "$lib/components/budget/budget-overview.svelte";
   import BudgetToolbar from "$lib/components/budget/budget-toolbar.svelte";
   import { base } from "$app/paths";
+  import { draw } from "svelte/transition";
 
   const budget = setBudgetContext();
 
