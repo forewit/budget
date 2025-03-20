@@ -73,7 +73,7 @@
         {@render budgetContent()}
       </Resizable.Pane>
       <Resizable.Handle withHandle />
-      <Resizable.Pane minSize={30}>
+      <Resizable.Pane minSize={30} class="pr-[max(env(safe-area-inset-right),0px)]">
         {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
         {:else}
@@ -83,5 +83,5 @@
     </Resizable.PaneGroup>
   {/if}
 
-  <BudgetToolbar class="fixed bottom-[max(env(safe-area-inset-bottom),2rem] w-min -translate-x-1/2 left-1/2" />
+  <BudgetToolbar class="fixed bottom-[max(env(safe-area-inset-bottom),2rem)] w-min -translate-x-1/2 left-1/2" />
 </div>
