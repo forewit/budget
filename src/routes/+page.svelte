@@ -40,7 +40,7 @@
     style="background-image: url('{base}/images/field-background.jpg');"
     scrollbarYClasses="opacity-50"
   >
-    <div class="pt-12 pb-28 px-2.4 flex flex-col gap-4 md:gap-4 @container">
+    <div class="pt-28 pb-28 px-2.4 flex flex-col gap-4 md:gap-4 @container">
       {#each budget.categories as category, catIndex}
         <CategoryCard
           class="w-full backdrop-blur-md bg-card/80 min-w-[350px] rounded-none @[500px]:rounded-lg"
@@ -53,14 +53,15 @@
   </ScrollArea>
 {/snippet}
 
-<div class="h-dvh">
+<div class="h-dvh relative">
+  <BudgetHeader class="shadow-xl backdrop-blur-md bg-background/80 absolute top-0 left-0 right-0 z-10"></BudgetHeader>
+
   {#if isMobile.current}
     <!-- show drawer on mobile -->
-     <BudgetHeader></BudgetHeader>
     {@render budgetContent()}
     {#if selectedBudgetItem >= 0 && selectedCategory >= 0}
       <Drawer.Root bind:open={drawerOpen}>
-        <Drawer.Content class="h-[calc(100dvh-64px)]">
+        <Drawer.Content class="h-[calc(100dvh-10rem)]">
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
         </Drawer.Content>
       </Drawer.Root>
@@ -69,11 +70,10 @@
     <!-- show resizable sidebar on desktop -->
     <Resizable.PaneGroup direction="horizontal">
       <Resizable.Pane minSize={30} >
-        <BudgetHeader></BudgetHeader>
         {@render budgetContent()}
       </Resizable.Pane>
       <Resizable.Handle withHandle />
-      <Resizable.Pane minSize={30} class="pr-[max(env(safe-area-inset-right),0px)]">
+      <Resizable.Pane minSize={30} class="pt-20 pr-[max(env(safe-area-inset-right),0px)]">
         {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
         {:else}
