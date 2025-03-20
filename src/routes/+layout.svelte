@@ -1,6 +1,5 @@
 <script lang="ts">
   import "../app.css";
-  import SafeAreas from "$lib/components/utilities/safe-areas.svelte";
 
   let { children } = $props();
 </script>
@@ -10,6 +9,6 @@
   <title>Jessica Helen Budget</title>
 </svelte:head>
 
-<SafeAreas>
+<div ontouchstart={(e)=>{e.preventDefault()}}>
   {@render children?.()}
-</SafeAreas>
+</div>
