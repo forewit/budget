@@ -9,7 +9,7 @@
   import BudgetOverview from "$lib/components/budget/budget-overview.svelte";
   import BudgetToolbar from "$lib/components/budget/budget-toolbar.svelte";
   import { base } from "$app/paths";
-  import { draw } from "svelte/transition";
+  import BudgetHeader from "$lib/components/budget/budget-header.svelte";
 
   const budget = setBudgetContext();
 
@@ -38,11 +38,12 @@
     onclick={clearSelection}
     class="h-full bg-no-repeat bg-center bg-cover"
     style="background-image: url('{base}/images/field-background.jpg');"
+    scrollbarYClasses="opacity-50"
   >
-    <div class="py-12 px-2 flex flex-col gap-4 md:gap-4">
+    <div class="pt-12 pb-28 px-2.4 flex flex-col gap-4 md:gap-4 @container">
       {#each budget.categories as category, catIndex}
         <CategoryCard
-          class="w-full backdrop-blur-md bg-card/80 min-w-[350px]"
+          class="w-full backdrop-blur-md bg-card/80 min-w-[350px] rounded-none @[500px]:rounded-lg"
           {category}
           budgetItemClicked={(itemIndex) => selectBudgetItem(catIndex, itemIndex)}
           selectedItemIndex={catIndex === selectedCategory ? selectedBudgetItem : -1}
@@ -55,6 +56,7 @@
 <div class="h-dvh">
   {#if isMobile.current}
     <!-- show drawer on mobile -->
+     <BudgetHeader></BudgetHeader>
     {@render budgetContent()}
     {#if selectedBudgetItem >= 0 && selectedCategory >= 0}
       <Drawer.Root bind:open={drawerOpen}>
@@ -66,7 +68,8 @@
   {:else}
     <!-- show resizable sidebar on desktop -->
     <Resizable.PaneGroup direction="horizontal">
-      <Resizable.Pane minSize={30}>
+      <Resizable.Pane minSize={30} >
+        <BudgetHeader></BudgetHeader>
         {@render budgetContent()}
       </Resizable.Pane>
       <Resizable.Handle withHandle />
@@ -80,5 +83,5 @@
     </Resizable.PaneGroup>
   {/if}
 
-  <BudgetToolbar class="fixed bottom-2 w-min -translate-x-1/2 left-1/2" />
+  <BudgetToolbar class="fixed bottom-6 w-min -translate-x-1/2 left-1/2" />
 </div>

@@ -36,11 +36,11 @@
     </Collapsible.Trigger>
   {/if}
   <Collapsible.Content onfocusin={stopDelayClose} onfocusout={delayClose}>
-    <div class="mx-1 flex flex-row items-center gap-1 w-min bg-primary/20 rounded-lg p-1 pl-2">
-      <Collapsible.Trigger
-        class="outline-offset-2 rounded-sm hover:underline underline-offset-4 font-medium text-xs p-0 h-min px-1"
+    <div class="mx-1 flex flex-row items-center gap-1 w-min bg-primary/20 rounded-lg p-1">
+      <div
+        class="font-medium text-xs h-min pl-1 pr-0.5"
         >every
-      </Collapsible.Trigger>
+    </div>
       <Input
         bind:value={frequency.interval}
         type="number"
