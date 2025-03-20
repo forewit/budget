@@ -54,14 +54,14 @@
 {/snippet}
 
 <div class="h-dvh relative">
-  <BudgetHeader class="shadow-xl backdrop-blur-md bg-background/80 absolute top-0 left-0 right-0 z-10"></BudgetHeader>
+  <BudgetHeader class="shadow-xl bg-background absolute top-0 left-0 right-0 z-10"></BudgetHeader>
 
   {#if isMobile.current}
     <!-- show drawer on mobile -->
     {@render budgetContent()}
     {#if selectedBudgetItem >= 0 && selectedCategory >= 0}
       <Drawer.Root bind:open={drawerOpen}>
-        <Drawer.Content class="h-[calc(100dvh-10rem)]">
+        <Drawer.Content class="h-[calc(100dvh-7rem)]">
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
         </Drawer.Content>
       </Drawer.Root>
