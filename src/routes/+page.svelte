@@ -36,14 +36,14 @@
   <ScrollArea
     type="scroll"
     onclick={clearSelection}
-    class="h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)]"
+    class="h-full bg-no-repeat bg-center bg-cover md:px-2 px-0 pl-[max(env(safe-area-inset-left),0px)]"
     style="background-image: url('{base}/images/field-background.jpg');"
     scrollbarYClasses="opacity-50"
   >
-    <div class="pt-28 pb-28 px-2.4 flex flex-col gap-4 md:gap-4 @container">
+    <div class="pt-28 pb-28 flex flex-col gap-4 md:gap-4">
       {#each budget.categories as category, catIndex}
         <CategoryCard
-          class="w-full backdrop-blur-md bg-card/80 min-w-[350px] rounded-none @[500px]:rounded-lg"
+          class="w-full backdrop-blur-md bg-card/80"
           {category}
           budgetItemClicked={(itemIndex) => selectBudgetItem(catIndex, itemIndex)}
           selectedItemIndex={catIndex === selectedCategory ? selectedBudgetItem : -1}
@@ -69,8 +69,8 @@
   {:else}
     <!-- show resizable sidebar on desktop -->
     <Resizable.PaneGroup direction="horizontal">
-      <Resizable.Pane minSize={30} >
-        {@render budgetContent()}
+      <Resizable.Pane minSize={30}>
+          {@render budgetContent()}
       </Resizable.Pane>
       <Resizable.Handle withHandle />
       <Resizable.Pane minSize={30} class="pt-20 pr-[max(env(safe-area-inset-right),0px)]">
