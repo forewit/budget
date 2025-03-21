@@ -6,8 +6,7 @@
     type BudgetItem,
   } from "./budget.svelte";
   import { Input } from "$lib/components/ui/input/index.js";
-  import { Textarea } from "$lib/components/ui/textarea/index.js";
-  import ItemEditor from "./item-editor.svelte";
+  import Editor from "$lib/components/editor/editor.svelte";
 
   let { categoryIndex, budgetItemIndex }: { categoryIndex: number; budgetItemIndex: number } =
     $props();
@@ -37,5 +36,6 @@
       onchange={(e) => updateBudgetItem(e, budgetItem)}
     />
   </div>
-  <ItemEditor />
+  <Editor />
+
 </div>
