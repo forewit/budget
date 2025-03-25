@@ -1,15 +1,14 @@
 <script lang="ts">
   import { cn } from "$lib/utils.js";
-  import Button from "$lib/components/ui/button/button.svelte";
-  import { mount, tick, unmount } from "svelte";
+  import { tick } from "svelte";
   import Block, { type BlockProps } from "./block.svelte";
 
   let { class: className = "" } = $props();
 
   let editorRef: HTMLElement;
   let editorContent: (string | BlockProps)[] = $state([]);
-  let selectionStart = 0;
-  let selectionEnd = 0;
+  let selectionStart = $state(0);
+  let selectionEnd = $state(0);
 
   const VALID_CHARS =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 !#$%^&*()_+-=[]{}|;':\",/.<>?";
@@ -23,83 +22,53 @@
 
     const range = selection.getRangeAt(0);
     if (!editorRef.contains(range.startContainer) || !editorRef.contains(range.endContainer))
-        return;
+      return;
 
-    let start = 0, end = 0, offset = 0;
-    let lastBlock: HTMLElement | null = null;
-    
-    function traverse(node: Node) {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const textLength = node.textContent?.length ?? 0;
-            if (node === range.startContainer) start = offset + range.startOffset;
-            if (node === range.endContainer) end = offset + range.endOffset;
-            offset += textLength;
-        } else if (node instanceof HTMLElement && node.dataset.component === "block") {
-            lastBlock = node; // Track last block for edge case handling
-            if (node === range.startContainer || node.contains(range.startContainer)) start = offset;
-            if (node === range.endContainer || node.contains(range.endContainer)) end = offset;
-            offset += 1; // Treat block as a single character
-        } else {
-            for (let child of node.childNodes) traverse(child);
-        }
+    const nodes = [...editorRef.childNodes].filter((n) => n.textContent?.length ?? 0 > 0);
+
+    let start = 0,
+      end = 0,
+      startOffset = 0,
+      endOffset = 0;
+
+    for (let node of nodes) {
+      if (node === range.startContainer) start = startOffset + range.startOffset;
+      if (node === range.endContainer) end = endOffset + range.endOffset;
+      endOffset++;
+      startOffset++;
+    }
+    if (range.startContainer === editorRef) {
+      start = range.startOffset <= 0 ? 0 : nodes.length;
+    }
+    if (range.endContainer === editorRef) {
+      end = range.endOffset <= 0 ? 0 : nodes.length;
     }
 
-    traverse(editorRef);
-
-    // **Handle the last block case**
-    if (selection.anchorNode === editorRef && selection.anchorOffset === editorRef.childNodes.length) {
-        selectionStart = selectionEnd = offset; // Set to total length
-    } else {
-        selectionStart = start;
-        selectionEnd = end;
-    }
-
-    console.log(selectionStart, selectionEnd);
-}
-
-  function getNodeForCharacterOffset(
-    root: Node,
-    offset: number
-): { node: Node; offset: number } | null {
-    let currentOffset = 0;
-
-    for (let node of root.childNodes) {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const textLength = node.textContent?.length ?? 0;
-            if (currentOffset + textLength >= offset) {
-                return { node, offset: offset - currentOffset };
-            }
-            currentOffset += textLength;
-        } else if (node instanceof HTMLElement && node.dataset.component === "block") {
-            if (currentOffset === offset) return { node, offset: 0 };
-            currentOffset += 1; // Treat as a single character
-        } else {
-            const result = getNodeForCharacterOffset(node, offset - currentOffset);
-            if (result) return result;
-        }
-    }
-    return null;
-}
+    selectionStart = start;
+    selectionEnd = end;
+  }
 
   async function setSelection(start: number, end: number) {
     await tick();
 
-    const startData = getNodeForCharacterOffset(editorRef, start);
-    const endData = getNodeForCharacterOffset(editorRef, end);
+    const nodes = [...editorRef.childNodes].filter((n) => n.textContent?.length ?? 0 > 0);
 
-    if (startData && endData) {
-      const range = document.createRange();
-      range.setStart(startData.node, startData.offset);
-      range.setEnd(endData.node, endData.offset);
+    start = Math.max(0, Math.min(start, nodes.length));
+    end = Math.max(0, Math.min(end, nodes.length));
 
-      const selection = window.getSelection();
-      selection?.removeAllRanges();
-      selection?.addRange(range);
-    }
+    const range = document.createRange();
+    if (start === 0) range.setStart(editorRef, 0);
+    else range.setStart(nodes[start - 1], 1);
+    if (end === 0) range.setEnd(editorRef, 0);
+    else range.setEnd(nodes[end - 1], 1);
+
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
   }
 
   function handleKeyDown(e: KeyboardEvent) {
-    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight" || (e.key === "a" && e.ctrlKey)) {
       return;
     }
 
@@ -107,20 +76,16 @@
     const key = e.key;
 
     if (isValidChar(key)) {
-      // remove everything from selectionStart to selectionEnd
       editorContent.splice(selectionStart, selectionEnd - selectionStart);
-      // insert character at selectionStart
       editorContent.splice(selectionStart, 0, key);
       setSelection(selectionStart + 1, selectionStart + 1);
     }
 
     if (key === "Backspace") {
       if (selectionEnd === selectionStart && selectionStart > 0) {
-        // remove character at selectionStart
         editorContent.splice(selectionStart - 1, 1);
         setSelection(selectionStart - 1, selectionStart - 1);
       } else {
-        // remove everything from selectionStart to selectionEnd
         editorContent.splice(selectionStart, selectionEnd - selectionStart);
         setSelection(selectionStart, selectionStart);
       }
@@ -128,24 +93,18 @@
 
     if (key === "Delete") {
       if (selectionEnd === selectionStart) {
-        // remove character at selectionStart
         editorContent.splice(selectionStart, 1);
         setSelection(selectionStart, selectionStart);
       } else {
-        // remove everything from selectionStart to selectionEnd
         editorContent.splice(selectionStart, selectionEnd - selectionStart);
         setSelection(selectionStart, selectionStart);
       }
     }
 
     if (e.key === "@") {
-      // remove everything from selectionStart to selectionEnd
       editorContent.splice(selectionStart, selectionEnd - selectionStart);
-      // insert Block at selectionStart
       editorContent.splice(selectionStart, 0, { lock: true });
       setSelection(selectionStart + 1, selectionStart + 1);
-
-      log();
     }
   }
 
@@ -157,12 +116,6 @@
 
   // 😥 DONT DO THIS
   function handleDrop(event: DragEvent) {}
-
-  async function log() {
-    await tick();
-    await tick();
-    console.log($state.snapshot(editorContent));
-  }
 </script>
 
 <svelte:document onselectionchange={syncSelection} />
@@ -184,11 +137,17 @@
     {#if typeof item === "string"}
       {item}
     {:else}
-    <span data-component="block">
-      <Block {...item} />
-    </span>
+      <p class="inline-block" data-component="block">
+        <span contenteditable="false">
+          <Block {...item} />
+        </span>
+      </p>
     {/if}
   {/each}
 </div>
-
-<p class="text-right pt-4 pr-2 text-xs text-muted-foreground">Type @ to insert a link</p>
+<div class="flex justify-between">
+  <p class="text-left pt-4 pr-2 text-xs text-muted-foreground">
+    Selection: {selectionStart}, {selectionEnd}
+  </p>
+  <p class="text-right pt-4 pr-2 text-xs text-muted-foreground">Type @ to insert a link</p>
+</div>
