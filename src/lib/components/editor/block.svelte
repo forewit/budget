@@ -1,18 +1,25 @@
 <script lang="ts">
   import { cn } from "$lib/utils.js";
-  import { onDestroy } from "svelte";
-  import ChevronRight from "lucide-svelte/icons/chevron-right";
-  import Button from "../ui/button/button.svelte";
+  import type { HTMLAttributes } from "svelte/elements";
 
   export type BlockProps = {
-    lock?: boolean;
+    type: "A" | "B" | "C";
+    lock: boolean;
     highlight?: boolean;
+    class?: string;
+    onclick?: () => void;
   };
 
-  let { highlight = false }: BlockProps = $props();
+  let {
+    type,
+    lock = false,
+    highlight = false,
+    class: className = "",
+    onclick = () => {},
+    ...restProps
+  }: BlockProps & HTMLAttributes<HTMLButtonElement> = $props();
 
   let elm: HTMLElement;
-  let error = $state(false);
 
   function highlightOnSelect() {
     const selection = window.getSelection();
@@ -27,30 +34,19 @@
       range.endContainer === elm ||
       range.commonAncestorContainer === elm;
   }
-
-  onDestroy(() => {
-    //console.log("💥 destroyed");
-  });
 </script>
 
 <svelte:document on:selectionchange={highlightOnSelect} />
-
 <button
   bind:this={elm}
   class={cn(
-    "mx-0.5 cursor-pointer p-1 select-none bg-foreground text-background rounded text-xs inline-block",
-    error && "ring-1 ring-red-500",
-    highlight && "ring-2 ring-primary"
+    "align-baseline cursor-pointer p-1 px-2 select-none bg-foreground text-background rounded-full text-xs font-medium",
+    highlight && "ring-2 ring-primary",
+    lock && "opacity-50",
+    className
   )}
-  onclick={() => {
-    error = !error;
-  }}
+  {onclick}
+  {...restProps}
 >
   Block
-  <ChevronRight class="inline-block size-3" />
-  <ChevronRight class="inline-block size-3" />
-  <div class="inline-block">
-    <p class="inline-block text-xs text-muted-foreground">test</p>
-    <p class="inline-block text-xs text-muted-foreground">test</p>
-  </div>
 </button>
