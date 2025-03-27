@@ -22,11 +22,11 @@
 </script>
 
 <div class="p-4 pt-8 h-full w-full">
-  <div class="pb-4 justify-between items-end flex w-full h-min gap-2">
+  <div class="pb-4 pr-2 justify-between items-end flex w-full h-min gap-2">
     <MuiltilineInput bind:value={budgetItem.name} placeholder="Untitled" />
     <div>
-      <DollarInput bind:value={budgetItem.amount} class="font-medium text-xl md:text-xl w-min justify-self-end"/>
-      <FrequencyPicker bind:frequency={budgetItem.frequency} class="mt-1  justify-self-end" />
+      <DollarInput bind:value={budgetItem.amount} class="border-none  font-medium text-xl md:text-xl w-min justify-self-end"/>
+      <FrequencyPicker  bind:frequency={budgetItem.frequency} class="mt-1  justify-self-end" />
     </div>
   </div>
   <Editor />

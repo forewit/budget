@@ -10,33 +10,46 @@
     class: className = "",
     open = $bindable(false),
     disabled = false,
-  }: { frequency: Frequency; class?: string; open?: boolean; disabled?: boolean } = $props();
+  }: {
+    frequency: Frequency;
+    class?: string;
+    open?: boolean;
+    disabled?: boolean;
+  } = $props();
 
   let delayedCloseTimer: ReturnType<typeof setTimeout>;
   function delayClose() {
+    if (disabled) return;
     delayedCloseTimer = setTimeout(() => {
       open = false;
     }, 1000);
   }
 
   function stopDelayClose() {
-    clearTimeout(delayedCloseTimer);
+    if (open) clearTimeout(delayedCloseTimer);
   }
 </script>
 
 <Collapsible.Root bind:open class={cn("flex h-8", className)} onOpenChange={stopDelayClose}>
-  {#if !open || disabled}
+  {#if !open}
     <Collapsible.Trigger
-      class="text-right text-nowrap outline-offset-2 rounded-lg hover:underline underline-offset-4 font-medium text-xs border-input ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+      class={cn(
+        "px-3 bg-primary/10 text-right text-nowrap outline-offset-2 rounded-lg hover:underline underline-offset-4 font-medium text-xs border-input ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+        disabled && "hover:no-underline"
+      )}
       {disabled}
     >
       {getFrequencyName(frequency)}
     </Collapsible.Trigger>
   {/if}
   <Collapsible.Content onfocusin={stopDelayClose} onfocusout={delayClose}>
-    <div class=" px-1 flex flex-row items-center gap-1 w-min h-full bg-primary/20 rounded-lg">
+    <div class="px-1 flex flex-row items-center gap-1 w-min h-full bg-primary/20 rounded-lg">
       <Collapsible.Trigger
-        class="font-medium text-xs h-min pl-1 pr-0.5 py-1 hover:underline underline-offset-4 border-input rounded-md ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+        class={cn(
+          "font-medium text-xs h-min pl-1 pr-0.5 py-1 hover:underline underline-offset-4 border-input rounded-md ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+          disabled && "hover:no-underline"
+        )}
+        {disabled}
         >every
       </Collapsible.Trigger>
       <Input
