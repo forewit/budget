@@ -5,6 +5,7 @@
   import ChevronRight from "lucide-svelte/icons/chevron-right";
   import ChevronDown from "lucide-svelte/icons/chevron-down";
   import FrequencyPicker from "./frequency-picker.svelte";
+  import DollarInput from "./dollar-input.svelte";
   import {
     getBudgetContext,
     categoryTotal,
@@ -96,11 +97,10 @@
                 bind:frequency={budgetItem.frequency}
                 class="justify-self-end"
                 open={selectedItemIndex === i ? undefined : false}
-              ></FrequencyPicker>
-              <Input
-                class="justify-self-end w-[5.2rem] text-right disabled:opacity-100 border-none bg-transparent"
-                value={numberToDollarString(budgetItem.amount)}
-                onchange={(e) => updateBudgetItem(e, budgetItem)}
+              />
+              <DollarInput
+                bind:value={budgetItem.amount}
+                class="justify-self-end w-[5.2rem] border-none"
                 disabled={isMobile.current}
               />
             {:else}
