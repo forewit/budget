@@ -59,7 +59,7 @@
       </Button>
       <Input
         bind:value={category.name}
-        class="border-none bg-transparent max-w-40 pl-1 text-xl md:text-xl font-medium"
+        class="border-none bg-transparent pl-1 text-xl md:text-xl font-medium"
       />
       <div class="grow"></div>
 

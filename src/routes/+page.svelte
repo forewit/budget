@@ -1,15 +1,15 @@
 <script lang="ts">
   import * as Drawer from "$lib/components/ui/drawer/index.js";
   import * as Resizable from "$lib/components/ui/resizable/index.js";
+  import * as ToggleGroup from "$lib/components/ui/toggle-group/index.js";
   import CategoryCard from "$lib/components/budget/category-card.svelte";
   import ItemDetails from "$lib/components/budget/item-details.svelte";
+  import BudgetOverview from "$lib/components/budget/budget-overview.svelte";
   import { ScrollArea } from "$lib/components/ui/scroll-area/index.js";
   import { setBudgetContext } from "$lib/components/budget/budget.svelte";
   import { IsMobile } from "$lib/hooks/is-mobile.svelte";
-  import BudgetOverview from "$lib/components/budget/budget-overview.svelte";
-  import BudgetToolbar from "$lib/components/budget/budget-toolbar.svelte";
   import { base } from "$app/paths";
-  import BudgetHeader from "$lib/components/budget/budget-header.svelte";
+  import Pencil from "lucide-svelte/icons/pencil";
 
   const budget = setBudgetContext();
 
@@ -33,24 +33,37 @@
 </script>
 
 {#snippet budgetContent()}
-  <ScrollArea
-    type="scroll"
-    onclick={clearSelection}
-    class="h-full bg-no-repeat bg-center bg-cover px-2 pl-[max(env(safe-area-inset-left),0.5rem)]"
+  <div
+    class="flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0)]"
     style="background-image: url('{base}/images/field-background.jpg');"
-    scrollbarYClasses="opacity-50"
   >
-    <div class="pt-12 pb-28 flex flex-col gap-4 md:gap-4">
-      {#each budget.categories as category, catIndex}
-        <CategoryCard
-          class="w-full backdrop-blur-md bg-card/80"
-          {category}
-          budgetItemClicked={(itemIndex) => selectBudgetItem(catIndex, itemIndex)}
-          selectedItemIndex={catIndex === selectedCategory ? selectedBudgetItem : -1}
-        />
-      {/each}
-    </div>
-  </ScrollArea>
+    <ToggleGroup.Root
+      onValueChange={(v) => {
+        budget.selectedFilterIndex = parseInt(v);
+      }}
+      value="0"
+      type="single"
+      orientation="vertical"
+      class={"flex flex-col bg-background rounded-xl shadow-xl px-1 py-2 h-min mx-1.5 place-self-center"}
+    >
+      <ToggleGroup.Item value="0"><Pencil class="w-4 h-4" /></ToggleGroup.Item>
+      <ToggleGroup.Item value="1">M</ToggleGroup.Item>
+      <ToggleGroup.Item value="2">2W</ToggleGroup.Item>
+      <ToggleGroup.Item value="3">Y</ToggleGroup.Item>
+    </ToggleGroup.Root>
+    <ScrollArea class="w-full" type="scroll" onclick={clearSelection} scrollbarYClasses="opacity-50">
+      <div class="pt-12 pb-28 pr-2.5 flex flex-col gap-4 md:gap-4">
+        {#each budget.categories as category, catIndex}
+          <CategoryCard
+            class="w-full backdrop-blur-md bg-card/80"
+            {category}
+            budgetItemClicked={(itemIndex) => selectBudgetItem(catIndex, itemIndex)}
+            selectedItemIndex={catIndex === selectedCategory ? selectedBudgetItem : -1}
+          />
+        {/each}
+      </div>
+    </ScrollArea>
+  </div>
 {/snippet}
 
 <div class="h-dvh relative">
@@ -70,7 +83,7 @@
     <!-- show resizable sidebar on desktop -->
     <Resizable.PaneGroup direction="horizontal">
       <Resizable.Pane minSize={30}>
-          {@render budgetContent()}
+        {@render budgetContent()}
       </Resizable.Pane>
       <Resizable.Handle withHandle />
       <Resizable.Pane minSize={30} class="pr-[max(env(safe-area-inset-right),0px)]">
@@ -82,6 +95,4 @@
       </Resizable.Pane>
     </Resizable.PaneGroup>
   {/if}
-
-  <BudgetToolbar class="fixed bottom-[max(env(safe-area-inset-bottom),2rem)] w-min -translate-x-1/2 left-1/2" />
 </div>

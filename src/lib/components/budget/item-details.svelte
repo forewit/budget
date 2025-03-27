@@ -31,9 +31,10 @@
       class="font-medium text-2xl md:text-2xl text-medium border-none pr-1"
     />
     <Input
-      class="max-w-32 font-medium text-2xl md:text-2xl justify-self-end text-right border-none pl-1"
+      class="w-min font-medium text-2xl md:text-2xl justify-self-end text-right border-none"
       value={numberToDollarString(budgetItem.amount)}
       onchange={(e) => updateBudgetItem(e, budgetItem)}
+      style="field-sizing:content;"
     />
   </div>
   <Editor />

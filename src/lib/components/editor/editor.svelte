@@ -82,12 +82,10 @@
       else return;
     }
 
-    // Create a new array to store the filtered content
     editorContent = editorContent.filter(
       (item, index) =>
         index < selectionStart || index >= selectionEnd || (typeof item !== "string" && item.lock)
     );
-
     setSelection(selectionStart, selectionStart);
   }
 
