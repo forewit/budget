@@ -86,6 +86,7 @@
           <div class="pointer-events-none md:pointer-events-auto flex gap-1 items-center w-full">
             <Input
               bind:value={budgetItem.name}
+              placeholder="Untitled"
               class="pr-4 disabled:opacity-100 border-none bg-transparent"
               disabled={isMobile.current}
             />

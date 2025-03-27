@@ -9,6 +9,8 @@
   import { Input } from "$lib/components/ui/input/index.js";
   import Editor from "$lib/components/editor/editor.svelte";
   import FrequencyPicker from "./frequency-picker.svelte";
+  import DollarInput from "./dollar-input.svelte";
+  import MuiltilineInput from "$lib/components/muiltiline-input.svelte";
 
   let { categoryIndex, budgetItemIndex }: { categoryIndex: number; budgetItemIndex: number } =
     $props();
@@ -17,29 +19,14 @@
 
   let category = $derived(budget.categories[categoryIndex]);
   let budgetItem = $derived(category.budgetItems[budgetItemIndex]);
-
-  function updateBudgetItem(e: Event, budgetItem: BudgetItem) {
-    let input = e.target as HTMLInputElement;
-    budgetItem.amount = dollarStringToNumber(input.value);
-    input.value = numberToDollarString(budgetItem.amount);
-  }
 </script>
 
 <div class="p-4 pt-8 h-full w-full">
   <div class="pb-4 justify-between items-end flex w-full h-min gap-2">
-    <div
-      bind:innerText={budgetItem.name}
-      contenteditable="plaintext-only"
-      aria-roledescription="textbox"
-      class="align-bottom min-w-16 border h-min py-2 px-3 rounded-xl max-w-full bg-transparent font-medium text-2xl md:text-2xl text-medium"
-    ></div>
+    <MuiltilineInput bind:value={budgetItem.name} placeholder="Untitled" />
     <div>
-      <Input
-        class="max-w-32 font-medium text-2xl md:text-2xl justify-self-end text-right border-none pr-1"
-        value={numberToDollarString(budgetItem.amount)}
-        onchange={(e) => updateBudgetItem(e, budgetItem)}
-      />
-      <FrequencyPicker bind:frequency={budgetItem.frequency} class="justify-self-end pr-1" />
+      <DollarInput bind:value={budgetItem.amount} class="font-medium text-xl md:text-xl w-min justify-self-end"/>
+      <FrequencyPicker bind:frequency={budgetItem.frequency} class="mt-1  justify-self-end" />
     </div>
   </div>
   <Editor />

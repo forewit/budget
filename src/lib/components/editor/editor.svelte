@@ -112,6 +112,7 @@
       e.key === "ArrowRight" ||
       e.key === "ArrowUp" ||
       e.key === "ArrowDown" ||
+      e.key === "Tab" ||
       (e.key === "a" && e.ctrlKey)
     ) {
       return;
@@ -146,9 +147,6 @@
   function handleCopy(event: ClipboardEvent) {}
   function handleDrop(event: DragEvent) {} // 😥 DONT DO THIS -scope creep-
 
-  onMount(() => {
-    safeInsert(..."Locked: ", { type: "A", lock: true });
-  });
 </script>
 
 <svelte:document onselectionchange={syncSelection} />
@@ -176,9 +174,9 @@
     {/if}
   {/each}
 </div>
-<div class="flex justify-between">
-  <p class="text-left pt-4 pr-2 text-xs text-muted-foreground">
+
+  <p class="text-right pt-4 text-xs text-muted-foreground">Type @ to insert a link</p>
+
+  <!-- <p class="text-left pt-4 pr-2 text-xs text-muted-foreground">
     Selection: {selectionStart}, {selectionEnd}
-  </p>
-  <p class="text-right pt-4 pr-2 text-xs text-muted-foreground">Type @ to insert a link</p>
-</div>
+  </p> -->

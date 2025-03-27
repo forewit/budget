@@ -27,16 +27,16 @@
 <Collapsible.Root bind:open class={cn("flex h-8", className)} onOpenChange={stopDelayClose}>
   {#if !open || disabled}
     <Collapsible.Trigger
-      class="text-right text-nowrap outline-offset-2 rounded-lg hover:underline underline-offset-4 font-medium text-xs"
+      class="text-right text-nowrap outline-offset-2 rounded-lg hover:underline underline-offset-4 font-medium text-xs border-input ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
       {disabled}
     >
       {getFrequencyName(frequency)}
     </Collapsible.Trigger>
   {/if}
   <Collapsible.Content onfocusin={stopDelayClose} onfocusout={delayClose}>
-    <div class="mx-1 px-1 flex flex-row items-center gap-1 w-min h-full bg-primary/20 rounded-lg">
+    <div class=" px-1 flex flex-row items-center gap-1 w-min h-full bg-primary/20 rounded-lg">
       <Collapsible.Trigger
-        class="font-medium text-xs h-min pl-1 pr-0.5 hover:underline underline-offset-4"
+        class="font-medium text-xs h-min pl-1 pr-0.5 py-1 hover:underline underline-offset-4 border-input rounded-md ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
         >every
       </Collapsible.Trigger>
       <Input
