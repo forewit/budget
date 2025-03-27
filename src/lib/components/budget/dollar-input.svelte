@@ -8,10 +8,11 @@
     class: className = "",
   }: { value?: number; disabled?: boolean; class?: string } = $props();
 
-  function updateValue(e: Event) {
-    let div = e.target as HTMLDivElement;
-    value = dollarStringToNumber(div.innerText);
-    div.innerText = numberToDollarString(value);
+  let innerText = $state(numberToDollarString(value));
+
+  function updateValue() {
+    value = dollarStringToNumber(innerText);
+    innerText = numberToDollarString(value);
   }
 
   function handleKeyDown(e: KeyboardEvent) {
@@ -20,6 +21,7 @@
 </script>
 
 <div
+  bind:innerText
   contenteditable="plaintext-only"
   role="textbox"
   tabindex="0"
@@ -29,7 +31,7 @@
     disabled && "pointer-events-none",
     className
   )}
-  onfocusout={(e) => updateValue(e)}
+  onfocusout={updateValue}
   onkeydown={handleKeyDown}
 >
   {numberToDollarString(value)}

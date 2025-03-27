@@ -34,7 +34,7 @@
 
 {#snippet budgetContent()}
   <div
-    class="flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0)]"
+    class="min-w-[340px] flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)]"
     style="background-image: url('{base}/images/field-background.jpg');"
   >
     <ToggleGroup.Root

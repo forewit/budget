@@ -19,7 +19,7 @@
   import { cn } from "$lib/utils.js";
 
   let {
-    category,
+    category = $bindable(),
     budgetItemClicked = () => {},
     class: className = "",
     selectedItemIndex = -1,
@@ -36,12 +36,6 @@
   let total = $derived(
     categoryTotal(category, budget.filters[budget.selectedFilterIndex].frequency)
   );
-
-  function updateBudgetItem(e: Event, budgetItem: BudgetItem) {
-    let input = e.target as HTMLInputElement;
-    budgetItem.amount = dollarStringToNumber(input.value);
-    input.value = numberToDollarString(budgetItem.amount);
-  }
 </script>
 
 <Card.Root class={cn("max-w-[500px] m-auto", className)}>
@@ -73,16 +67,16 @@
     <Card.Content class="p-0 pb-4">
       {#each category.budgetItems as budgetItem, i}
         <!-- svelte-ignore a11y_click_events_have_key_events -->
-        <!-- svelte-ignore a11y_no_static_element_interactions -->
         <div
-          class={cn("w-full cursor-pointer md:cursor-default py-3 px-6",
+          role="button"
+          tabindex="0"
+          class={cn("w-full cursor-pointer md:cursor-default py-3 px-6 overflow-hidden",
             (i === selectedItemIndex && "md:shadow-md md:bg-muted/50"))}
           onclick={(e) => {
             e.stopPropagation();
             budgetItemClicked(i);
           }}
           onfocusin={()=>budgetItemClicked(i)}
-
         >
           <div class="pointer-events-none md:pointer-events-auto flex gap-1 items-center w-full">
             <Input
@@ -100,7 +94,7 @@
               />
               <DollarInput
                 bind:value={budgetItem.amount}
-                class="justify-self-end w-[5.2rem] border-none"
+                class="justify-self-end min-w-[5.2rem] max-w-[5.2rem] border-none"
                 disabled={isMobile.current}
               />
             {:else}
