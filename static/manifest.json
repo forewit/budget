@@ -1,0 +1,16 @@
+{
+    "name": "Budget",
+    "short_name": "Budget",
+    "description": "Jessica Helen Budget",
+    "start_url": "/budget/",
+    "scope": "/budget/",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "images/field-icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

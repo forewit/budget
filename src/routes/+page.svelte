@@ -67,8 +67,6 @@
 {/snippet}
 
 <div class="h-dvh relative">
-  <!-- <BudgetHeader class="shadow-xl bg-background absolute top-0 left-0 right-0 z-10"></BudgetHeader> -->
-
   {#if isMobile.current}
     <!-- show drawer on mobile -->
     {@render budgetContent()}
