@@ -86,6 +86,7 @@
       (item, index) =>
         index < selectionStart || index >= selectionEnd || (typeof item !== "string" && item.lock)
     );
+
     setSelection(selectionStart, selectionStart);
   }
 

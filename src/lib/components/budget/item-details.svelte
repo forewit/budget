@@ -5,8 +5,10 @@
     dollarStringToNumber,
     type BudgetItem,
   } from "./budget.svelte";
+  import Textarea from "$lib/components/ui/textarea/textarea.svelte";
   import { Input } from "$lib/components/ui/input/index.js";
   import Editor from "$lib/components/editor/editor.svelte";
+  import FrequencyPicker from "./frequency-picker.svelte";
 
   let { categoryIndex, budgetItemIndex }: { categoryIndex: number; budgetItemIndex: number } =
     $props();
@@ -15,7 +17,6 @@
 
   let category = $derived(budget.categories[categoryIndex]);
   let budgetItem = $derived(category.budgetItems[budgetItemIndex]);
-  let links = ["Google", "Twitter", "Facebook"];
 
   function updateBudgetItem(e: Event, budgetItem: BudgetItem) {
     let input = e.target as HTMLInputElement;
@@ -24,19 +25,23 @@
   }
 </script>
 
-<div class="p-4 pt-8 h-full w-full flex flex-col">
-  <div class="py-4 flex gap-3 items-baseline">
-    <Input
-      bind:value={budgetItem.name}
-      class="font-medium text-2xl md:text-2xl text-medium border-none pr-1"
-    />
-    <Input
-      class="w-min font-medium text-2xl md:text-2xl justify-self-end text-right border-none"
-      value={numberToDollarString(budgetItem.amount)}
-      onchange={(e) => updateBudgetItem(e, budgetItem)}
-      style="field-sizing:content;"
-    />
+<div class="p-4 pt-8 h-full w-full">
+  <div class="pb-4 justify-between items-end flex w-full h-min gap-2">
+    <div
+      bind:innerText={budgetItem.name}
+      contenteditable="plaintext-only"
+      aria-roledescription="textbox"
+      class="align-bottom min-w-16 border h-min py-2 px-3 rounded-xl max-w-full bg-transparent font-medium text-2xl md:text-2xl text-medium"
+    ></div>
+    <div>
+      <Input
+        class="max-w-32 font-medium text-2xl md:text-2xl justify-self-end text-right border-none pr-1"
+        value={numberToDollarString(budgetItem.amount)}
+        onchange={(e) => updateBudgetItem(e, budgetItem)}
+      />
+      <FrequencyPicker bind:frequency={budgetItem.frequency} class="justify-self-end pr-1" />
+    </div>
   </div>
   <Editor />
-
 </div>
+

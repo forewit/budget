@@ -19,4 +19,5 @@
 	)}
 	bind:value
 	{...restProps}
+	
 ></textarea>

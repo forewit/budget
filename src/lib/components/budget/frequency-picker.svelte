@@ -1,9 +1,9 @@
 <script lang="ts">
   import { type Frequency, getFrequencyName } from "./budget.svelte";
   import { Input } from "$lib/components/ui/input/index.js";
+  import { cn } from "$lib/utils";
   import * as Collapsible from "$lib/components/ui/collapsible/index.js";
   import * as Select from "$lib/components/ui/select/index.js";
-  import Button from "$lib/components/ui/button/button.svelte";
 
   let {
     frequency = $bindable(),
@@ -20,27 +20,25 @@
   }
 
   function stopDelayClose() {
-    if (delayedCloseTimer) {
-      clearTimeout(delayedCloseTimer);
-    }
+    clearTimeout(delayedCloseTimer);
   }
 </script>
 
-<Collapsible.Root bind:open class="flex {className}">
+<Collapsible.Root bind:open class={cn("flex h-8", className)} onOpenChange={stopDelayClose}>
   {#if !open || disabled}
     <Collapsible.Trigger
-      class="text-right text-nowrap outline-offset-2 p-2 rounded-lg hover:underline underline-offset-4 font-medium text-xs"
-      disabled={disabled}
+      class="text-right text-nowrap outline-offset-2 rounded-lg hover:underline underline-offset-4 font-medium text-xs"
+      {disabled}
     >
       {getFrequencyName(frequency)}
     </Collapsible.Trigger>
   {/if}
   <Collapsible.Content onfocusin={stopDelayClose} onfocusout={delayClose}>
-    <div class="mx-1 flex flex-row items-center gap-1 w-min bg-primary/20 rounded-lg p-1">
-      <div
-        class="font-medium text-xs h-min pl-1 pr-0.5"
+    <div class="mx-1 px-1 flex flex-row items-center gap-1 w-min h-full bg-primary/20 rounded-lg">
+      <Collapsible.Trigger
+        class="font-medium text-xs h-min pl-1 pr-0.5 hover:underline underline-offset-4"
         >every
-    </div>
+      </Collapsible.Trigger>
       <Input
         bind:value={frequency.interval}
         type="number"
