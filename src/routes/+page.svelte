@@ -77,7 +77,7 @@
           clearSelection();
           drawerOpen = true;
         }}
-        class="w-10 h-10"><PieChart /></Button
+        class="w-10 h-10 hover:bg-transparent"><PieChart /></Button
       >
     </div>
     <ScrollArea
