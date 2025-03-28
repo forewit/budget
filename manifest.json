@@ -5,6 +5,8 @@
     "start_url": "/budget/",
     "scope": "/budget/",
     "display": "standalone",
+    "background_color": "#169fb1",
+    "theme_color": "#169fb1",
     "icons": [
         {
             "src": "images/field-icon.png",
