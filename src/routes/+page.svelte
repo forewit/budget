@@ -52,7 +52,7 @@
 
 {#snippet budgetContent()}
   <div
-    class="min-w-[340px] flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)]"
+    class="min-w-[340px] flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)] overscroll-none"
     style="background-image: url('{base}/images/field-background.jpg');"
   >
     <div class="bg-background rounded-xl shadow-xl px-1 py-2 h-min ml-1.5 place-self-center">
@@ -100,12 +100,12 @@
   </div>
 {/snippet}
 
-<div class="h-lvh relative">
+<div class="h-lvh relative overscroll-none">
   {#if isMobile.current}
     <!-- show drawer on mobile -->
     {@render budgetContent()}
     <Drawer.Root bind:open={drawerOpen} onClose={clearWindowSelection}>
-      <Drawer.Content class="h-[calc(100lvh-7rem)]">
+      <Drawer.Content class="h-[calc(100svh-7rem)]">
         {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
         {:else}
