@@ -4,6 +4,7 @@
   import { cn } from "$lib/utils";
   import * as Collapsible from "$lib/components/ui/collapsible/index.js";
   import * as Select from "$lib/components/ui/select/index.js";
+  import { tick } from "svelte";
 
   let {
     frequency = $bindable(),
@@ -18,19 +19,45 @@
   } = $props();
 
   let delayedCloseTimer: ReturnType<typeof setTimeout>;
+
   function delayClose() {
     if (disabled) return;
     delayedCloseTimer = setTimeout(() => {
       open = false;
-    }, 1000);
+    }, 1);
   }
 
   function stopDelayClose() {
     if (open) clearTimeout(delayedCloseTimer);
   }
+
+  let inputRef: HTMLInputElement | null = $state(null);
+
+  async function onOpenChange() {
+    stopDelayClose();
+    await tick();
+
+    if (inputRef) {
+      inputRef.select();
+    }
+  }
+
+  // Validation function
+  function validateInterval(value: number | string) {
+    // Convert to number and ensure it's a positive integer
+    const parsedValue = Number(value);
+    
+    // Check if it's a valid positive number
+    if (isNaN(parsedValue) || parsedValue <= 0 || !Number.isInteger(parsedValue)) {
+      // Default to 1 if invalid
+      frequency.interval = 1;
+    } else {
+      frequency.interval = parsedValue;
+    }
+  }
 </script>
 
-<Collapsible.Root bind:open class={cn("flex h-8", className)} onOpenChange={stopDelayClose}>
+<Collapsible.Root bind:open class={cn("flex h-8", className)} {onOpenChange}>
   {#if !open}
     <Collapsible.Trigger
       class={cn(
@@ -54,6 +81,8 @@
       </Collapsible.Trigger>
       <Input
         bind:value={frequency.interval}
+        bind:ref={inputRef}
+        onfocusout={(e) => validateInterval(e.currentTarget.value)}
         type="number"
         class="w-auto max-w-[3rem] h-min py-1 font-medium md:text-xs text-xs appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
         style="field-sizing: content;"

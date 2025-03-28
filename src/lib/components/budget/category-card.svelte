@@ -10,9 +10,7 @@
     getBudgetContext,
     categoryTotal,
     changeFrequency,
-    dollarStringToNumber,
     numberToDollarString,
-    type BudgetItem,
     type Category,
   } from "./budget.svelte";
   import { IsMobile } from "$lib/hooks/is-mobile.svelte";
@@ -81,7 +79,6 @@
           onkeydown={(e) => {
             if (e.key === "Enter") budgetItemClicked(i);
           }}
-          onfocusin={() => budgetItemClicked(i)}
         >
           <div class="pointer-events-none md:pointer-events-auto flex gap-1 items-center w-full">
             <Input
@@ -95,7 +92,6 @@
                 disabled={isMobile.current}
                 bind:frequency={budgetItem.frequency}
                 class="justify-self-end"
-                open={selectedItemIndex === i ? undefined : false}
               />
               <DollarInput
                 bind:value={budgetItem.amount}

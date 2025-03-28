@@ -13,7 +13,7 @@
   } = $props();
 
   // svelte-ignore non_reactive_update
-    let elm: HTMLDivElement;
+  let elm: HTMLDivElement;
   let dollarString = $state(numberToDollarString(value));
 
   function updateValue() {
@@ -39,6 +39,11 @@
       selection?.addRange(range);
     }
   }
+
+  function clearSelection() {
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+  }
 </script>
 
 {#if disabled}
@@ -63,7 +68,10 @@
       "flex items-center justify-end h-10 pl-3 pr-2 rounded-md border border-input cursor-text md:text-sm",
       className
     )}
-    onfocusout={updateValue}
+    onfocusout={() => {
+      updateValue();
+      clearSelection();
+    }}
     onkeydown={handleKeyDown}
     onfocusin={selectAllContent}
   >

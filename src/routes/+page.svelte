@@ -10,6 +10,7 @@
   import { IsMobile } from "$lib/hooks/is-mobile.svelte";
   import { base } from "$app/paths";
   import Pencil from "lucide-svelte/icons/pencil";
+  import { flushSync } from "svelte";
 
   const budget = setBudgetContext();
 
@@ -21,7 +22,6 @@
 
   function selectBudgetItem(catIndex: number, itemIndex: number) {
     drawerOpen = true;
-
     selectedCategory = catIndex;
     selectedBudgetItem = itemIndex;
   }
