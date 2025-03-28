@@ -105,7 +105,7 @@
     <!-- show drawer on mobile -->
     {@render budgetContent()}
     <Drawer.Root bind:open={drawerOpen} onClose={clearWindowSelection}>
-      <Drawer.Content class="h-[calc(100svh-7rem)]">
+      <Drawer.Content class="h-[calc(100svh-max(env(keyboard-inset-height),0px)-7rem)]">
         {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
         {:else}
