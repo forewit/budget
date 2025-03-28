@@ -33,13 +33,17 @@
     selectedBudgetItem = -1;
   }
 
-  function handleKeyDown(e: KeyboardEvent) {
-    if (e.key === "Escape") {
-      clearSelection();
-      if (document.activeElement && document.activeElement !== document.body) {
+  function clearWindowSelection() {
+    if (document.activeElement && document.activeElement !== document.body) {
         (document.activeElement as HTMLElement).blur();
       }
       window.getSelection()?.removeAllRanges(); // Deselect any selected text
+    }
+
+  function handleKeyDown(e: KeyboardEvent) {
+    if (e.key === "Escape") {
+      clearSelection();
+      clearWindowSelection();
     }
   }
 </script>
@@ -100,7 +104,7 @@
   {#if isMobile.current}
     <!-- show drawer on mobile -->
     {@render budgetContent()}
-    <Drawer.Root bind:open={drawerOpen}>
+    <Drawer.Root bind:open={drawerOpen} onClose={clearWindowSelection}>
       <Drawer.Content class="h-[calc(100lvh-7rem)]">
         {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
