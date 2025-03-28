@@ -83,7 +83,7 @@
       onclick={clearSelection}
       scrollbarYClasses="opacity-50"
     >
-      <div class="py-4 pr-2.5 pt-[max(env(safe-area-inset-top),1rem)] flex flex-col gap-4 md:gap-4">
+      <div class="flex flex-col gap-4 md:gap-4 pr-2.5 pt-[max(env(safe-area-inset-top),1rem)] pb-[max(env(safe-area-inset-bottom),1rem)]">
         {#each budget.categories as category, catIndex}
           <CategoryCard
             class="w-full backdrop-blur-md bg-card/80"
