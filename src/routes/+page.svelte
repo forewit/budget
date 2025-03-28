@@ -96,12 +96,12 @@
   </div>
 {/snippet}
 
-<div class="h-svh relative">
+<div class="h-lvh relative">
   {#if isMobile.current}
     <!-- show drawer on mobile -->
     {@render budgetContent()}
     <Drawer.Root bind:open={drawerOpen}>
-      <Drawer.Content class="h-[calc(100svh-7rem)]">
+      <Drawer.Content class="h-[calc(100lvh-7rem)]">
         {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
         {:else}
