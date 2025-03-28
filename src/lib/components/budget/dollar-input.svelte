@@ -66,7 +66,7 @@
     inputmode="decimal"
     class={cn(
       "ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-      "flex items-center justify-end h-10 pl-3 pr-2 rounded-md border border-input cursor-text md:text-sm",
+      "overflow-hidden flex items-center justify-end h-10 pl-3 pr-2 rounded-md border border-input cursor-text md:text-sm",
       className
     )}
     onfocusout={() => {

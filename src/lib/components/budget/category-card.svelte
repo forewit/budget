@@ -79,6 +79,9 @@
           onkeydown={(e) => {
             if (e.key === "Enter") budgetItemClicked(i);
           }}
+          onfocusin={() => 
+            budgetItemClicked(i)      
+          }
         >
           <div class="pointer-events-none md:pointer-events-auto flex gap-1 items-center w-full">
             <Input
