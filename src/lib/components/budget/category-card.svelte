@@ -66,17 +66,22 @@
   {#if category.expanded}
     <Card.Content class="p-0 pb-4">
       {#each category.budgetItems as budgetItem, i}
-        <!-- svelte-ignore a11y_click_events_have_key_events -->
         <div
           role="button"
           tabindex="0"
-          class={cn("w-full cursor-pointer md:cursor-default py-3 px-6 overflow-hidden",
-            (i === selectedItemIndex && "md:shadow-md md:bg-muted/50"))}
+          class={cn(
+            "w-full cursor-pointer md:cursor-default py-3 px-6 overflow-hidden",
+            "ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+            i === selectedItemIndex && "md:shadow-md md:bg-muted/50"
+          )}
           onclick={(e) => {
             e.stopPropagation();
             budgetItemClicked(i);
           }}
-          onfocusin={()=>budgetItemClicked(i)}
+          onkeydown={(e) => {
+            if (e.key === "Enter") budgetItemClicked(i);
+          }}
+          onfocusin={() => budgetItemClicked(i)}
         >
           <div class="pointer-events-none md:pointer-events-auto flex gap-1 items-center w-full">
             <Input
@@ -112,8 +117,10 @@
         </div>
         {#if i < category.budgetItems.length - 1}
           <div
-            class={cn("h-[2px] bg-muted/30 place-self-center w-[calc(100%)]",
-              (selectedItemIndex === i && "md:bg-transparent"))}
+            class={cn(
+              "h-[2px] bg-muted/30 place-self-center w-[calc(100%)]",
+              selectedItemIndex === i && "md:bg-transparent"
+            )}
           ></div>
         {/if}
       {/each}
