@@ -68,7 +68,14 @@
         <ToggleGroup.Item value="3" class="w-10 h-10">Y</ToggleGroup.Item>
       </ToggleGroup.Root>
       <Separator class="my-2" />
-      <Button variant="ghost" onclick={clearSelection} class="w-10 h-10"><PieChart /></Button>
+      <Button
+        variant="ghost"
+        onclick={() => {
+          clearSelection();
+          drawerOpen = true;
+        }}
+        class="w-10 h-10"><PieChart /></Button
+      >
     </div>
     <ScrollArea
       class="w-full"
@@ -76,7 +83,7 @@
       onclick={clearSelection}
       scrollbarYClasses="opacity-50"
     >
-      <div class="pt-12 pb-28 pr-2.5 flex flex-col gap-4 md:gap-4">
+      <div class="py-4 pr-2.5 flex flex-col gap-4 md:gap-4">
         {#each budget.categories as category, catIndex}
           <CategoryCard
             class="w-full backdrop-blur-md bg-card/80"
@@ -94,13 +101,15 @@
   {#if isMobile.current}
     <!-- show drawer on mobile -->
     {@render budgetContent()}
-    {#if selectedBudgetItem >= 0 && selectedCategory >= 0}
-      <Drawer.Root bind:open={drawerOpen}>
-        <Drawer.Content class="h-[calc(100dvh-7rem)]">
+    <Drawer.Root bind:open={drawerOpen}>
+      <Drawer.Content class="h-[calc(100dvh-7rem)]">
+        {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
-        </Drawer.Content>
-      </Drawer.Root>
-    {/if}
+        {:else}
+          <BudgetOverview />
+        {/if}
+      </Drawer.Content>
+    </Drawer.Root>
   {:else}
     <!-- show resizable sidebar on desktop -->
     <Resizable.PaneGroup direction="horizontal">
