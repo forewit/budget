@@ -13,7 +13,6 @@
   import PieChart from "lucide-svelte/icons/chart-pie";
   import Button from "$lib/components/ui/button/button.svelte";
   import Separator from "$lib/components/ui/separator/separator.svelte";
-  import Toggle from "$lib/components/ui/toggle/toggle.svelte";
 
   const budget = setBudgetContext();
 
@@ -97,12 +96,12 @@
   </div>
 {/snippet}
 
-<div class="h-dvh relative">
+<div class="h-svh relative">
   {#if isMobile.current}
     <!-- show drawer on mobile -->
     {@render budgetContent()}
     <Drawer.Root bind:open={drawerOpen}>
-      <Drawer.Content class="h-[calc(100dvh-7rem)]">
+      <Drawer.Content class="h-[calc(100svh-7rem)]">
         {#if selectedCategory >= 0 && selectedBudgetItem >= 0}
           <ItemDetails categoryIndex={selectedCategory} budgetItemIndex={selectedBudgetItem} />
         {:else}

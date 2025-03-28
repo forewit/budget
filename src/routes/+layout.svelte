@@ -8,4 +8,4 @@
   <title>Jessica Helen Budget</title>
 </svelte:head>
 
-  {@render children?.()}
+{@render children?.()}
