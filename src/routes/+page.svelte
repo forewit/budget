@@ -10,15 +10,18 @@
   import { IsMobile } from "$lib/hooks/is-mobile.svelte";
   import { base } from "$app/paths";
   import Pencil from "lucide-svelte/icons/pencil";
-  import { flushSync } from "svelte";
+  import PieChart from "lucide-svelte/icons/chart-pie";
+  import Button from "$lib/components/ui/button/button.svelte";
+  import Separator from "$lib/components/ui/separator/separator.svelte";
+  import Toggle from "$lib/components/ui/toggle/toggle.svelte";
 
   const budget = setBudgetContext();
 
   let isMobile = new IsMobile();
   let drawerOpen = $state(false);
-
   let selectedCategory = $state(-1);
   let selectedBudgetItem = $state(-1);
+  let showPieChart = $derived(selectedCategory < 0);
 
   function selectBudgetItem(catIndex: number, itemIndex: number) {
     drawerOpen = true;
@@ -30,28 +33,49 @@
     selectedCategory = -1;
     selectedBudgetItem = -1;
   }
+
+  function handleKeyDown(e: KeyboardEvent) {
+    if (e.key === "Escape") {
+      clearSelection();
+      if (document.activeElement && document.activeElement !== document.body) {
+        (document.activeElement as HTMLElement).blur();
+      }
+      window.getSelection()?.removeAllRanges(); // Deselect any selected text
+    }
+  }
 </script>
+
+<svelte:window onkeydown={handleKeyDown} />
 
 {#snippet budgetContent()}
   <div
     class="min-w-[340px] flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)]"
     style="background-image: url('{base}/images/field-background.jpg');"
   >
-    <ToggleGroup.Root
-      onValueChange={(v) => {
-        budget.selectedFilterIndex = parseInt(v);
-      }}
-      value="0"
-      type="single"
-      orientation="vertical"
-      class={"flex flex-col bg-background rounded-xl shadow-xl px-1 py-2 h-min mx-1.5 place-self-center"}
+    <div class="bg-background rounded-xl shadow-xl px-1 py-2 h-min mx-1.5 place-self-center">
+      <ToggleGroup.Root
+        onValueChange={(v) => {
+          budget.selectedFilterIndex = parseInt(v);
+        }}
+        value="0"
+        type="single"
+        orientation="vertical"
+        class="flex flex-col"
+      >
+        <ToggleGroup.Item value="0" class="w-10 h-10"><Pencil /></ToggleGroup.Item>
+        <ToggleGroup.Item value="1" class="w-10 h-10">M</ToggleGroup.Item>
+        <ToggleGroup.Item value="2" class="w-10 h-10">2W</ToggleGroup.Item>
+        <ToggleGroup.Item value="3" class="w-10 h-10">Y</ToggleGroup.Item>
+      </ToggleGroup.Root>
+      <Separator class="my-2" />
+      <Button variant="ghost" onclick={clearSelection} class="w-10 h-10"><PieChart /></Button>
+    </div>
+    <ScrollArea
+      class="w-full"
+      type="scroll"
+      onclick={clearSelection}
+      scrollbarYClasses="opacity-50"
     >
-      <ToggleGroup.Item value="0"><Pencil class="w-4 h-4" /></ToggleGroup.Item>
-      <ToggleGroup.Item value="1">M</ToggleGroup.Item>
-      <ToggleGroup.Item value="2">2W</ToggleGroup.Item>
-      <ToggleGroup.Item value="3">Y</ToggleGroup.Item>
-    </ToggleGroup.Root>
-    <ScrollArea class="w-full" type="scroll" onclick={clearSelection} scrollbarYClasses="opacity-50">
       <div class="pt-12 pb-28 pr-2.5 flex flex-col gap-4 md:gap-4">
         {#each budget.categories as category, catIndex}
           <CategoryCard

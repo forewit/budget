@@ -10,11 +10,11 @@
 
   function oninput() {
     value = value.replace(/\n/g, "");
-    
   }
 </script>
 
 <div
+  bind:innerText={value}
   contenteditable="plaintext-only"
   aria-roledescription="textbox"
   {oninput}
@@ -27,4 +27,5 @@
       "before:content-[attr(placeholder)] before:opacity-50 before:pointer-events-none",
     className
   )}
+
 >{value}</div>
