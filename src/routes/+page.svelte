@@ -49,7 +49,7 @@
 
 {#snippet budgetContent()}
   <div
-    class="min-w-[340px] flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)] pt-[max(env(safe-area-inset-top),0px)]"
+    class="min-w-[340px] flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)]"
     style="background-image: url('{base}/images/field-background.jpg');"
   >
     <div class="bg-background rounded-xl shadow-xl px-1 py-2 h-min mx-1.5 place-self-center">
@@ -83,7 +83,7 @@
       onclick={clearSelection}
       scrollbarYClasses="opacity-50"
     >
-      <div class="py-4 pr-2.5 flex flex-col gap-4 md:gap-4">
+      <div class="py-4 pr-2.5 pt-[max(env(safe-area-inset-top),1rem)] flex flex-col gap-4 md:gap-4">
         {#each budget.categories as category, catIndex}
           <CategoryCard
             class="w-full backdrop-blur-md bg-card/80"
