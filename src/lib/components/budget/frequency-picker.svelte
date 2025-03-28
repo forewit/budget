@@ -42,7 +42,6 @@
     }
   }
 
-  // Validation function
   function validateInterval(value: number | string) {
     // Convert to number and ensure it's a positive integer
     const parsedValue = Number(value);
@@ -84,6 +83,7 @@
         bind:ref={inputRef}
         onfocusout={(e) => validateInterval(e.currentTarget.value)}
         type="number"
+        inputmode="decimal"
         class="w-auto max-w-[3rem] h-min py-1 font-medium md:text-xs text-xs appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
         style="field-sizing: content;"
       />
