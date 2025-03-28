@@ -49,7 +49,7 @@
 
 {#snippet budgetContent()}
   <div
-    class="min-w-[340px] flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)]"
+    class="min-w-[340px] flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)] pt-[max(env(safe-area-inset-top),0px)]"
     style="background-image: url('{base}/images/field-background.jpg');"
   >
     <div class="bg-background rounded-xl shadow-xl px-1 py-2 h-min mx-1.5 place-self-center">
