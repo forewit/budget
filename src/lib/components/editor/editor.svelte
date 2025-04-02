@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { cn } from "$lib/utils.js";
-  import { onMount, tick } from "svelte";
+  import { tick } from "svelte";
   import Block, { type BlockProps } from "./block.svelte";
 
-  let { class: className = "" } = $props();
+  export type EditorContent = (string | BlockProps)[];
+
+  let { class: className = "", editorContent = $bindable([]) }: { class?: string; editorContent: EditorContent } = $props();
 
   let editorRef: HTMLElement;
-  let editorContent: (string | BlockProps)[] = $state([]);
   let selectionStart = $state(0);
   let selectionEnd = $state(0);
 
@@ -97,7 +97,7 @@
     const content = items.filter(
       (item) =>
         (typeof item === "string" && item.length === 1 && VALID_CHARS.includes(item)) ||
-        (typeof item === "object" && item.type !== undefined)
+        (typeof item === "object" && item.lock !== undefined)
     );
     if (content.length === 0) return;
 
@@ -129,7 +129,7 @@
         safeDelete("delete");
         break;
       case "@":
-        safeInsert({ type: "A", lock: false });
+        safeInsert({ lock: false });
         break;
       default:
         safeInsert(key);
@@ -146,37 +146,36 @@
   function handleCut(event: ClipboardEvent) {}
   function handleCopy(event: ClipboardEvent) {}
   function handleDrop(event: DragEvent) {} // 😥 DONT DO THIS -scope creep-
-
 </script>
 
 <svelte:document onselectionchange={syncSelection} />
 
-<div
-  bind:this={editorRef}
-  role="textbox"
-  tabindex="0"
-  spellcheck="false"
-  onkeydown={handleKeyDown}
-  contenteditable="plaintext-only"
-  style="line-height:2rem"
-  class={cn(
-    "cursor-text leading-10 text-left w-full min-h-[82px] px-3 py-2 bg-background rounded-md border border-input ring-offset-background focus-within:ring-ring focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 md:text-sm",
-    className
-  )}
->
-  {#each editorContent as item, i}
-    {#if typeof item === "string"}
-      {item}
-    {:else}
-      <p class="inline-block">
-        <Block {...item} onclick={() => onBlockClick(i)} contenteditable="false" />
-      </p>
-    {/if}
-  {/each}
+<div class={className}>
+  <div
+    bind:this={editorRef}
+    role="textbox"
+    tabindex="0"
+    spellcheck="false"
+    onkeydown={handleKeyDown}
+    contenteditable="plaintext-only"
+    style="line-height:2rem"
+    class="cursor-text leading-10 text-left w-full min-h-[82px] px-3 py-2 bg-background rounded-md border border-input ring-offset-background focus-within:ring-ring focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 md:text-sm"
+  >
+    {#each editorContent as item, i}
+      {#if typeof item === "string"}
+        {item}
+      {:else}
+        <p class="inline-block select-none">
+          <Block {...item} onclick={() => onBlockClick(i)} contenteditable="false"/>
+        </p>
+      {/if}
+    {/each}
+  </div>
+
+  <div class="flex justify-between pt-4 px-3">
+    <p class="text-left text-xs text-muted-foreground">
+      Selection: {selectionStart}, {selectionEnd}
+    </p>
+    <p class="text-right text-xs text-muted-foreground">Type @ to insert a link</p>
+  </div>
 </div>
-
-  <p class="text-right pt-4 text-xs text-muted-foreground">Type @ to insert a link</p>
-
-  <!-- <p class="text-left pt-4 pr-2 text-xs text-muted-foreground">
-    Selection: {selectionStart}, {selectionEnd}
-  </p> -->

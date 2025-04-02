@@ -13,7 +13,6 @@
     numberToDollarString,
     type Category,
   } from "./budget.svelte";
-  import { IsMobile } from "$lib/hooks/is-mobile.svelte";
   import { cn } from "$lib/utils.js";
 
   let {
@@ -29,7 +28,6 @@
   } = $props();
 
   const budget = getBudgetContext();
-  let isMobile = new IsMobile();
 
   let total = $derived(
     categoryTotal(category, budget.filters[budget.selectedFilterIndex].frequency)
@@ -70,7 +68,7 @@
           class={cn(
             "w-full cursor-pointer md:cursor-default py-3 px-6 overflow-hidden",
             "ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-            i === selectedItemIndex && "md:shadow-md md:bg-muted/50"
+            i === selectedItemIndex && "shadow-md bg-muted/50"
           )}
           onclick={(e) => {
             e.stopPropagation();
@@ -80,23 +78,20 @@
             if (e.key === "Enter") budgetItemClicked(i);
           }}
         >
-          <div class="pointer-events-none md:pointer-events-auto flex gap-1 items-center w-full">
+          <div class="flex gap-1 items-center w-full">
             <Input
               bind:value={budgetItem.name}
               placeholder="Untitled"
               class="pr-4 disabled:opacity-100 border-none bg-transparent"
-              disabled={isMobile.current}
             />
             {#if budget.selectedFilterIndex == 0}
               <FrequencyPicker
-                disabled={isMobile.current}
                 bind:frequency={budgetItem.frequency}
                 class="justify-self-end"
               />
               <DollarInput
                 bind:value={budgetItem.amount}
                 class="justify-self-end min-w-[5.2rem] max-w-[5.2rem] border-none"
-                disabled={isMobile.current}
               />
             {:else}
               <p class="select-text cursor-auto text-sm justify-self-end italic col-span-2 px-3">

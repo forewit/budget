@@ -3,21 +3,18 @@
   import type { HTMLAttributes } from "svelte/elements";
 
   export type BlockProps = {
-    type: "A" | "B" | "C";
     lock: boolean;
     highlight?: boolean;
     class?: string;
-    onclick?: () => void;
   };
 
   let {
-    type,
     lock = false,
     highlight = false,
     class: className = "",
-    onclick = () => {},
+    children,
     ...restProps
-  }: BlockProps & HTMLAttributes<HTMLButtonElement> = $props();
+  }: BlockProps & HTMLAttributes<HTMLSpanElement> = $props();
 
   let elm: HTMLElement;
 
@@ -37,7 +34,8 @@
 </script>
 
 <svelte:document on:selectionchange={highlightOnSelect} />
-<button
+
+<span
   bind:this={elm}
   class={cn(
     "align-baseline cursor-pointer p-1 px-2 select-none bg-foreground text-background rounded-full text-xs font-medium",
@@ -45,8 +43,9 @@
     lock && "opacity-50",
     className
   )}
-  {onclick}
   {...restProps}
 >
-  Block
-</button>
+  <!-- &ensp is REQUIRED by the editor so that textlength is > 0 -->
+  &ensp;
+  {@render children?.()}
+</span>

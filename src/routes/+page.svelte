@@ -1,5 +1,4 @@
 <script lang="ts">
-  import * as Drawer from "$lib/components/ui/drawer/index.js";
   import * as Resizable from "$lib/components/ui/resizable/index.js";
   import * as ToggleGroup from "$lib/components/ui/toggle-group/index.js";
   import CategoryCard from "$lib/components/budget/category-card.svelte";
@@ -9,6 +8,7 @@
   import { setBudgetContext } from "$lib/components/budget/budget.svelte";
   import { IsMobile } from "$lib/hooks/is-mobile.svelte";
   import { base } from "$app/paths";
+  import Settings from "lucide-svelte/icons/settings";
   import Pencil from "lucide-svelte/icons/pencil";
   import PieChart from "lucide-svelte/icons/chart-pie";
   import Button from "$lib/components/ui/button/button.svelte";
@@ -57,7 +57,7 @@
         class="min-w-[400px] flex h-full bg-no-repeat bg-center bg-cover pl-[max(env(safe-area-inset-left),0px)] overscroll-none"
         style="background-image: url('{base}/images/field-background.jpg');"
       >
-        <div class="bg-background rounded-xl shadow-xl px-1 py-2 h-min ml-1.5 place-self-center">
+        <div class="bg-background rounded-xl shadow-xl px-1 py-2 w-min h-min ml-1.5 place-self-center">
           <ToggleGroup.Root
             onValueChange={(v) => {
               budget.selectedFilterIndex = parseInt(v);
@@ -81,6 +81,12 @@
             }}
             class="w-10 h-10 hover:bg-transparent"><PieChart /></Button
           >
+          <a href={`${base}/settings/`} class="w-10 h-10">
+            <Button
+            variant="ghost"
+            class="w-10 h-10 hover:bg-transparent"><Settings /></Button
+          >
+          </a>
         </div>
         <ScrollArea
           class="w-full"
