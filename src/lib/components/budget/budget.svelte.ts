@@ -136,23 +136,6 @@ function createBudget() {
                 { name: "College Fund", amount: 200, frequency: { interval: 1, unit: "month" }, content: [] }
             ],
             expanded: true
-        },
-        {
-            name: "Child Expenses",
-            budgetItems: [
-                { name: "Daycare/Preschool", amount: 800, frequency: { interval: 1, unit: "month" }, content: [] },
-                { name: "School Supplies", amount: 50, frequency: { interval: 1, unit: "month" }, content: [] },
-                { name: "Extracurricular Activities", amount: 100, frequency: { interval: 1, unit: "month" }, content: [] }
-            ],
-            expanded: true
-        },
-        {
-            name: "Debt Payments",
-            budgetItems: [
-                { name: "Credit Card Payment", amount: 200, frequency: { interval: 1, unit: "month" }, content: [] },
-                { name: "Student Loans", amount: 300, frequency: { interval: 1, unit: "month" }, content: [] }
-            ],
-            expanded: true
         }
     ]
     );

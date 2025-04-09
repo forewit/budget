@@ -129,7 +129,7 @@
         safeDelete("delete");
         break;
       case "@":
-        safeInsert({ lock: false });
+        safeInsert({ lock: false, id: ""});
         break;
       default:
         safeInsert(key);
