@@ -1,13 +1,13 @@
 {
-    "name": "Budget",
-    "short_name": "Budget",
-    "description": "Jessica Helen Budget",
+    "name": "Envelopes",
+    "short_name": "Envelopes",
+    "description": "Simple budgeting envelopes",
     "start_url": "/budget/",
     "scope": "/budget/",
     "display": "standalone",
     "icons": [
         {
-            "src": "images/field-icon.png",
+            "src": "images/favicon.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
