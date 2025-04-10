@@ -582,6 +582,4 @@
   }
 
   /* Space character (no segments lit - handled by default) */
-  [data-digit=" "] /* No rules needed, default is off */ {
-  }
 </style>

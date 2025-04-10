@@ -40,12 +40,14 @@
     height: 12em;
     border-radius: 0.75em;
     background-color: hsl(220, 70%, 40%);
-    color: white;
     overflow: hidden;
     transform: rotateX(0deg) rotateY(0deg);
     animation: rotateCard 10s infinite alternate ease-in-out;
     transition: scale 100ms ease-in-out;
     margin: auto;
+
+    /* troubleshooting safari flashing issue */
+    backface-visibility: hidden;
   }
 
   @keyframes rotateCard {
@@ -93,6 +95,11 @@
     mix-blend-mode: plus-lighter;
     transition: transform 0.5s ease-in-out;
     animation: moveFoil 5s infinite alternate ease-in-out;
+
+    /* troubleshooting safari flashing issue */
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: background-position;
   }
 
   @keyframes moveFoil {
