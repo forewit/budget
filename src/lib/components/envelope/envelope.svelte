@@ -22,14 +22,36 @@
     ...restProps
   }: EnvelopeProps & HTMLAttributes<HTMLButtonElement> = $props();
 
-  let x: number = $state(240);
-  let y: number = $state(160);
-  let cardElement: HTMLButtonElement | null = $state(null);
-  let cardStylesString: string = $state("");
+  let cardElement: HTMLButtonElement;
+
+  // CSS variables
+  let cssString: string = $state(`--color: ${color}`);
 
   function updatePointer(event: PointerEvent) {
-    x = event.clientX;
-    y = event.clientY;
+    const rect = cardElement.getBoundingClientRect();
+
+    if (
+      rect.left > window.innerWidth ||
+      rect.top > window.innerHeight ||
+      rect.bottom < 0 ||
+      rect.right < 0
+    )
+      return;
+
+    const rX = event.clientX - rect.left;
+    const rY = event.clientY - rect.top;
+    const pX = rX / rect.width;
+    const pY = rY / rect.height;
+    const aX = event.clientX / window.innerWidth;
+    const aY = event.clientY / window.innerHeight;
+
+    cssString = `
+      --x: ${pX * 100}%;
+      --y: ${pY * 100}%;
+      --rx: ${-20 * aY + 10}deg;
+      --ry: ${20 * aX - 10}deg;
+      --color: ${color};
+    `;
   }
 
   onMount(() => {
@@ -43,52 +65,20 @@
       };
     }
   });
-
-  // Reactive declaration: Recalculates whenever x, y, or cardElement changes
-  $effect(() => {
-    if (effectName !== "holographic") return;
-    if (cardElement && typeof window !== "undefined") {
-      const rect = cardElement.getBoundingClientRect();
-      const rX = x - rect.left;
-      const rY = y - rect.top;
-      const pX = rX / rect.width;
-      const pY = rY / rect.height;
-      const aX = x / window.innerWidth;
-      const aY = y / window.innerHeight;
-
-      // Construct the style string for the card element
-      cardStylesString = `
-          --x: ${pX * 100}%;
-          --y: ${pY * 100}%;
-          --rx: ${-20 * aY + 10}deg;
-          --ry: ${20 * aX - 10}deg;
-          --envelope-color: ${color};
-        `;
-    } else {
-      // Default or fallback styles if element isn't mounted yet
-      cardStylesString = `
-          --x: 50%;
-          --y: 50%;
-          --rx: 0deg;
-          --ry: 0deg;
-          --envelope-color: ${color};
-        `;
-    }
-  });
 </script>
 
 <button
   bind:this={cardElement}
   class={cn(
-    "envelope group cursor-pointer relative w-48 h-24 rounded-xl text-white bg-[var(--envelope-color)]",
+    "envelope group cursor-pointer relative w-48 h-24 rounded-xl text-white bg-[var(--color)] border border-white",
     className
   )}
-  style={cardStylesString}
+  style={cssString}
   {...restProps}
 >
   <!-- content -->
   <div class="absolute inset-0 p-4 grid items-end">
-    <h1 class="text-left leading-tight text-xl font-bold text-white">{title}</h1>
+    <h1 class="text-left leading-tight text-xl text-white">{title}</h1>
   </div>
 
   {#if effectName === "holographic"}
@@ -100,7 +90,7 @@
   <div
     class="absolute inset-x-4 inset-y-0"
     style="clip-path: polygon(50% 30%, 100% 0%, 100% -20%, 0% -20%, 0% 0%);
-           background-color: hsl(from var(--envelope-color) h s calc(l - 10));"
+           background-color: hsl(from var(--color) h s calc(l - 10));"
   >
     <div
       class="rounded absolute left-1/2 top-[-10%] max-w-[100%] -translate-x-1/2 bg-stone-200 transition-top duration-100 group-hover:top-[-20%]"
@@ -116,12 +106,14 @@
 <style>
   .envelope {
     /* Dynamic transform using CSS variables set by the script */
-    transform: rotateX(var(--rx)) rotateY(var(--ry));
+    transform: rotateX(var(--rx)) rotateY(var(--ry)); 
     will-change: transform; /* Optimization hint */
     transition: transform 0.1s ease-out; /* Optional: smooth transition */
+
+
   }
 
-  /* Ensure foil and glare respect border radius now that overflow is removed */
+  /* Ensure foil and glare respect border radius since that overflow is visible */
   .foil,
   .glare {
     border-radius: inherit;
@@ -155,7 +147,7 @@
     /* Dynamic mask position using CSS variables */
     mask-position: calc(50% + ((var(--x) - 50%) * var(--factor)))
       calc(50% + ((var(--y) - 50%) * var(--factor)));
-    mask-size: 32px;
+    mask-size: 2rem;
     filter: brightness(1.1) contrast(1.25) saturate(2);
     mix-blend-mode: plus-lighter;
     will-change: background-image, background-position, mask-position; /* Optimization hint */
