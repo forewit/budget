@@ -81,7 +81,7 @@
             }}
             class="w-10 h-10 hover:bg-transparent"><PieChart /></Button
           >
-          <a href={`${base}/settings/`} class="w-10 h-10">
+          <a href={`${base}/`} class="w-10 h-10">
             <Button
             variant="ghost"
             class="w-10 h-10 hover:bg-transparent"><Settings /></Button
