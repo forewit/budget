@@ -8,37 +8,49 @@
     title = "New Card",
     color = "hsl(220, 70%, 40%)",
     display = "",
-  }: { class?: string; title?: string; color?: string; display?: string } = $props();
+    rotate = false,
+    foil = false,
+    ...restProps
+  } = $props();
 
   const num = Number(display);
   const isDisplayNumber = !isNaN(num) && isFinite(num);
 </script>
 
-<div class={cn("stage", className)}>
-  <div class="card cursor-pointer relative w-32 h-48 rounded-xl overflow-hidden shadow" style:--bg={color}>
-    <div class="foil absolute inset-0"></div>
-    <div class="glare absolute inset-0"></div>
+<div class={cn("stage w-32 h-48", className)}>
+  <button
+    class={cn(
+      "card border-stone-800 bg-[var(--bg)] border relative w-full h-full rounded-xl overflow-hidden shadow",
+      "ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+      rotate && "rotate"
+    )}
+    style:--bg={color}
+    {...restProps}
+  >
+    {#if foil}
+      <div class="foil absolute inset-0"></div>
+      <div class="glare absolute inset-0"></div>
+    {/if}
     <div class="content absolute inset-0 p-2 flex flex-col justify-between h-full">
       <div class="flex justify-end">
-        <Segment class="w-24 h-8" digits={display} dollarSign={isDisplayNumber} />
+        <Segment class="w-24 h-7" digits={display} dollarSign={isDisplayNumber} />
       </div>
 
       <h1 class="p-1 leading-tight text-xl text-white">{title}</h1>
     </div>
-  </div>
+  </button>
 </div>
 
 <style>
   .stage {
     perspective: 800px;
     transform-style: preserve-3d;
+    backface-visibility: hidden;
   }
-  .card {
+  .rotate {
     transform-style: preserve-3d;
-    background-color: var(--bg);
     transform: rotateX(0deg) rotateY(0deg);
-    animation: rotateCard 10s infinite alternate ease-in-out;
-    transition: scale 100ms ease-in-out;
+    animation: rotateCard 8s infinite alternate ease-in-out;
   }
 
   @keyframes rotateCard {
@@ -78,7 +90,7 @@
     filter: brightness(1.1) contrast(1.25) saturate(2);
     mix-blend-mode: plus-lighter;
     transition: transform 0.5s ease-in-out;
-    animation: moveFoil 5s infinite alternate ease-in-out;
+    animation: moveFoil 4s infinite alternate ease-in-out;
   }
 
   @keyframes moveFoil {
@@ -98,9 +110,5 @@
     );
     filter: brightness(1.1) contrast(1.2) saturate(1.5);
     mix-blend-mode: overlay;
-  }
-
-  .card:hover {
-    scale: 1.05;
   }
 </style>

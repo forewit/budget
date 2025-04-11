@@ -1,0 +1,539 @@
+ /* Individual Digit Styling */
+ .digit {
+    stroke: none; /* No outline stroke for the SVG */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  /* Default Segment Styling (Off State) */
+  .digit .segment {
+    fill: #334; /* Dim color for segments that are 'off' */
+  }
+
+  /* --- Segment Activation Rules --- */
+  /* These rules use the 'digit' attribute on the SVG to turn segments 'on' */
+  /* The 'fill' color determines the 'on' state color */
+  [data-digit="1"] #top_r,
+  [data-digit="1"] #bottom_r {
+    fill: #ff0; /* Yellow */
+  }
+
+  [data-digit="2"] #top,
+  [data-digit="2"] #top_r,
+  [data-digit="2"] #middle,
+  [data-digit="2"] #bottom_l,
+  [data-digit="2"] #bottom {
+    fill: #ff0;
+  }
+
+  [data-digit="3"] #top,
+  [data-digit="3"] #top_r,
+  [data-digit="3"] #middle,
+  [data-digit="3"] #bottom_r,
+  [data-digit="3"] #bottom {
+    fill: #ff0;
+  }
+
+  [data-digit="4"] #top_l,
+  [data-digit="4"] #middle,
+  [data-digit="4"] #top_r,
+  [data-digit="4"] #bottom_r {
+    fill: #ff0;
+  }
+
+  [data-digit="5"] #top,
+  [data-digit="5"] #top_l,
+  [data-digit="5"] #middle,
+  [data-digit="5"] #bottom_r,
+  [data-digit="5"] #bottom {
+    fill: #ff0;
+  }
+
+  [data-digit="6"] #top,
+  [data-digit="6"] #top_l,
+  [data-digit="6"] #middle,
+  [data-digit="6"] #bottom_l,
+  [data-digit="6"] #bottom_r,
+  [data-digit="6"] #bottom {
+    fill: #ff0;
+  }
+
+  [data-digit="7"] #top,
+  [data-digit="7"] #top_r,
+  [data-digit="7"] #bottom_r {
+    fill: #ff0;
+  }
+
+  [data-digit="8"] #top,
+  [data-digit="8"] #top_r,
+  [data-digit="8"] #top_l,
+  [data-digit="8"] #middle,
+  [data-digit="8"] #bottom_r,
+  [data-digit="8"] #bottom_l,
+  [data-digit="8"] #bottom {
+    fill: #ff0;
+  }
+
+  [data-digit="9"] #top,
+  [data-digit="9"] #top_r,
+  [data-digit="9"] #top_l,
+  [data-digit="9"] #middle,
+  [data-digit="9"] #bottom_r,
+  [data-digit="9"] #bottom {
+    fill: #ff0;
+  }
+
+  [data-digit="0"] #top,
+  [data-digit="0"] #top_r,
+  [data-digit="0"] #top_l,
+  [data-digit="0"] #bottom_r,
+  [data-digit="0"] #bottom_l,
+  [data-digit="0"] #bottom {
+    fill: #ff0;
+  }
+
+    /* --- UPPERCASE LETTERS --- */
+  /* A */
+  [data-digit="A"] #top,
+  [data-digit="A"] #top_r,
+  [data-digit="A"] #top_l,
+  [data-digit="A"] #middle,
+  [data-digit="A"] #bottom_r,
+  [data-digit="A"] #bottom_l {
+    fill: #ff0;
+  }
+
+  /* B (like '8') */
+  [data-digit="B"] #top,
+  [data-digit="B"] #top_r,
+  [data-digit="B"] #top_l,
+  [data-digit="B"] #middle,
+  [data-digit="B"] #bottom_r,
+  [data-digit="B"] #bottom_l,
+  [data-digit="B"] #bottom {
+    fill: #ff0;
+  }
+  /* C */
+  [data-digit="C"] #top,
+  [data-digit="C"] #top_l,
+  [data-digit="C"] #bottom_l,
+  [data-digit="C"] #bottom {
+    fill: #ff0;
+  }
+
+  /* D (like '0') */
+  [data-digit="D"] #top,
+  [data-digit="D"] #top_r,
+  [data-digit="D"] #top_l,
+  [data-digit="D"] #bottom_r,
+  [data-digit="D"] #bottom_l,
+  [data-digit="D"] #bottom {
+    fill: #ff0;
+  }
+
+  /* E */
+  [data-digit="E"] #top,
+  [data-digit="E"] #top_l,
+  [data-digit="E"] #middle,
+  [data-digit="E"] #bottom_l,
+  [data-digit="E"] #bottom {
+    fill: #ff0;
+  }
+
+  /* F */
+  [data-digit="F"] #top,
+  [data-digit="F"] #top_l,
+  [data-digit="F"] #middle,
+  [data-digit="F"] #bottom_l {
+    fill: #ff0;
+  }
+
+  /* G (like '9') */
+  [data-digit="G"] #top,
+  [data-digit="G"] #top_r,
+  [data-digit="G"] #top_l,
+  [data-digit="G"] #middle,
+  [data-digit="G"] #bottom_r,
+  [data-digit="G"] #bottom {
+    fill: #ff0;
+  }
+
+  /* H */
+  [data-digit="H"] #top_l,
+  [data-digit="H"] #middle,
+  [data-digit="H"] #top_r,
+  [data-digit="H"] #bottom_l,
+  [data-digit="H"] #bottom_r {
+    fill: #ff0;
+  }
+
+  /* I (like '1') */
+  [data-digit="I"] #top_r,
+  [data-digit="I"] #bottom_r {
+    fill: #ff0;
+  }
+
+  /* J */
+  [data-digit="J"] #top_r,
+  [data-digit="J"] #bottom_r,
+  [data-digit="J"] #bottom_l,
+  [data-digit="J"] #bottom {
+    fill: #ff0;
+  }
+
+  /* L */
+  [data-digit="L"] #top_l,
+  [data-digit="L"] #bottom_l,
+  [data-digit="L"] #bottom {
+    fill: #ff0;
+  }
+
+  /* N */
+  [data-digit="N"] #top,
+  [data-digit="N"] #top_l,
+  [data-digit="N"] #top_r,
+  [data-digit="N"] #bottom_l,
+  [data-digit="N"] #bottom_r {
+    fill: #ff0;
+  }
+
+  /* O (like '0') */
+  [data-digit="O"] #top,
+  [data-digit="O"] #top_r,
+  [data-digit="O"] #top_l,
+  [data-digit="O"] #bottom_r,
+  [data-digit="O"] #bottom_l,
+  [data-digit="O"] #bottom {
+    fill: #ff0;
+  }
+
+  /* P */
+  [data-digit="P"] #top,
+  [data-digit="P"] #top_l,
+  [data-digit="P"] #middle,
+  [data-digit="P"] #top_r,
+  [data-digit="P"] #bottom_l {
+    fill: #ff0;
+  }
+
+  /* Q (like '9') */
+   [data-digit="Q"] #top,
+   [data-digit="Q"] #top_r,
+   [data-digit="Q"] #top_l,
+   [data-digit="Q"] #middle,
+   [data-digit="Q"] #bottom_r,
+   [data-digit="Q"] #bottom {
+     fill: #ff0;
+  }
+
+  /* R */
+  [data-digit="R"] #top,
+  [data-digit="R"] #top_l,
+  [data-digit="R"] #top_r,
+  [data-digit="R"] #middle,
+  [data-digit="R"] #bottom_l,
+  [data-digit="R"] #bottom_r { /* Note: This R might look like P with a leg */
+    fill: #ff0;
+  }
+  /* Alternatively, a simpler R (like lowercase r) */
+  /*
+  [data-digit="R"] #bottom_l,
+  [data-digit="R"] #middle {
+    fill: #ff0;
+  }
+  */
+
+
+  /* S (like '5') */
+  [data-digit="S"] #top,
+  [data-digit="S"] #top_l,
+  [data-digit="S"] #middle,
+  [data-digit="S"] #bottom_r,
+  [data-digit="S"] #bottom {
+    fill: #ff0;
+  }
+
+  /* T */
+  [data-digit="t"] #top_l, /* Changed from capital T */
+  [data-digit="t"] #middle,
+  [data-digit="t"] #bottom_l,
+  [data-digit="t"] #bottom {
+    fill: #ff0;
+  }
+  /* Alternative T (like lowercase t) */
+  /*
+  [data-digit="T"] #top_l,
+  [data-digit="T"] #middle,
+  [data-digit="T"] #bottom_l,
+  [data-digit="T"] #bottom {
+    fill: #ff0;
+  }
+  */
+
+  /* U */
+  [data-digit="U"] #top_l,
+  [data-digit="U"] #top_r,
+  [data-digit="U"] #bottom_l,
+  [data-digit="U"] #bottom_r,
+  [data-digit="U"] #bottom {
+    fill: #ff0;
+  }
+
+  /* Y (like '4' without middle) */
+  [data-digit="Y"] #top_r,
+  [data-digit="Y"] #top_l,
+  [data-digit="Y"] #middle,
+  [data-digit="Y"] #bottom_r,
+  [data-digit="Y"] #bottom {
+     fill: #ff0;
+  }
+
+  /* Z (like '2') */
+  [data-digit="Z"] #top,
+  [data-digit="Z"] #top_r,
+  [data-digit="Z"] #middle,
+  [data-digit="Z"] #bottom_l,
+  [data-digit="Z"] #bottom {
+    fill: #ff0;
+  }
+
+  /* --- LOWERCASE LETTERS --- */
+  /* a (like 'o' but with top bar) */
+  [data-digit="a"] #top,
+  [data-digit="a"] #top_r,
+  [data-digit="a"] #middle,
+  [data-digit="a"] #bottom_r,
+  [data-digit="a"] #bottom_l,
+  [data-digit="a"] #bottom {
+    fill: #ff0;
+  }
+  /* Alternative lowercase 'a' (more like 'o') */
+  /*
+  [data-digit="a"] #middle,
+  [data-digit="a"] #bottom_r,
+  [data-digit="a"] #bottom,
+  [data-digit="a"] #bottom_l,
+  [data-digit="a"] #top { // Added top for differentiation
+    fill: #ff0;
+  }
+  */
+
+  /* b */
+  [data-digit="b"] #top_l,
+  [data-digit="b"] #middle,
+  [data-digit="b"] #bottom_l,
+  [data-digit="b"] #bottom_r,
+  [data-digit="b"] #bottom {
+    fill: #ff0;
+  }
+
+  /* c */
+  [data-digit="c"] #middle,
+  [data-digit="c"] #bottom_l,
+  [data-digit="c"] #bottom {
+    fill: #ff0;
+  }
+
+  /* d */
+  [data-digit="d"] #top_r,
+  [data-digit="d"] #middle,
+  [data-digit="d"] #bottom_l,
+  [data-digit="d"] #bottom_r,
+  [data-digit="d"] #bottom {
+    fill: #ff0;
+  }
+
+  /* e (like capital E) */
+   [data-digit="e"] #top,
+   [data-digit="e"] #top_l,
+   [data-digit="e"] #middle,
+   [data-digit="e"] #bottom_l,
+   [data-digit="e"] #bottom {
+     fill: #ff0;
+  }
+
+  /* f (like capital F) */
+   [data-digit="f"] #top,
+   [data-digit="f"] #top_l,
+   [data-digit="f"] #middle,
+   [data-digit="f"] #bottom_l {
+     fill: #ff0;
+  }
+
+  /* g (like '9') */
+  [data-digit="g"] #top,
+  [data-digit="g"] #top_r,
+  [data-digit="g"] #top_l,
+  [data-digit="g"] #middle,
+  [data-digit="g"] #bottom_r,
+  [data-digit="g"] #bottom {
+    fill: #ff0;
+  }
+
+  /* h */
+  [data-digit="h"] #top_l,
+  [data-digit="h"] #middle,
+  [data-digit="h"] #bottom_l,
+  [data-digit="h"] #bottom_r {
+    fill: #ff0;
+  }
+
+  /* i */
+  [data-digit="i"] #bottom_l { /* Just bottom-left */
+    fill: #ff0;
+  }
+  /* Alternative i (like '1') */
+  /*
+  [data-digit="i"] #top_r,
+  [data-digit="i"] #bottom_r {
+    fill: #ff0;
+  }
+  */
+
+  /* j (like capital J) */
+  [data-digit="j"] #top_r,
+  [data-digit="j"] #bottom_r,
+  [data-digit="j"] #bottom_l,
+  [data-digit="j"] #bottom {
+    fill: #ff0;
+  }
+
+  /* l (like capital L without top) - or like '1'? */
+  [data-digit="l"] #bottom_l,
+  [data-digit="l"] #bottom {
+    fill: #ff0;
+  }
+  /* Alternative l (like '1') */
+  /*
+  [data-digit="l"] #top_r,
+  [data-digit="l"] #bottom_r {
+     fill: #ff0;
+  }
+  */
+
+  /* n */
+  [data-digit="n"] #middle,
+  [data-digit="n"] #bottom_l,
+  [data-digit="n"] #bottom_r {
+    fill: #ff0;
+  }
+
+  /* o */
+  [data-digit="o"] #middle,
+  [data-digit="o"] #bottom_l,
+  [data-digit="o"] #bottom_r,
+  [data-digit="o"] #bottom {
+    fill: #ff0;
+  }
+
+  /* p (like capital P) */
+   [data-digit="p"] #top,
+   [data-digit="p"] #top_l,
+   [data-digit="p"] #middle,
+   [data-digit="p"] #top_r,
+   [data-digit="p"] #bottom_l {
+     fill: #ff0;
+  }
+
+  /* q (like '9') */
+  [data-digit="q"] #top,
+  [data-digit="q"] #top_r,
+  [data-digit="q"] #top_l,
+  [data-digit="q"] #middle,
+  [data-digit="q"] #bottom_r,
+  [data-digit="q"] #bottom {
+     fill: #ff0;
+  }
+
+  /* r */
+  [data-digit="r"] #middle,
+  [data-digit="r"] #bottom_l {
+    fill: #ff0;
+  }
+
+  /* s (like '5') */
+  [data-digit="s"] #top,
+  [data-digit="s"] #top_l,
+  [data-digit="s"] #middle,
+  [data-digit="s"] #bottom_r,
+  [data-digit="s"] #bottom {
+    fill: #ff0;
+  }
+
+  /* t */
+  [data-digit="t"] #top_l, /* Changed from capital T */
+  [data-digit="t"] #middle,
+  [data-digit="t"] #bottom_l,
+  [data-digit="t"] #bottom {
+    fill: #ff0;
+  }
+
+  /* u */
+  [data-digit="u"] #bottom_l,
+  [data-digit="u"] #bottom_r,
+  [data-digit="u"] #bottom {
+    fill: #ff0;
+  }
+
+  /* y (like 'q' or '9') */
+  [data-digit="y"] #top_r,
+  [data-digit="y"] #top_l,
+  [data-digit="y"] #middle,
+  [data-digit="y"] #bottom_r,
+  [data-digit="y"] #bottom {
+     fill: #ff0;
+  }
+
+  /* z (like '2') */
+  [data-digit="z"] #top,
+  [data-digit="z"] #top_r,
+  [data-digit="z"] #middle,
+  [data-digit="z"] #bottom_l,
+  [data-digit="z"] #bottom {
+    fill: #ff0;
+  }
+
+  /* --- SYMBOLS --- */
+  /* - (Minus/Hyphen) */
+  [data-digit="-"] #middle {
+    fill: #ff0;
+  }
+
+  /* _ (Underscore) */
+  [data-digit="_"] #bottom {
+    fill: #ff0;
+  }
+
+  /* ° (Degree symbol) */
+  [data-digit="°"] #top,
+  [data-digit="°"] #top_r,
+  [data-digit="°"] #top_l,
+  [data-digit="°"] #middle {
+    fill: #ff0;
+  }
+
+  /* ? (Question Mark) */
+  [data-digit="?"] #top,
+  [data-digit="?"] #top_r,
+  [data-digit="?"] #middle,
+  [data-digit="?"] #bottom_l { /* Common representation */
+    fill: #ff0;
+  }
+
+   /* = (Equals sign) */
+  [data-digit="="] #middle,
+  [data-digit="="] #bottom {
+    fill: #ff0;
+  }
+
+  /* ' (Apostrophe/Single Quote) */
+  [data-digit="'"] #top_l { /* Top-left segment */
+    fill: #ff0;
+  }
+
+  /* " (Double Quote) */
+  [data-digit='"'] #top_l,
+  [data-digit='"'] #top_r { /* Top-left and top-right */
+    fill: #ff0;
+  }
+
+  /* Space character (no segments lit - handled by default) */
