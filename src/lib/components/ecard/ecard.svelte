@@ -1,8 +1,8 @@
 <script lang="ts">
   import { cn } from "$lib/utils";
-  import { parse } from "svelte/compiler";
   import ArrowUpDown from "lucide-svelte/icons/arrow-up-down";
   import Segment from "./7segment.svelte";
+  import Progress from "./progress.svelte";
 
   let {
     class: className = "",
@@ -34,15 +34,18 @@
       <div class="flex justify-end">
         <Segment class="w-24 h-7" digits={display} dollarSign={isDisplayNumber} />
       </div>
+      <div class="flex gap-2">
+        <Progress color={color}/>
+
         <button
-          class="group place-self-end size-6 border-2 border-stone-800/80 active:border-stone-50/80 rounded grid place-items-center"
+          class="group h-7 w-7 aspect-square place-self-end border-2 border-stone-800/80 active:border-stone-50/80 rounded grid place-items-center"
           ><ArrowUpDown
-            class="stroke-stone-800/80 group-active:stroke-stone-50/80"
-            size="0.8rem"
+            class="stroke-stone-800/80 group-active:stroke-stone-50/80 size-4"
           /></button
         >
-        <h1 class="absolute bottom-3 leading-none text-lg font-medium text-stone-800">{title}</h1>
+      </div>
 
+      <h1 class="absolute bottom-3 leading-none text-lg font-medium text-stone-800">{title}</h1>
     </div>
   </div>
 </div>

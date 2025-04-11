@@ -13,7 +13,6 @@ title="Forewit"
 color="#487B65"
 class="scale-75"
 foil={true}
-rotate={true}
 />
 <!-- {#each budget.categories as category}
   <h1 class="text-2xl md:text-4xl font-bold text-center">{category.name}</h1>
