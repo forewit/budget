@@ -6,25 +6,25 @@
   let {
     class: className = "",
     title = "New Card",
+    color = "hsl(220, 70%, 40%)",
     display = "",
-  }: { class?: string; title?: string; display?: string } = $props();
+  }: { class?: string; title?: string; color?: string; display?: string } = $props();
 
   const num = Number(display);
-  const isDisplayNumber = !isNaN(num) && isFinite(num); 
+  const isDisplayNumber = !isNaN(num) && isFinite(num);
 </script>
 
 <div class={cn("stage", className)}>
-  <div class="card">
-    <div class="foil"></div>
-    <div class="glare"></div>
-    <div class="content p-2 flex flex-col justify-between h-full">
+  <div class="card cursor-pointer relative w-32 h-48 rounded-xl overflow-hidden shadow" style:--bg={color}>
+    <div class="foil absolute inset-0"></div>
+    <div class="glare absolute inset-0"></div>
+    <div class="content absolute inset-0 p-2 flex flex-col justify-between h-full">
       <div class="flex justify-end">
         <Segment class="w-24 h-8" digits={display} dollarSign={isDisplayNumber} />
       </div>
 
       <h1 class="p-1 leading-tight text-xl text-white">{title}</h1>
     </div>
-
   </div>
 </div>
 
@@ -34,18 +34,11 @@
     transform-style: preserve-3d;
   }
   .card {
-    cursor: pointer;
     transform-style: preserve-3d;
-    position: relative;
-    width: 8em;
-    height: 12em;
-    border-radius: 0.75em;
-    background-color: hsl(220, 70%, 40%);
-    overflow: hidden;
+    background-color: var(--bg);
     transform: rotateX(0deg) rotateY(0deg);
     animation: rotateCard 10s infinite alternate ease-in-out;
     transition: scale 100ms ease-in-out;
-    margin: auto;
   }
 
   @keyframes rotateCard {
@@ -55,13 +48,6 @@
     100% {
       transform: rotateX(10deg) rotateY(10deg);
     }
-  }
-
-  .content,
-  .foil,
-  .glare {
-    position: absolute;
-    inset: 0;
   }
 
   .foil {

@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex items-center justify-center h-full w-full bg-stone-50">
-  <Ecard display="Error" class="w-min" />
+  <Ecard display="error" class="w-min" />
 </div>
 
 <style>
