@@ -13,7 +13,7 @@ title="Forewit"
 goal="$200 by January"
 progress={50}
 color="#487B65"
-class="scale-75"
+class="scale-75 w-32 h-48"
 foil={true}
 />
 

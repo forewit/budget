@@ -17,7 +17,7 @@
       <Check class="p-0.5" size="1rem" />
     {/if}
   </div>
-  <div class="h-1.5 w-full rounded-full" style="background-color: hsl(from {color} h s l / 0.4);">
+  <div class="h-1.5 w-full rounded-full" style="background-color: hsl(from {color} h s calc(l + 10) / 0.8);">
     <div
       class="progress h-full rounded-full relative"
       style="width: {value}%; background-color: hsl(from {color} h s calc(l - 10) / 0.7);"
