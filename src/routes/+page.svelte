@@ -10,7 +10,14 @@
 <Ecard
 display="100.23"
 title="Forewit"
+goal="$200 by January"
+progress={50}
 color="#487B65"
+class="scale-75"
+foil={true}
+/>
+
+<Ecard
 class="scale-75"
 foil={true}
 />

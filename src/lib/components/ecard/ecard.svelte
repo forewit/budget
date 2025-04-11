@@ -7,8 +7,10 @@
   let {
     class: className = "",
     title = "New Card",
+    progress = 5,
+    goal = "Set a goal?",
     color = "hsl(220, 70%, 40%)",
-    display = "",
+    display = "YAY",
     rotate = false,
     foil = false,
   } = $props();
@@ -34,8 +36,8 @@
       <div class="flex justify-end">
         <Segment class="w-24 h-7" digits={display} dollarSign={isDisplayNumber} />
       </div>
-      <div class="flex gap-2">
-        <Progress color={color}/>
+      <div class="flex gap-8">
+        <Progress color={color} value={progress} label={goal} />
 
         <button
           class="group h-7 w-7 aspect-square place-self-end border-2 border-stone-800/80 active:border-stone-50/80 rounded grid place-items-center"
