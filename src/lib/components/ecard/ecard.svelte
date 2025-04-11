@@ -15,6 +15,8 @@
 
 <div class={cn("stage", className)}>
   <div class="card">
+    <div class="foil"></div>
+    <div class="glare"></div>
     <div class="content p-2 flex flex-col justify-between h-full">
       <div class="flex justify-end">
         <Segment class="w-24 h-8" digits={display} dollarSign={isDisplayNumber} />
@@ -22,8 +24,7 @@
 
       <h1 class="p-1 leading-tight text-xl text-white">{title}</h1>
     </div>
-    <div class="foil"></div>
-    <div class="glare"></div>
+
   </div>
 </div>
 
