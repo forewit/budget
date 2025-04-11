@@ -1,6 +1,7 @@
 <script lang="ts">
   import { cn } from "$lib/utils";
   import { parse } from "svelte/compiler";
+  import ArrowUpDown from "lucide-svelte/icons/arrow-up-down";
   import Segment from "./7segment.svelte";
 
   let {
@@ -10,35 +11,40 @@
     display = "",
     rotate = false,
     foil = false,
-    ...restProps
   } = $props();
 
   const num = Number(display);
   const isDisplayNumber = !isNaN(num) && isFinite(num);
 </script>
 
-<div class={cn("stage w-32 h-48", className)}>
-  <button
+<div class={cn("stage select-none w-48 h-32", className)}>
+  <div
     class={cn(
       "card border-stone-800 bg-[var(--bg)] border relative w-full h-full rounded-xl overflow-hidden shadow",
       "ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
       rotate && "rotate"
     )}
     style:--bg={color}
-    {...restProps}
   >
     {#if foil}
       <div class="foil absolute inset-0"></div>
       <div class="glare absolute inset-0"></div>
     {/if}
-    <div class="content absolute inset-0 p-2 flex flex-col justify-between h-full">
+    <div class="content absolute inset-0 p-2 flex flex-col gap-2 h-full">
       <div class="flex justify-end">
         <Segment class="w-24 h-7" digits={display} dollarSign={isDisplayNumber} />
       </div>
+        <button
+          class="group place-self-end size-6 border-2 border-stone-800/80 active:border-stone-50/80 rounded grid place-items-center"
+          ><ArrowUpDown
+            class="stroke-stone-800/80 group-active:stroke-stone-50/80"
+            size="0.8rem"
+          /></button
+        >
+        <h1 class="absolute bottom-3 leading-none text-lg font-medium text-stone-800">{title}</h1>
 
-      <h1 class="p-1 leading-tight text-xl text-white">{title}</h1>
     </div>
-  </button>
+  </div>
 </div>
 
 <style>

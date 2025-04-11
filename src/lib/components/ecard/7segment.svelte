@@ -7,7 +7,7 @@
 </script>
 
 <div
-  class={cn("relative flex justify-end p-1 rounded bg-stone-800", dollarSign && "pl-4", className)}
+  class={cn("select-none relative flex justify-end p-1 rounded bg-stone-800", dollarSign && "pl-4", className)}
 >
   {#if dollarSign}
     <p class="absolute top-[1px] left-1.5 text-sm text-[#ff0] font-medium italic">$</p>

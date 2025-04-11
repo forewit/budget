@@ -6,7 +6,16 @@
   const budget = setBudgetContext();
 </script>
 
-{#each budget.categories as category}
+
+<Ecard
+display="100.23"
+title="Forewit"
+color="#487B65"
+class="scale-75"
+foil={true}
+rotate={true}
+/>
+<!-- {#each budget.categories as category}
   <h1 class="text-2xl md:text-4xl font-bold text-center">{category.name}</h1>
   <div class="flex items-center justify-center">
     <Carousel.Root class="w-[390px]">
@@ -28,10 +37,4 @@
       <Carousel.Next />
     </Carousel.Root>
   </div>
-{/each}
-
-<style>
-  :global(body, html) {
-    height: 100%;
-  }
-</style>
+{/each} -->
